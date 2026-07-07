@@ -13,6 +13,7 @@
     "captured_audio",
     "realtimestt",
     "live_session",
+    "speaker_gate",
     "transcript",
     "acceptance"
   ],
@@ -28,6 +29,7 @@
     "captured_audio": { "type": "object" },
     "realtimestt": { "type": "object" },
     "live_session": { "type": "object" },
+    "speaker_gate": { "type": "object" },
     "transcript": { "type": "object" },
     "acceptance": {
       "type": "object",

@@ -30,6 +30,7 @@ Expected artifacts:
 - `captured.raw`
 - `realtime_stt_callbacks.jsonl`
 - `live_session_events.jsonl`
+- `speaker_gate_events.jsonl`
 - `commands.txt`
 - `environment.txt`
 
@@ -45,3 +46,14 @@ Override targets when needed:
   --playback-target 64 \
   --capture-target 67
 ```
+
+The runner also executes a fail-closed pyannote speaker gate when
+`pyannote.audio` and `HF_TOKEN` are available:
+
+```text
+captured.wav -> pyannote diarization -> speaker_gate.rejected.not_enrolled
+```
+
+This does not identify Horus. It only proves diarization can run and that Tau,
+Chatterbox, and UI routing remain blocked when no enrolled primary-speaker
+profile exists.

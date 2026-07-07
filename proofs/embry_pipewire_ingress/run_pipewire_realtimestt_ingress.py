@@ -470,6 +470,146 @@ def write_live_session_events(
     }
 
 
+def run_speaker_gate(
+    path: Path,
+    *,
+    run_id: str,
+    session_id: str,
+    turn_id: str,
+    captured_wav: Path,
+    stt_final_event_id: str,
+    token: str | None,
+    device: str,
+) -> dict[str, Any]:
+    started = time.monotonic()
+    events: list[dict[str, Any]] = []
+
+    def add(kind: str, payload: dict[str, Any], parent_ids: list[str] | None = None) -> str:
+        base = {
+            "schema": "embry.speaker_gate_event.v1",
+            "session_id": session_id,
+            "turn_id": turn_id,
+            "run_id": run_id,
+            "kind": kind,
+            "parent_event_ids": parent_ids or [],
+            "payload": payload,
+        }
+        base["event_id"] = event_id(kind, base)
+        events.append(base)
+        return base["event_id"]
+
+    try:
+        from pyannote.audio import Pipeline
+        import torch
+    except Exception as exc:
+        rejected_id = add("speaker_gate.rejected.pyannote_unavailable", {
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+            "accepted_for_tau": False,
+            "tau_called": False,
+            "chatterbox_called": False,
+            "ui_used": False,
+        }, [stt_final_event_id])
+        path.write_text("\n".join(json.dumps(event, sort_keys=True) for event in events) + "\n", encoding="utf-8")
+        return {
+            "schema": "embry.speaker_gate_receipt.v1",
+            "events_path": str(path),
+            "event_count": len(events),
+            "status": "rejected",
+            "decision": "speaker_gate_rejected_pyannote_unavailable",
+            "rejection_event_id": rejected_id,
+            "pyannote_available": False,
+            "accepted_for_tau": False,
+            "tau_called": False,
+            "chatterbox_called": False,
+            "ui_used": False,
+        }
+
+    pipeline_loaded = False
+    diarization_segments: list[dict[str, Any]] = []
+    speaker_labels: list[str] = []
+    device_used = "cpu"
+    error: dict[str, str] | None = None
+
+    try:
+        pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-community-1", token=token)
+        pipeline_loaded = True
+        if device == "cuda":
+            try:
+                pipeline.to(torch.device("cuda"))
+                device_used = "cuda"
+            except Exception as exc:
+                error = {"cuda_error_type": type(exc).__name__, "cuda_error": str(exc)}
+                device_used = "cpu"
+        output = pipeline(str(captured_wav))
+        for turn, speaker in output.speaker_diarization:
+            diarization_segments.append({
+                "start": round(float(turn.start), 3),
+                "end": round(float(turn.end), 3),
+                "speaker": str(speaker),
+            })
+        speaker_labels = sorted({segment["speaker"] for segment in diarization_segments})
+        diarization_id = add("speaker_gate.diarization.completed", {
+            "pipeline": "pyannote/speaker-diarization-community-1",
+            "device": device_used,
+            "captured_wav": str(captured_wav),
+            "segment_count": len(diarization_segments),
+            "speaker_labels": speaker_labels,
+            "segments": diarization_segments,
+            "elapsed_seconds": round(time.monotonic() - started, 3),
+            **(error or {}),
+        }, [stt_final_event_id])
+        rejected_id = add("speaker_gate.rejected.not_enrolled", {
+            "reason": "no enrolled primary speaker profile was provided",
+            "speaker_labels": speaker_labels,
+            "segment_count": len(diarization_segments),
+            "accepted_for_tau": False,
+            "routing_status": "speaker_gate_rejected_not_enrolled",
+            "tau_called": False,
+            "chatterbox_called": False,
+            "ui_used": False,
+        }, [diarization_id])
+        status = "rejected"
+        decision = "speaker_gate_rejected_not_enrolled"
+    except Exception as exc:
+        rejected_id = add("speaker_gate.rejected.pyannote_runtime_error", {
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+            "pipeline_loaded": pipeline_loaded,
+            "accepted_for_tau": False,
+            "tau_called": False,
+            "chatterbox_called": False,
+            "ui_used": False,
+        }, [stt_final_event_id])
+        status = "rejected"
+        decision = "speaker_gate_rejected_pyannote_runtime_error"
+
+    path.write_text("\n".join(json.dumps(event, sort_keys=True) for event in events) + "\n", encoding="utf-8")
+    return {
+        "schema": "embry.speaker_gate_receipt.v1",
+        "events_path": str(path),
+        "event_count": len(events),
+        "event_kinds": [event["kind"] for event in events],
+        "status": status,
+        "decision": decision,
+        "rejection_event_id": rejected_id,
+        "pyannote_available": True,
+        "pipeline": "pyannote/speaker-diarization-community-1",
+        "pipeline_loaded": pipeline_loaded,
+        "device": device_used,
+        "hf_token_present": bool(token),
+        "diarization_segments": diarization_segments,
+        "speaker_labels": speaker_labels,
+        "segment_count": len(diarization_segments),
+        "enrolled_primary_speaker_profile_present": False,
+        "accepted_for_tau": False,
+        "routing_status": decision,
+        "tau_called": False,
+        "chatterbox_called": False,
+        "ui_used": False,
+    }
+
+
 def write_text(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
@@ -498,6 +638,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--realtime-processing-pause", type=float, default=0.08)
     parser.add_argument("--max-wer", type=float, default=0.5)
     parser.add_argument("--output-root", default="/tmp/embry-realtimestt-ingress")
+    parser.add_argument("--speaker-gate-device", choices=("cpu", "cuda"), default="cpu")
+    parser.add_argument("--skip-speaker-gate", action="store_true")
     return parser
 
 
@@ -512,6 +654,7 @@ def main() -> int:
     captured_raw = run_dir / "captured.raw"
     callback_log = run_dir / "realtime_stt_callbacks.jsonl"
     live_session_events = run_dir / "live_session_events.jsonl"
+    speaker_gate_events = run_dir / "speaker_gate_events.jsonl"
     receipt_path = run_dir / "receipt.json"
     commands_path = run_dir / "commands.txt"
     environment_path = run_dir / "environment.txt"
@@ -574,6 +717,27 @@ def main() -> int:
             "chatterbox_called": False,
             "ui_used": False,
         }
+        speaker_gate_meta = run_speaker_gate(
+            speaker_gate_events,
+            run_id=run_id,
+            session_id=live_session_meta.get("session_id", f"embry-ingress-{run_id}"),
+            turn_id=live_session_meta.get("turn_id", ""),
+            captured_wav=captured_wav,
+            stt_final_event_id=live_session_meta.get("stt_final_event_id", ""),
+            token=os.environ.get("HF_TOKEN"),
+            device=args.speaker_gate_device,
+        ) if final_text.strip() and not args.skip_speaker_gate else {
+            "schema": "embry.speaker_gate_receipt.v1",
+            "events_path": str(speaker_gate_events),
+            "event_count": 0,
+            "status": "skipped",
+            "decision": "speaker_gate_skipped",
+            "accepted_for_tau": False,
+            "routing_status": "speaker_gate_skipped",
+            "tau_called": False,
+            "chatterbox_called": False,
+            "ui_used": False,
+        }
         acceptance = {
             "audio_was_played_through_local_audio_graph": audio_graph["playback_returncode"] == 0,
             "audio_was_captured_from_local_audio_graph": captured_wav.exists() and captured.duration_ms > 0,
@@ -597,6 +761,7 @@ def main() -> int:
             "captured_audio": captured_meta,
             "realtimestt": realtimestt_meta,
             "live_session": live_session_meta,
+            "speaker_gate": speaker_gate_meta,
             "transcript": transcript_meta,
             "acceptance": acceptance,
         })
