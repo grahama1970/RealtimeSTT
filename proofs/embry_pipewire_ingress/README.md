@@ -57,3 +57,34 @@ captured.wav -> pyannote diarization -> speaker_gate.rejected.not_enrolled
 This does not identify Horus. It only proves diarization can run and that Tau,
 Chatterbox, and UI routing remain blocked when no enrolled primary-speaker
 profile exists.
+
+## Endpoint Service
+
+Start the proof API:
+
+```bash
+HF_TOKEN=... ./.venv-fastapi/bin/python -m uvicorn \
+  proofs.embry_pipewire_ingress.service:app \
+  --host 127.0.0.1 \
+  --port 8769
+```
+
+Endpoints:
+
+- `GET /health`
+- `POST /sanity/same-speaker`
+- `POST /sanity/different-speaker`
+- `POST /speaker/gate`
+- `POST /sanity/pipewire-realtimestt-ingress`
+- `GET /receipts/{run_id}`
+
+Run endpoint sanity checks:
+
+```bash
+HF_TOKEN=... ./.venv-fastapi/bin/python \
+  proofs/embry_pipewire_ingress/sanity_endpoints.py
+```
+
+The sanity runner starts a temporary local API server, calls every endpoint
+above, validates each returned receipt, and writes an endpoint sanity receipt
+under `/tmp/embry-voice-control-endpoint-sanity/`.
