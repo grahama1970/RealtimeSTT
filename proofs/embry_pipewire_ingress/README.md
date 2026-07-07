@@ -75,8 +75,18 @@ Endpoints:
 - `POST /sanity/same-speaker`
 - `POST /sanity/different-speaker`
 - `POST /speaker/gate`
+- `POST /speaker/enroll`
+- `POST /sanity/primary-acceptance`
+- `POST /sanity/non-primary-rejection`
+- `POST /sanity/overlap-rejection`
+- `POST /sanity/noise-probe`
+- `POST /sanity/self-audio-rejection`
 - `POST /sanity/pipewire-realtimestt-ingress`
 - `GET /receipts/{run_id}`
+
+The enrollment and primary-acceptance checks use synthetic local speech
+fixtures. They prove the endpoint contract and fail-closed policy wiring, not
+real Horus identity.
 
 Run endpoint sanity checks:
 
