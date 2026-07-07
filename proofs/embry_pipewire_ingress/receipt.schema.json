@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "run_id",
+    "proof_rung",
+    "status",
+    "used_ui",
+    "used_mock_transcript",
+    "used_typed_prompt",
+    "source_audio",
+    "audio_graph",
+    "captured_audio",
+    "realtimestt",
+    "transcript",
+    "acceptance"
+  ],
+  "properties": {
+    "run_id": { "type": "string" },
+    "proof_rung": { "const": "01_pipewire_or_pulse_audio_ingress_to_realtimestt" },
+    "status": { "enum": ["pass", "fail"] },
+    "used_ui": { "const": false },
+    "used_mock_transcript": { "const": false },
+    "used_typed_prompt": { "const": false },
+    "source_audio": { "type": "object" },
+    "audio_graph": { "type": "object" },
+    "captured_audio": { "type": "object" },
+    "realtimestt": { "type": "object" },
+    "transcript": { "type": "object" },
+    "acceptance": {
+      "type": "object",
+      "required": [
+        "audio_was_played_through_local_audio_graph",
+        "audio_was_captured_from_local_audio_graph",
+        "captured_audio_non_silent",
+        "captured_audio_fed_to_realtimestt",
+        "realtimestt_realtime_events_seen",
+        "realtimestt_final_transcript_seen",
+        "final_transcript_matches_expected_phrase",
+        "pass"
+      ]
+    }
+  }
+}
