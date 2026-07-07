@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import uuid
 import json
 import math
 import os
@@ -181,6 +182,11 @@ def repo_info(path: Path) -> dict[str, Any]:
 def append_jsonl(path: Path, event: dict[str, Any]) -> None:
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(event, sort_keys=True) + "\n")
+
+
+def event_id(prefix: str, payload: dict[str, Any]) -> str:
+    digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()[:16]
+    return f"{prefix}.{digest}"
 
 
 def generate_source_wav(path: Path, phrase: str, commands: list[str], source_wav: str | None = None) -> None:
@@ -383,6 +389,87 @@ def feed_to_realtimestt(
     }
 
 
+def write_live_session_events(
+    path: Path,
+    *,
+    run_id: str,
+    source_audio: dict[str, Any],
+    captured_audio: dict[str, Any],
+    realtimestt_meta: dict[str, Any],
+    transcript_meta: dict[str, Any],
+) -> dict[str, Any]:
+    session_id = f"embry-ingress-{run_id}"
+    turn_id = f"turn-{uuid.uuid5(uuid.NAMESPACE_URL, session_id + transcript_meta['normalized_final']).hex[:16]}"
+    events: list[dict[str, Any]] = []
+
+    def add(kind: str, payload: dict[str, Any], parent_ids: list[str] | None = None) -> str:
+        base = {
+            "schema": "embry.live_session_event.v1",
+            "session_id": session_id,
+            "turn_id": turn_id,
+            "run_id": run_id,
+            "kind": kind,
+            "parent_event_ids": parent_ids or [],
+            "payload": payload,
+        }
+        base["event_id"] = event_id(kind, base)
+        events.append(base)
+        return base["event_id"]
+
+    ingress_id = add("audio.ingress.captured", {
+        "source_audio_sha256": source_audio["sha256"],
+        "captured_audio_sha256": captured_audio["sha256"],
+        "captured_audio_path": captured_audio["path"],
+        "sample_rate": captured_audio["sample_rate"],
+        "channels": captured_audio["channels"],
+        "duration_ms": captured_audio["duration_ms"],
+    })
+    stt_final = realtimestt_meta["final_transcript_events"][-1]
+    stt_id = add("stt.final", {
+        "text": stt_final["text"],
+        "normalized_text": transcript_meta["normalized_final"],
+        "callback_t_ms": stt_final["t_ms"],
+        "engine": "RealtimeSTT",
+        "use_microphone": False,
+        "callback_log_path": realtimestt_meta["callback_log_path"],
+    }, [ingress_id])
+    candidate_id = add("turn.input_candidate.created", {
+        "text": transcript_meta["final"],
+        "normalized_text": transcript_meta["normalized_final"],
+        "source_event_id": stt_id,
+        "accepted_by_stt": True,
+        "accepted_for_tau": False,
+        "routing_status": "pending_speaker_gate",
+        "speaker_gate_status": "not_run",
+        "tau_called": False,
+        "chatterbox_called": False,
+        "ui_used": False,
+    }, [stt_id])
+
+    with path.open("w", encoding="utf-8") as handle:
+        for event in events:
+            handle.write(json.dumps(event, sort_keys=True) + "\n")
+
+    return {
+        "schema": "embry.live_session_event_receipt.v1",
+        "session_id": session_id,
+        "turn_id": turn_id,
+        "events_path": str(path),
+        "event_count": len(events),
+        "event_kinds": [event["kind"] for event in events],
+        "audio_ingress_event_id": ingress_id,
+        "stt_final_event_id": stt_id,
+        "turn_input_candidate_event_id": candidate_id,
+        "accepted_by_stt": True,
+        "accepted_for_tau": False,
+        "routing_status": "pending_speaker_gate",
+        "speaker_gate_status": "not_run",
+        "tau_called": False,
+        "chatterbox_called": False,
+        "ui_used": False,
+    }
+
+
 def write_text(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
@@ -424,6 +511,7 @@ def main() -> int:
     captured_wav = run_dir / "captured.wav"
     captured_raw = run_dir / "captured.raw"
     callback_log = run_dir / "realtime_stt_callbacks.jsonl"
+    live_session_events = run_dir / "live_session_events.jsonl"
     receipt_path = run_dir / "receipt.json"
     commands_path = run_dir / "commands.txt"
     environment_path = run_dir / "environment.txt"
@@ -459,6 +547,33 @@ def main() -> int:
         realtimestt_meta = feed_to_realtimestt(captured, callback_log, args)
         final_text = realtimestt_meta["final_transcript_events"][-1]["text"] if realtimestt_meta["final_transcript_events"] else ""
         matches, transcript_meta = transcript_matches(args.expected_phrase, final_text, args.max_wer)
+        source_audio_meta = {
+            "path": str(source_wav),
+            "sha256": sha256_file(source_wav),
+            "duration_ms": source.duration_ms,
+            "sample_rate": source.sample_rate,
+            "channels": source.channels,
+            "expected_phrase": args.expected_phrase,
+        }
+        live_session_meta = write_live_session_events(
+            live_session_events,
+            run_id=run_id,
+            source_audio=source_audio_meta,
+            captured_audio=captured_meta,
+            realtimestt_meta=realtimestt_meta,
+            transcript_meta=transcript_meta,
+        ) if final_text.strip() else {
+            "schema": "embry.live_session_event_receipt.v1",
+            "events_path": str(live_session_events),
+            "event_count": 0,
+            "accepted_by_stt": False,
+            "accepted_for_tau": False,
+            "routing_status": "no_final_transcript",
+            "speaker_gate_status": "not_run",
+            "tau_called": False,
+            "chatterbox_called": False,
+            "ui_used": False,
+        }
         acceptance = {
             "audio_was_played_through_local_audio_graph": audio_graph["playback_returncode"] == 0,
             "audio_was_captured_from_local_audio_graph": captured_wav.exists() and captured.duration_ms > 0,
@@ -477,17 +592,11 @@ def main() -> int:
                 "pi_mono": repo_info(Path("/home/graham/workspace/experiments/pi-mono")),
                 "agent_skills": repo_info(Path("/home/graham/workspace/experiments/agent-skills")),
             },
-            "source_audio": {
-                "path": str(source_wav),
-                "sha256": sha256_file(source_wav),
-                "duration_ms": source.duration_ms,
-                "sample_rate": source.sample_rate,
-                "channels": source.channels,
-                "expected_phrase": args.expected_phrase,
-            },
+            "source_audio": source_audio_meta,
             "audio_graph": audio_graph,
             "captured_audio": captured_meta,
             "realtimestt": realtimestt_meta,
+            "live_session": live_session_meta,
             "transcript": transcript_meta,
             "acceptance": acceptance,
         })

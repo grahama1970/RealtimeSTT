@@ -12,6 +12,7 @@
     "audio_graph",
     "captured_audio",
     "realtimestt",
+    "live_session",
     "transcript",
     "acceptance"
   ],
@@ -26,6 +27,7 @@
     "audio_graph": { "type": "object" },
     "captured_audio": { "type": "object" },
     "realtimestt": { "type": "object" },
+    "live_session": { "type": "object" },
     "transcript": { "type": "object" },
     "acceptance": {
       "type": "object",

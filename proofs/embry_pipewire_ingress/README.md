@@ -29,6 +29,7 @@ Expected artifacts:
 - `captured.wav`
 - `captured.raw`
 - `realtime_stt_callbacks.jsonl`
+- `live_session_events.jsonl`
 - `commands.txt`
 - `environment.txt`
 
