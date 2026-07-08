@@ -50,7 +50,7 @@ class WavAudio:
 
 
 def utc_run_id() -> str:
-    return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    return f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}-{uuid.uuid4().hex[:8]}"
 
 
 def run_command(command: list[str], *, timeout: float | None = None) -> subprocess.CompletedProcess[str]:
