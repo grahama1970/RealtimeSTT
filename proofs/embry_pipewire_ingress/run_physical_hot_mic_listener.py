@@ -10,6 +10,7 @@ supports process restart/resume against the same session state.
 from __future__ import annotations
 
 import argparse
+from difflib import SequenceMatcher
 import hashlib
 import json
 import re
@@ -43,6 +44,7 @@ SAMPLE_WIDTH = 2
 CHUNK_BYTES = 3200
 SCHEMA = "realtimestt.physical_hot_mic_listener_receipt.v1"
 STATE_SCHEMA = "realtimestt.physical_hot_mic_listener_state.v1"
+WAKE_NAME_ALIASES = {"embry", "emory", "embring"}
 
 
 def utc_now() -> str:
@@ -61,9 +63,19 @@ def normalize_text(value: str) -> str:
     return " ".join(re.sub(r"[^a-z0-9]+", " ", value.lower()).split())
 
 
-def has_embry_wake_word(value: str) -> bool:
+def wake_phrase_match(value: str) -> dict[str, Any]:
     tokens = normalize_text(value).split()
-    return bool(tokens) and tokens[0] == "embry"
+    if len(tokens) < 2 or tokens[0] not in {"hey", "hay"}:
+        return {"detected": False, "tokens": tokens, "similarity": 0.0, "request_tokens": []}
+    similarity = SequenceMatcher(None, tokens[1], "embry").ratio()
+    detected = tokens[1] in WAKE_NAME_ALIASES or similarity >= 0.72
+    return {
+        "detected": detected,
+        "tokens": tokens,
+        "similarity": round(similarity, 4),
+        "matched_phrase": " ".join(tokens[:2]),
+        "request_tokens": tokens[2:] if detected else [],
+    }
 
 
 def event_service_origin(value: str) -> str:
@@ -90,6 +102,7 @@ def initial_state(source_node: str, target_cycles: int) -> dict[str, Any]:
         "rejected_attempts": [],
         "process_runs": [],
         "capture_restarts": [],
+        "pending_wake": None,
         "last_event_id": None,
         "created_at": utc_now(),
         "updated_at": utc_now(),
@@ -332,13 +345,49 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             attempts_this_run += 1
             pcm = capture.segment_pcm()
             normalized = normalize_text(text)
-            wake_detected = has_embry_wake_word(text)
-            if not wake_detected or not pcm:
+            wake_match = wake_phrase_match(text)
+            pending_wake = state.get("pending_wake")
+            if pending_wake:
+                request_tokens = wake_match["request_tokens"] if wake_match["detected"] else normalized.split()
+                request_text = " ".join(request_tokens)
+                wake_detected = True
+                wake_mode = "two_stage"
+            else:
+                request_tokens = wake_match["request_tokens"]
+                request_text = " ".join(request_tokens)
+                wake_detected = bool(wake_match["detected"])
+                wake_mode = "one_shot"
+
+            if wake_detected and not request_text and pcm:
+                wake_number = len(state["completed_cycles"]) + 1
+                wake_path = segments_dir / f"wake-{wake_number:02d}.wav"
+                write_wav(wake_path, pcm)
+                wake_event = {
+                    "wake_for_cycle": wake_number,
+                    "text": text,
+                    "normalized_text": normalized,
+                    "matched_phrase": wake_match.get("matched_phrase"),
+                    "wake_similarity": wake_match.get("similarity"),
+                    "audio_path": str(wake_path),
+                    "audio_sha256": sha256_file(wake_path),
+                    "process_run": process_run_number,
+                    "detected_at": utc_now(),
+                }
+                event = emit("listener.wake_detected", wake_event)
+                wake_event["event_id"] = event["event_id"]
+                state["pending_wake"] = wake_event
+                save_state(state_path, state)
+                print(f"WAKE ACCEPTED for cycle {wake_number}; LISTENING for request", flush=True)
+                continue
+
+            if not wake_detected or not request_text or not pcm:
                 rejected = {
                     "attempt": len(state["completed_cycles"]) + len(state["rejected_attempts"]) + 1,
                     "text": text,
                     "normalized_text": normalized,
                     "wake_detected": wake_detected,
+                    "wake_similarity": wake_match.get("similarity"),
+                    "request_text": request_text,
                     "audio_bytes": len(pcm),
                     "process_run": process_run_number,
                 }
@@ -353,7 +402,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "cycle": cycle_number,
                 "text": text,
                 "normalized_text": normalized,
+                "request_text": request_text,
+                "normalized_request_text": normalize_text(request_text),
                 "wake_detected": True,
+                "wake_mode": wake_mode,
+                "wake_phrase": pending_wake or {
+                    "text": " ".join(wake_match.get("tokens", [])[:2]),
+                    "matched_phrase": wake_match.get("matched_phrase"),
+                    "wake_similarity": wake_match.get("similarity"),
+                },
                 "audio_path": str(segment_path),
                 "audio_sha256": sha256_file(segment_path),
                 "audio_bytes": len(pcm),
@@ -365,6 +422,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             cycle["event_id"] = final_event["event_id"]
             cycle["sequence"] = final_event["assigned_sequence"]
             state["completed_cycles"].append(cycle)
+            state["pending_wake"] = None
             accepted_this_run += 1
             process_run["completed_cycle_count"] = accepted_this_run
             save_state(state_path, state)
@@ -415,7 +473,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "no_browser_microphone": True,
         "no_mocked_transcript": True,
         "ten_wake_cycles": len(completed) == args.target_cycles,
-        "unique_transcripts": len({cycle["normalized_text"] for cycle in completed}) == len(completed),
+        "unique_transcripts": len({cycle["normalized_request_text"] for cycle in completed}) == len(completed),
         "all_cycle_audio_saved": all(Path(cycle["audio_path"]).is_file() for cycle in completed),
         "capture_reconnected": len(state["capture_restarts"]) >= 1,
         "listener_restart_resumed": sum(
@@ -450,7 +508,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "acceptance": acceptance,
         "claims": {
             "physical_hot_mic": True,
-            "wake_detection_mode": "final_transcript_prefix",
+            "wake_detection_mode": "hey_embry_transcript_phrase_then_request",
+            "production_wake_detector_target": "porcupine_custom_ppn",
             "physical_usb_unplug_replug": False,
         },
     }

@@ -23,17 +23,24 @@ SPEC.loader.exec_module(MODULE)
 
 
 @pytest.mark.parametrize(
-    ("text", "expected"),
+    ("text", "expected", "expected_request"),
     [
-        ("Embry, what is the capital of France?", True),
-        ("embry tell me what you heard", True),
-        ("Hey Embry", False),
-        ("background conversation", False),
-        ("", False),
+        ("Hey Embry, what is the capital of France?", True, "what is the capital of france"),
+        ("hey embry", True, ""),
+        ("Hey Emory, listen carefully", True, "listen carefully"),
+        ("Hey Embring, test cycle three", True, "test cycle three"),
+        ("Hey entry, test cycle three", False, ""),
+        ("Embry tell me what you heard", False, ""),
+        ("background conversation", False, ""),
+        ("", False, ""),
     ],
 )
-def test_wake_word_requires_embry_as_first_token(text: str, expected: bool) -> None:
-    assert MODULE.has_embry_wake_word(text) is expected
+def test_wake_phrase_uses_hey_embry_with_bounded_variants(
+    text: str, expected: bool, expected_request: str
+) -> None:
+    match = MODULE.wake_phrase_match(text)
+    assert match["detected"] is expected
+    assert " ".join(match["request_tokens"]) == expected_request
 
 
 def test_listener_state_resumes_same_source_and_target(tmp_path: Path) -> None:
