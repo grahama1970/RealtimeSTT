@@ -191,37 +191,68 @@ def event_id(prefix: str, payload: dict[str, Any]) -> str:
 
 
 def build_event_publisher(
-    *, service_url: str, session_id: str, turn_id: str, run_id: str, sequence_start: int = 0
+    *, service_url: str, session_id: str, turn_id: str, run_id: str
 ) -> tuple[Any, dict[str, Any]]:
     """Return a synchronous live event publisher and mutable delivery receipt."""
-    delivery: dict[str, Any] = {"attempted": 0, "accepted": 0, "errors": [], "event_ids": []}
-    sequence = sequence_start
+    delivery: dict[str, Any] = {
+        "attempted": 0,
+        "accepted": 0,
+        "errors": [],
+        "event_ids": [],
+        "assigned_events": [],
+    }
+    previous_event_id: str | None = None
     client = httpx.Client(base_url=service_url.rstrip("/"), timeout=httpx.Timeout(5.0, connect=2.0))
 
     def publish(event_type: str, payload: dict[str, Any]) -> dict[str, Any]:
-        nonlocal sequence
-        sequence += 1
+        nonlocal previous_event_id
         created_at = datetime.now(timezone.utc).isoformat()
-        seed = f"{session_id}:{turn_id}:{sequence}:{event_type}:{run_id}"
+        seed = f"{session_id}:{turn_id}:{event_type}:{run_id}:{uuid.uuid4().hex}"
+        artifact_hashes = {
+            key: value
+            for key, value in payload.items()
+            if key.endswith("sha256") and isinstance(value, str) and value
+        }
         event = {
             "schema": "embry.voice_event.v1",
             "event_id": event_id(event_type, {"seed": seed}),
             "session_id": session_id,
             "turn_id": turn_id,
-            "sequence": sequence,
             "type": event_type,
             "created_at": created_at,
+            "causation_id": previous_event_id or f"run.{run_id}",
+            "correlation_id": session_id,
+            "producer": "RealtimeSTT.pipewire_ingress",
+            "mocked": False,
+            "live": True,
+            "artifact_hashes": artifact_hashes,
             "payload": {"run_id": run_id, **payload},
         }
+        event["receipt_hash"] = hashlib.sha256(
+            json.dumps(event, sort_keys=True).encode("utf-8")
+        ).hexdigest()
         delivery["attempted"] += 1
         try:
             response = client.post("/v1/listener/events", json=event)
             response.raise_for_status()
+            response_json = response.json()
+            assigned_event_id = response_json.get("event_id")
+            assigned_sequence = response_json.get("sequence")
+            if assigned_event_id != event["event_id"]:
+                raise RuntimeError("journal_response_event_id_mismatch")
+            if not isinstance(assigned_sequence, int) or assigned_sequence < 1:
+                raise RuntimeError("journal_response_sequence_missing")
             delivery["accepted"] += 1
-            delivery["event_ids"].append(event["event_id"])
+            delivery["event_ids"].append(assigned_event_id)
+            delivery["assigned_events"].append({
+                "event_id": assigned_event_id,
+                "sequence": assigned_sequence,
+            })
+            previous_event_id = assigned_event_id
+            return {**event, "assigned_sequence": assigned_sequence}
         except Exception as exc:
             delivery["errors"].append({"event_id": event["event_id"], "error": str(exc)})
-        return event
+            raise RuntimeError(f"journal_event_publish_failed:{event['event_id']}:{exc}") from exc
 
     return publish, delivery
 
@@ -693,7 +724,6 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--event-service-url", default="")
     parser.add_argument("--session-id", default="")
     parser.add_argument("--turn-id", default="")
-    parser.add_argument("--sequence-start", type=int, default=0)
     return parser
 
 
@@ -723,7 +753,6 @@ def main() -> int:
             session_id=session_id,
             turn_id=turn_id,
             run_id=run_id,
-            sequence_start=args.sequence_start,
         )
         publish("listener.ready", {"listener_authority": "unix_pipewire_realtimestt"})
 
