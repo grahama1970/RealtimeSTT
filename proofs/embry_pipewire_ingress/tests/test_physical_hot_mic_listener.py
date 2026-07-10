@@ -73,3 +73,15 @@ def test_failed_start_does_not_look_like_completed_restart() -> None:
         {"process_run": 2, "status": "completed"},
     ]
     assert sum(run.get("status") == "completed" for run in process_runs) == 1
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "http://127.0.0.1:8030",
+        "http://127.0.0.1:8030/",
+        "http://127.0.0.1:8030/v1/listener/events",
+    ],
+)
+def test_event_service_origin_normalizes_endpoint_input(value: str) -> None:
+    assert MODULE.event_service_origin(value) == "http://127.0.0.1:8030"

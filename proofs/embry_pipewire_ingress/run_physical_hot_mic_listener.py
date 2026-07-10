@@ -66,6 +66,10 @@ def has_embry_wake_word(value: str) -> bool:
     return bool(tokens) and tokens[0] == "embry"
 
 
+def event_service_origin(value: str) -> str:
+    return value.rstrip("/").removesuffix("/v1/listener/events")
+
+
 def write_wav(path: Path, pcm: bytes) -> None:
     with wave.open(str(path), "wb") as handle:
         handle.setnchannels(CHANNELS)
@@ -237,7 +241,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     save_state(state_path, state)
 
     publisher, delivery = build_event_publisher(
-        service_url=args.event_service_url,
+        service_url=event_service_origin(args.event_service_url),
         session_id=state["session_id"],
         turn_id=f"listener-process-{process_run_number}",
         run_id=state["run_id"],
@@ -397,7 +401,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     save_state(state_path, state)
 
     journal = httpx.get(
-        args.event_service_url.rstrip("/").removesuffix("/v1/listener/events")
+        event_service_origin(args.event_service_url)
         + f"/v1/sessions/{state['session_id']}/journal",
         timeout=10,
     ).json()
