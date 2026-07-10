@@ -227,6 +227,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     process_run_number = len(state["process_runs"]) + 1
     process_run = {
         "process_run": process_run_number,
+        "status": "starting",
         "started_at": utc_now(),
         "starting_cycle_count": len(state["completed_cycles"]),
         "pid": None,
@@ -284,6 +285,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         on_realtime_transcription_update=on_realtime,
         on_realtime_transcription_stabilized=on_realtime,
     )
+    process_run["status"] = "ready"
+    save_state(state_path, state)
 
     def on_connect(pid: int) -> None:
         process_run["pid"] = pid
@@ -385,6 +388,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         recorder.shutdown()
 
     process_run["ended_at"] = utc_now()
+    process_run["status"] = "completed"
     process_run["ending_cycle_count"] = len(state["completed_cycles"])
     emit("listener.process_stopped", {
         "process_run": process_run_number,
@@ -410,7 +414,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "unique_transcripts": len({cycle["normalized_text"] for cycle in completed}) == len(completed),
         "all_cycle_audio_saved": all(Path(cycle["audio_path"]).is_file() for cycle in completed),
         "capture_reconnected": len(state["capture_restarts"]) >= 1,
-        "listener_restart_resumed": len(state["process_runs"]) >= 2,
+        "listener_restart_resumed": sum(
+            process_run.get("status") == "completed" for process_run in state["process_runs"]
+        ) >= 2,
         "journal_sequences_contiguous": sequences == list(range(1, len(events) + 1)),
         "journal_event_ids_unique": len(event_ids) == len(set(event_ids)),
         "journal_contains_all_final_turns": sum(event.get("type") == "listener.final_transcript" for event in events) == len(completed),

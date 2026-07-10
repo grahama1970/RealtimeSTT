@@ -65,3 +65,11 @@ def test_state_file_records_no_transcript_fixture(tmp_path: Path) -> None:
 
     assert "expected_transcript" not in payload
     assert payload["completed_cycles"] == []
+
+
+def test_failed_start_does_not_look_like_completed_restart() -> None:
+    process_runs = [
+        {"process_run": 1, "status": "starting"},
+        {"process_run": 2, "status": "completed"},
+    ]
+    assert sum(run.get("status") == "completed" for run in process_runs) == 1
