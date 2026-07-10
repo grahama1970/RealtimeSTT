@@ -859,6 +859,12 @@ def main() -> int:
 
         receipt.update({
             "status": "pass" if acceptance["pass"] else "fail",
+            "ok": acceptance["pass"],
+            "mocked": False,
+            "live": True,
+            "listener_authority": "unix_pipewire_realtimestt",
+            "session_id": session_id,
+            "turn_id": turn_id,
             "repos": {
                 "realtimestt": repo_info(ROOT),
                 "pi_mono": repo_info(Path("/home/graham/workspace/experiments/pi-mono")),
