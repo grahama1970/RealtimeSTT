@@ -27,6 +27,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import httpx
 import numpy as np
 
 
@@ -189,6 +190,42 @@ def event_id(prefix: str, payload: dict[str, Any]) -> str:
     return f"{prefix}.{digest}"
 
 
+def build_event_publisher(
+    *, service_url: str, session_id: str, turn_id: str, run_id: str, sequence_start: int = 0
+) -> tuple[Any, dict[str, Any]]:
+    """Return a synchronous live event publisher and mutable delivery receipt."""
+    delivery: dict[str, Any] = {"attempted": 0, "accepted": 0, "errors": [], "event_ids": []}
+    sequence = sequence_start
+    client = httpx.Client(base_url=service_url.rstrip("/"), timeout=httpx.Timeout(5.0, connect=2.0))
+
+    def publish(event_type: str, payload: dict[str, Any]) -> dict[str, Any]:
+        nonlocal sequence
+        sequence += 1
+        created_at = datetime.now(timezone.utc).isoformat()
+        seed = f"{session_id}:{turn_id}:{sequence}:{event_type}:{run_id}"
+        event = {
+            "schema": "embry.voice_event.v1",
+            "event_id": event_id(event_type, {"seed": seed}),
+            "session_id": session_id,
+            "turn_id": turn_id,
+            "sequence": sequence,
+            "type": event_type,
+            "created_at": created_at,
+            "payload": {"run_id": run_id, **payload},
+        }
+        delivery["attempted"] += 1
+        try:
+            response = client.post("/v1/listener/events", json=event)
+            response.raise_for_status()
+            delivery["accepted"] += 1
+            delivery["event_ids"].append(event["event_id"])
+        except Exception as exc:
+            delivery["errors"].append({"event_id": event["event_id"], "error": str(exc)})
+        return event
+
+    return publish, delivery
+
+
 def generate_source_wav(path: Path, phrase: str, commands: list[str], source_wav: str | None = None) -> None:
     if source_wav:
         source = Path(source_wav).expanduser().resolve()
@@ -281,6 +318,7 @@ def feed_to_realtimestt(
     captured: WavAudio,
     callback_log: Path,
     args: argparse.Namespace,
+    publish: Any | None = None,
 ) -> dict[str, Any]:
     events: dict[str, list[dict[str, Any]]] = {
         "vad_events": [],
@@ -294,6 +332,18 @@ def feed_to_realtimestt(
 
     def log_event(event: dict[str, Any]) -> None:
         append_jsonl(callback_log, event)
+        if publish is None:
+            return
+        event_type = {
+            "vad_start": "listener.audio_started",
+            "vad_stop": "listener.audio_stopped",
+            "recording_start": "listener.recording_started",
+            "recording_stop": "listener.recording_stopped",
+            "realtime": "listener.partial_transcript",
+            "final": "listener.final_transcript",
+        }.get(str(event.get("type")))
+        if event_type:
+            publish(event_type, {key: value for key, value in event.items() if key != "type"})
 
     def on_vad_start() -> None:
         event = {"type": "vad_start", "t_ms": t_ms()}
@@ -640,6 +690,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-root", default="/tmp/embry-realtimestt-ingress")
     parser.add_argument("--speaker-gate-device", choices=("cpu", "cuda"), default="cpu")
     parser.add_argument("--skip-speaker-gate", action="store_true")
+    parser.add_argument("--event-service-url", default="")
+    parser.add_argument("--session-id", default="")
+    parser.add_argument("--turn-id", default="")
+    parser.add_argument("--sequence-start", type=int, default=0)
     return parser
 
 
@@ -659,6 +713,19 @@ def main() -> int:
     commands_path = run_dir / "commands.txt"
     environment_path = run_dir / "environment.txt"
     commands: list[str] = []
+    session_id = args.session_id or f"embry-listener-{run_id}"
+    turn_id = args.turn_id or f"turn-{uuid.uuid4().hex[:16]}"
+    publish = None
+    event_delivery: dict[str, Any] = {"attempted": 0, "accepted": 0, "errors": [], "event_ids": []}
+    if args.event_service_url:
+        publish, event_delivery = build_event_publisher(
+            service_url=args.event_service_url,
+            session_id=session_id,
+            turn_id=turn_id,
+            run_id=run_id,
+            sequence_start=args.sequence_start,
+        )
+        publish("listener.ready", {"listener_authority": "unix_pipewire_realtimestt"})
 
     receipt: dict[str, Any] = {
         "run_id": run_id,
@@ -686,8 +753,14 @@ def main() -> int:
         captured_meta = audio_stats(captured_wav)
         captured_meta["raw_path"] = str(captured_raw)
         captured_meta["raw_sha256"] = sha256_file(captured_raw)
+        if publish is not None:
+            publish("listener.audio_captured", {
+                "captured_audio_path": str(captured_wav),
+                "captured_audio_sha256": captured_meta["sha256"],
+                "captured_audio_non_silent": captured_meta["captured_audio_non_silent"],
+            })
 
-        realtimestt_meta = feed_to_realtimestt(captured, callback_log, args)
+        realtimestt_meta = feed_to_realtimestt(captured, callback_log, args, publish)
         final_text = realtimestt_meta["final_transcript_events"][-1]["text"] if realtimestt_meta["final_transcript_events"] else ""
         matches, transcript_meta = transcript_matches(args.expected_phrase, final_text, args.max_wer)
         source_audio_meta = {
@@ -747,6 +820,12 @@ def main() -> int:
             "realtimestt_final_transcript_seen": bool(final_text.strip()),
             "final_transcript_matches_expected_phrase": bool(matches),
         }
+        if args.event_service_url:
+            acceptance["live_event_service_delivery"] = (
+                event_delivery["attempted"] > 0
+                and event_delivery["attempted"] == event_delivery["accepted"]
+                and not event_delivery["errors"]
+            )
         acceptance["pass"] = all(acceptance.values())
 
         receipt.update({
@@ -762,6 +841,12 @@ def main() -> int:
             "realtimestt": realtimestt_meta,
             "live_session": live_session_meta,
             "speaker_gate": speaker_gate_meta,
+            "event_service": {
+                "url": args.event_service_url or None,
+                "session_id": session_id,
+                "turn_id": turn_id,
+                "delivery": event_delivery,
+            },
             "transcript": transcript_meta,
             "acceptance": acceptance,
         })

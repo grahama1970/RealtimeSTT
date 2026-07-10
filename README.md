@@ -1,5 +1,24 @@
 # RealtimeSTT
 
+## Embry Unix Listener Event Spine
+
+The local PipeWire ingress proof can publish RealtimeSTT callbacks to the
+`embry-voice-control` journal while audio is processed:
+
+```bash
+python proofs/embry_pipewire_ingress/run_pipewire_realtimestt_ingress.py \
+  --source-wav /path/to/real-speech.wav \
+  --expected-phrase "expected spoken text" \
+  --event-service-url http://127.0.0.1:8019 \
+  --session-id session-001 \
+  --turn-id turn-001 \
+  --sequence-start 0
+```
+
+This path uses PipeWire capture and `AudioToTextRecorder(use_microphone=False)`.
+It emits explicit `embry.voice_event.v1` session/turn lineage and does not use
+browser microphone capture, typed transcripts, or mocked STT events.
+
 RealtimeSTT is a Python speech-to-text library for applications that need
 voice activity detection, fast transcription, optional realtime text updates,
 wake words, and direct access to audio streams. It is designed for assistants,
