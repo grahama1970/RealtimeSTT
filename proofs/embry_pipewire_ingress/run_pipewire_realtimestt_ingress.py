@@ -191,7 +191,12 @@ def event_id(prefix: str, payload: dict[str, Any]) -> str:
 
 
 def build_event_publisher(
-    *, service_url: str, session_id: str, turn_id: str, run_id: str
+    *,
+    service_url: str,
+    session_id: str,
+    turn_id: str,
+    run_id: str,
+    initial_causation_id: str | None = None,
 ) -> tuple[Any, dict[str, Any]]:
     """Return a synchronous live event publisher and mutable delivery receipt."""
     delivery: dict[str, Any] = {
@@ -201,7 +206,7 @@ def build_event_publisher(
         "event_ids": [],
         "assigned_events": [],
     }
-    previous_event_id: str | None = None
+    previous_event_id = initial_causation_id
     client = httpx.Client(base_url=service_url.rstrip("/"), timeout=httpx.Timeout(5.0, connect=2.0))
 
     def publish(event_type: str, payload: dict[str, Any]) -> dict[str, Any]:
