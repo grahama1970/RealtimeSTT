@@ -36,6 +36,7 @@ from RealtimeSTT import AudioToTextRecorder  # noqa: E402
 from proofs.embry_pipewire_ingress.run_pipewire_realtimestt_ingress import (  # noqa: E402
     build_event_publisher,
 )
+from proofs.embry_pipewire_ingress.managed_turn_protocol import ManagedTurnServer  # noqa: E402
 
 
 SAMPLE_RATE = 16000
@@ -253,18 +254,21 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     state["process_runs"].append(process_run)
     save_state(state_path, state)
 
-    publisher, delivery = build_event_publisher(
+    process_publisher, delivery = build_event_publisher(
         service_url=event_service_origin(args.event_service_url),
         session_id=state["session_id"],
         turn_id=f"listener-process-{process_run_number}",
         run_id=state["run_id"],
         initial_causation_id=state.get("last_event_id"),
     )
+    deliveries = [delivery]
+    active_publisher: dict[str, Any] = {"publish": process_publisher, "command": None}
+    managed_server = ManagedTurnServer(args.managed_socket) if args.managed_socket else None
     publish_lock = threading.Lock()
 
     def emit(event_type: str, payload: dict[str, Any]) -> dict[str, Any]:
         with publish_lock:
-            event = publisher(event_type, payload)
+            event = active_publisher["publish"](event_type, payload)
             state["last_event_id"] = event["event_id"]
             with callback_log.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(event, sort_keys=True) + "\n")
@@ -340,7 +344,29 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             and attempts_this_run < args.max_attempts_this_run
         ):
             cycle_number = len(state["completed_cycles"]) + 1
-            print(f"READY cycle {cycle_number}/{args.target_cycles}: say Embry, then your sentence", flush=True)
+            if managed_server is not None and active_publisher["command"] is None:
+                print(f"ARM WAIT cycle {cycle_number}/{args.target_cycles}", flush=True)
+                command = managed_server.next_command()
+                turn_publisher, turn_delivery = build_event_publisher(
+                    service_url=event_service_origin(args.event_service_url),
+                    session_id=command["session_id"],
+                    turn_id=command["turn_id"],
+                    run_id=f"{state['run_id']}:{command['attempt_id']}",
+                    initial_causation_id=None,
+                )
+                deliveries.append(turn_delivery)
+                active_publisher.update({"publish": turn_publisher, "command": command})
+                emit("listener.turn_armed", {
+                    "campaign_id": command["campaign_id"],
+                    "case_id": command["case_id"],
+                    "attempt_id": command["attempt_id"],
+                    "source_authority_id": command["source_authority_id"],
+                    "wake_required": command["wake_required"],
+                    "process_run": process_run_number,
+                })
+            command = active_publisher["command"]
+            prompt = "say Hey Embry, then your question" if command else "say Hey Embry, then your sentence"
+            print(f"READY cycle {cycle_number}/{args.target_cycles}: {prompt}", flush=True)
             text = recorder.text()
             attempts_this_run += 1
             pcm = capture.segment_pcm()
@@ -418,6 +444,11 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "process_run": process_run_number,
                 "accepted_at": utc_now(),
             }
+            if command is not None:
+                cycle["managed_turn"] = {
+                    key: command[key]
+                    for key in ("campaign_id", "case_id", "attempt_id", "session_id", "turn_id", "source_authority_id")
+                }
             final_event = emit("listener.final_transcript", cycle)
             cycle["event_id"] = final_event["event_id"]
             cycle["sequence"] = final_event["assigned_sequence"]
@@ -427,6 +458,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             process_run["completed_cycle_count"] = accepted_this_run
             save_state(state_path, state)
             print(f"ACCEPTED cycle {cycle_number}: {text}", flush=True)
+            if command is not None:
+                emit("listener.turn_completed", {
+                    "campaign_id": command["campaign_id"],
+                    "case_id": command["case_id"],
+                    "attempt_id": command["attempt_id"],
+                    "source_event_id": final_event["event_id"],
+                    "source_sequence": final_event["assigned_sequence"],
+                })
+                active_publisher.update({"publish": process_publisher, "command": None})
 
             if (
                 args.restart_capture_after_cycle > 0
@@ -448,6 +488,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     finally:
         capture.stop()
         recorder.shutdown()
+        if managed_server is not None:
+            managed_server.close()
 
     process_run["ended_at"] = utc_now()
     process_run["status"] = "completed"
@@ -458,14 +500,26 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     })
     save_state(state_path, state)
 
-    journal = httpx.get(
-        event_service_origin(args.event_service_url)
-        + f"/v1/sessions/{state['session_id']}/journal",
-        timeout=10,
-    ).json()
-    events = journal.get("events") or []
+    managed_session_ids = sorted({
+        cycle["managed_turn"]["session_id"]
+        for cycle in state["completed_cycles"]
+        if cycle.get("managed_turn")
+    })
+    journal_session_ids = managed_session_ids or [state["session_id"]]
+    journals = {
+        session_id: httpx.get(
+            event_service_origin(args.event_service_url)
+            + f"/v1/sessions/{session_id}/journal",
+            timeout=10,
+        ).json()
+        for session_id in journal_session_ids
+    }
+    events = [event for journal in journals.values() for event in (journal.get("events") or [])]
     event_ids = [event.get("event_id") for event in events]
-    sequences = [event.get("sequence") for event in events]
+    sequences_by_session = {
+        session_id: [event.get("sequence") for event in journal.get("events") or []]
+        for session_id, journal in journals.items()
+    }
     completed = state["completed_cycles"]
     acceptance = {
         "physical_pipewire_source": args.source_node.startswith("alsa_input."),
@@ -479,10 +533,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "listener_restart_resumed": sum(
             process_run.get("status") == "completed" for process_run in state["process_runs"]
         ) >= 2,
-        "journal_sequences_contiguous": sequences == list(range(1, len(events) + 1)),
+        "journal_sequences_contiguous": all(
+            sequences == list(range(1, len(sequences) + 1))
+            for sequences in sequences_by_session.values()
+        ),
         "journal_event_ids_unique": len(event_ids) == len(set(event_ids)),
         "journal_contains_all_final_turns": sum(event.get("type") == "listener.final_transcript" for event in events) == len(completed),
-        "delivery_errors_absent": not delivery["errors"],
+        "delivery_errors_absent": not any(item["errors"] for item in deliveries),
     }
     receipt = {
         "schema": SCHEMA,
@@ -500,10 +557,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "rejected_attempts": state["rejected_attempts"],
         "process_runs": state["process_runs"],
         "capture_restarts": state["capture_restarts"],
-        "journal": {
-            "event_count": len(events),
-            "sha256": journal.get("sha256"),
-            "sequences": sequences,
+        "journals": {
+            session_id: {
+                "event_count": len(journal.get("events") or []),
+                "sha256": journal.get("sha256"),
+                "sequences": sequences_by_session[session_id],
+            }
+            for session_id, journal in journals.items()
         },
         "acceptance": acceptance,
         "claims": {
@@ -523,6 +583,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--source-node", required=True)
     parser.add_argument("--event-service-url", default="http://127.0.0.1:8030/v1/listener/events")
+    parser.add_argument("--managed-socket", type=Path)
     parser.add_argument("--target-cycles", type=int, default=10)
     parser.add_argument("--cycles-this-run", type=int, default=5)
     parser.add_argument("--max-attempts-this-run", type=int, default=15)
