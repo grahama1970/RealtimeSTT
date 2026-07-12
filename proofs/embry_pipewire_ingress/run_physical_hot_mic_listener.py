@@ -14,6 +14,7 @@ from difflib import SequenceMatcher
 import hashlib
 import json
 import re
+import shutil
 import signal
 import subprocess
 import sys
@@ -157,8 +158,20 @@ class PipeWireCapture:
             raise RuntimeError("pipewire_capture_already_running")
         self.stop_requested.clear()
         stderr = self.log_path.open("ab")
-        self.process = subprocess.Popen(
-            [
+        if self.source_node.endswith(".monitor"):
+            recorder = shutil.which("parec")
+            if not recorder:
+                raise RuntimeError("parec is required to capture a PulseAudio monitor source")
+            command = [
+                recorder,
+                f"--device={self.source_node}",
+                f"--rate={SAMPLE_RATE}",
+                f"--channels={CHANNELS}",
+                "--format=s16le",
+                "--raw",
+            ]
+        else:
+            command = [
                 "pw-record",
                 "--target",
                 self.source_node,
@@ -169,7 +182,9 @@ class PipeWireCapture:
                 "--format",
                 "s16",
                 "-",
-            ],
+            ]
+        self.process = subprocess.Popen(
+            command,
             stdout=subprocess.PIPE,
             stderr=stderr,
         )
@@ -179,7 +194,7 @@ class PipeWireCapture:
         time.sleep(0.25)
         if self.process.poll() is not None:
             self.stop()
-            raise RuntimeError(f"pw_record_start_failed:{self.log_path}")
+            raise RuntimeError(f"audio_capture_start_failed:{self.log_path}")
         self.on_connect(self.process.pid)
 
     def _feed_loop(self) -> None:

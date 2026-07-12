@@ -294,18 +294,34 @@ def capture_pipewire_audio(
     play_out = run_dir / "pw-play.stdout.log"
     play_err = run_dir / "pw-play.stderr.log"
 
-    record_command = [
-        "pw-record",
-        "--target",
-        capture_target,
-        "--rate",
-        "16000",
-        "--channels",
-        "1",
-        "--format",
-        "s16",
-        str(captured_wav),
-    ]
+    if capture_target.endswith(".monitor"):
+        recorder = shutil.which("parec")
+        if not recorder:
+            raise RuntimeError("parec is required to capture a PulseAudio monitor source")
+        record_command = [
+            recorder,
+            f"--device={capture_target}",
+            "--rate=16000",
+            "--channels=1",
+            "--format=s16le",
+            "--file-format=wav",
+            str(captured_wav),
+        ]
+        capture_backend = "pipewire-pulse-monitor"
+    else:
+        record_command = [
+            "pw-record",
+            "--target",
+            capture_target,
+            "--rate",
+            "16000",
+            "--channels",
+            "1",
+            "--format",
+            "s16",
+            str(captured_wav),
+        ]
+        capture_backend = "pipewire-source"
     play_command = ["pw-play", "--target", playback_target, str(source_wav)]
     commands.append(" ".join(record_command))
     commands.append(" ".join(play_command))
@@ -331,6 +347,7 @@ def capture_pipewire_audio(
 
     return {
         "backend": "pipewire",
+        "capture_backend": capture_backend,
         "strategy": "existing-pipewire-sink-to-existing-pipewire-source",
         "created_sink": None,
         "created_monitor": None,
@@ -847,7 +864,11 @@ def main() -> int:
         }
         acceptance = {
             "audio_was_played_through_local_audio_graph": audio_graph["playback_returncode"] == 0,
-            "audio_was_captured_from_local_audio_graph": captured_wav.exists() and captured.duration_ms > 0,
+            "audio_was_captured_from_local_audio_graph": (
+                audio_graph["capture_returncode"] == 0
+                and captured_wav.exists()
+                and captured.duration_ms > 0
+            ),
             "captured_audio_non_silent": bool(captured_meta["captured_audio_non_silent"]),
             "captured_audio_fed_to_realtimestt": realtimestt_meta["chunks_fed"] > 0 and realtimestt_meta["bytes_fed"] > 0,
             "realtimestt_realtime_events_seen": len(realtimestt_meta["realtime_transcript_events"]) > 0,
