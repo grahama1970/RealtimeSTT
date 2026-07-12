@@ -29,6 +29,7 @@ SPEC.loader.exec_module(MODULE)
         ("hey embry", True, ""),
         ("Hey Emory, listen carefully", True, "listen carefully"),
         ("Hey Embring, test cycle three", True, "test cycle three"),
+        ("Hey Henry.", True, ""),
         ("Hey entry, test cycle three", False, ""),
         ("Embry tell me what you heard", False, ""),
         ("background conversation", False, ""),

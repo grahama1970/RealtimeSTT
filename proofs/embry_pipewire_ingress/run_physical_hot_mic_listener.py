@@ -46,7 +46,7 @@ SAMPLE_WIDTH = 2
 CHUNK_BYTES = 3200
 SCHEMA = "realtimestt.physical_hot_mic_listener_receipt.v1"
 STATE_SCHEMA = "realtimestt.physical_hot_mic_listener_state.v1"
-WAKE_NAME_ALIASES = {"embry", "emory", "embring"}
+WAKE_NAME_ALIASES = {"embry", "emory", "embring", "henry"}
 
 
 def utc_now() -> str:
@@ -315,6 +315,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         realtime_processing_pause=0.08,
         post_speech_silence_duration=0.55,
         min_length_of_recording=0.25,
+        pre_recording_buffer_duration=args.pre_recording_buffer_duration,
         no_log_file=True,
         on_recording_start=on_recording_start,
         on_recording_stop=on_recording_stop,
@@ -414,6 +415,11 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     "process_run": process_run_number,
                     "detected_at": utc_now(),
                 }
+                if command is not None:
+                    wake_event["managed_turn"] = {
+                        key: command[key]
+                        for key in ("campaign_id", "case_id", "attempt_id", "session_id", "turn_id", "source_authority_id")
+                    }
                 event = emit("listener.wake_detected", wake_event)
                 wake_event["event_id"] = event["event_id"]
                 state["pending_wake"] = wake_event
@@ -607,6 +613,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--realtime-model", default="tiny.en")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--compute-type", default="float16")
+    parser.add_argument("--pre-recording-buffer-duration", type=float, default=3.0)
     return parser
 
 
