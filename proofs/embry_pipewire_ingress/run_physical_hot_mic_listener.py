@@ -404,7 +404,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         compute_type=args.compute_type,
         enable_realtime_transcription=True,
         realtime_processing_pause=0.08,
-        post_speech_silence_duration=0.55,
+        post_speech_silence_duration=args.post_speech_silence_duration,
         min_length_of_recording=0.25,
         pre_recording_buffer_duration=args.pre_recording_buffer_duration,
         no_log_file=True,
@@ -711,6 +711,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-attempts-this-run", type=int, default=15)
     parser.add_argument("--restart-capture-after-cycle", type=int, default=3)
     parser.add_argument("--model", default="small.en")
+    parser.add_argument("--post-speech-silence-duration", type=float, default=0.55)
     parser.add_argument("--realtime-model", default="tiny.en")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--compute-type", default="float16")
