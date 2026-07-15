@@ -2,9 +2,11 @@
 Internal wake-word backend setup and runtime helpers.
 """
 
+from collections import deque
 from importlib import import_module
 import logging
 import struct
+import threading
 
 import numpy as np
 
@@ -19,6 +21,9 @@ OPENWAKEWORD_BACKENDS = {
     "open_wakeword",
     "open_wakewords",
 }
+OPENWAKEWORD_FRAME_SAMPLES = 1280
+OPENWAKEWORD_FRAME_BYTES = OPENWAKEWORD_FRAME_SAMPLES * 2
+OPENWAKEWORD_SCORE_WINDOW_OBSERVATIONS = 160
 
 
 def _normalize_wakeword_backend(wakeword_backend, wake_words):
@@ -136,7 +141,6 @@ def setup_wakeword_detection(
             if load_openwakeword_modules is None:
                 load_openwakeword_modules = _load_openwakeword_modules
             openwakeword, Model = load_openwakeword_modules()
-            openwakeword.utils.download_models()
 
             if openwakeword_model_paths:
                 model_paths = openwakeword_model_paths.split(',')
@@ -149,10 +153,30 @@ def setup_wakeword_detection(
                     f"{openwakeword_model_paths}"
                 )
             else:
+                download_models = getattr(
+                    openwakeword.utils,
+                    "download_models",
+                    None,
+                )
+                if download_models is None:
+                    raise RuntimeError(
+                        "OpenWakeWord built-in model download is unavailable; "
+                        "provide openwakeword_model_paths."
+                    )
+                download_models()
                 recorder.owwModel = Model(
                     inference_framework=openwakeword_inference_framework)
 
             recorder.oww_n_models = len(recorder.owwModel.models.keys())
+            recorder.oww_pcm_buffer = bytearray()
+            recorder.oww_last_scores = {}
+            recorder.oww_rolling_max_scores = {}
+            recorder.oww_inference_count = 0
+            recorder.oww_pending_samples = 0
+            recorder.oww_score_lock = threading.Lock()
+            recorder.oww_score_observations = deque(
+                maxlen=OPENWAKEWORD_SCORE_WINDOW_OBSERVATIONS
+            )
             if not recorder.oww_n_models:
                 logger.error(
                     "No wake word models loaded."
@@ -197,8 +221,27 @@ def process_wakeword(recorder, data):
         return porcupine_index
 
     elif recorder.wakeword_backend in OPENWAKEWORD_BACKENDS:
-        pcm = np.frombuffer(data, dtype=np.int16)
+        recorder.oww_pcm_buffer.extend(data)
+        recorder.oww_pending_samples = len(recorder.oww_pcm_buffer) // 2
+        if len(recorder.oww_pcm_buffer) < OPENWAKEWORD_FRAME_BYTES:
+            return -1
+
+        frame = bytes(recorder.oww_pcm_buffer[:OPENWAKEWORD_FRAME_BYTES])
+        del recorder.oww_pcm_buffer[:OPENWAKEWORD_FRAME_BYTES]
+        recorder.oww_pending_samples = len(recorder.oww_pcm_buffer) // 2
+        pcm = np.frombuffer(frame, dtype=np.int16)
         prediction = recorder.owwModel.predict(pcm)
+        observed_scores = {
+            key: float(value) for key, value in prediction.items()
+        }
+        with recorder.oww_score_lock:
+            recorder.oww_inference_count += 1
+            recorder.oww_last_scores = observed_scores
+            recorder.oww_score_observations.append(observed_scores)
+            recorder.oww_rolling_max_scores = {
+                key: max(item.get(key, float("-inf")) for item in recorder.oww_score_observations)
+                for key in observed_scores
+            }
         max_score = -1
         max_index = -1
         wake_words_in_prediction = len(recorder.owwModel.prediction_buffer.keys())

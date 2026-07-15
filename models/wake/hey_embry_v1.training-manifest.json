@@ -1,0 +1,3889 @@
+{
+  "augmentation_command": [
+    "/usr/bin/python3",
+    "/opt/openWakeWord/openwakeword/train.py",
+    "--training_config",
+    "/work/training-piper-v2/resolved-training-config.yml",
+    "--augment_clips",
+    "--overwrite"
+  ],
+  "commands": {
+    "training": {
+      "command": [
+        "/usr/bin/python3",
+        "/opt/openWakeWord/openwakeword/train.py",
+        "--training_config",
+        "/work/training-piper-v2/resolved-training-config.yml",
+        "--train_model"
+      ],
+      "cwd": "/opt/openWakeWord",
+      "returncode": 0,
+      "stderr_path": "/work/training-piper-v2/logs/train.stderr.log",
+      "stderr_sha256": "8c76b4ee1379177f1a9da5c0f6285e9ecedb79a6ecfd87b90093b79ccba0e22f",
+      "stdout_path": "/work/training-piper-v2/logs/train.stdout.log",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "compatibility_patches": [
+    {
+      "id": "openwakeword_argparse_store_true_defaults_v1",
+      "sha256": "13618f9cdf97f0da4cd47539409a8166452873ba5435b9b869da6976a49e08f9"
+    }
+  ],
+  "dataset_counts": {
+    "negative_train": 260,
+    "negative_validation": 90,
+    "positive_train": 200,
+    "positive_validation": 75
+  },
+  "dataset_manifest_path": "/work/dataset/dataset-manifest.json",
+  "dataset_manifest_sha256": "c1702f3964309a58003b37d3901d2e9324ba789c76e795297798fe8530bd32e1",
+  "environment": {
+    "compatibility_patches": [
+      {
+        "id": "openwakeword_argparse_store_true_defaults_v1",
+        "sha256": "13618f9cdf97f0da4cd47539409a8166452873ba5435b9b869da6976a49e08f9"
+      }
+    ],
+    "numpy": "2.1.3",
+    "onnx": "1.17.0",
+    "onnxruntime": "1.20.1",
+    "openwakeword_commit": "368c03716d1e92591906a84949bc477f3a834455",
+    "piper_commit": "f1988a4d54eddb23d99e86f0adfef6226a85acc7",
+    "python": "3.12.3",
+    "scipy": "1.14.1"
+  },
+  "failed_gates": [],
+  "feature_arrays": {
+    "negative_features_test.npy": {
+      "dtype": "float32",
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_features_test.npy",
+      "sha256": "c76c7df7157892462a6e8fc012c3b5189b2a3bfe25888ec6c15f717e8d074e4a",
+      "shape": [
+        90,
+        16,
+        96
+      ]
+    },
+    "negative_features_train.npy": {
+      "dtype": "float32",
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_features_train.npy",
+      "sha256": "d36facd03bbea4971515d12a683fe2c6d73880eeb52cb25b56e9e511efc743fe",
+      "shape": [
+        260,
+        16,
+        96
+      ]
+    },
+    "positive_features_test.npy": {
+      "dtype": "float32",
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_features_test.npy",
+      "sha256": "0739de1572986536384b284f6f626d6fa11ccce6f0982512b99a0348bb3ed83c",
+      "shape": [
+        75,
+        16,
+        96
+      ]
+    },
+    "positive_features_train.npy": {
+      "dtype": "float32",
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_features_train.npy",
+      "sha256": "b03a67e242b60b1a6cfd87169fe9ce678015adaefa2a606fa71ad1105f550f7f",
+      "shape": [
+        200,
+        16,
+        96
+      ]
+    }
+  },
+  "framework": "openwakeword_onnx",
+  "generated_at": "2026-07-15T19:34:01.546132+00:00",
+  "input_contract_sha256": "b2961b73c0bff22eedfbc1351b2d012f66427902c7b3d6ac0f0d0e1950df6893",
+  "live": true,
+  "mocked": false,
+  "model_id": "hey_embry_v1",
+  "openwakeword_commit": "368c03716d1e92591906a84949bc477f3a834455",
+  "output": {
+    "input_name": "onnx::Flatten_0",
+    "input_shape": [
+      1,
+      16,
+      96
+    ],
+    "model_bytes": 415224,
+    "model_path": "/work/training-piper-v2/standalone/hey_embry_v1.onnx",
+    "model_sha256": "2ad9cafd125439b11a9b1cfdbf6dbeddfbbb2daa1c25c91266c47543332fe664",
+    "output_name": "39",
+    "output_shape": [
+      1,
+      1
+    ]
+  },
+  "phrase": "Hey Embry",
+  "piper_sample_generator_commit": "f1988a4d54eddb23d99e86f0adfef6226a85acc7",
+  "qualification_state": "TRAINED_UNQUALIFIED",
+  "schema": "embry.openwakeword_training_manifest.v1",
+  "status": "PASS",
+  "synthetic_build_physical_wake_proven": false,
+  "training_command": [
+    "/usr/bin/python3",
+    "/opt/openWakeWord/openwakeword/train.py",
+    "--training_config",
+    "/work/training-piper-v2/resolved-training-config.yml",
+    "--train_model"
+  ],
+  "training_config_path": "/work/training-piper-v2/resolved-training-config.yml",
+  "training_config_sha256": "59e092364d85147f4df30a9ed6cbf980cf704c9863b73f6ecd400a93571968fa",
+  "used_records": [
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d04bc8ef26cd58e1be2d922c.wav",
+      "record_id": "d04bc8ef26cd58e1be2d922c",
+      "sha256": "8ee76357979c82fae47150b2d060894780ac331dc57ac5377a93805c7bbe8a71",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/1a3a1d9bae95814a70205fa7.wav",
+      "record_id": "1a3a1d9bae95814a70205fa7",
+      "sha256": "d6768e9e6689b61784798d357fecfa55ead6d4ba3048fb4309bc7e8bf73d841e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/48526c348cd0e43450441087.wav",
+      "record_id": "48526c348cd0e43450441087",
+      "sha256": "0adec1d17e2e10bbe57d722b123938d77ec1eea51317062a6f9752d7483d62da",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0f19ac6a675df5735cfbaad5.wav",
+      "record_id": "0f19ac6a675df5735cfbaad5",
+      "sha256": "e407dab4ddcba1778ea63eb1e6b4b5264ed24bf9f04747aa94b234f362961744",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/ee78b8ddc733609290ca2577.wav",
+      "record_id": "ee78b8ddc733609290ca2577",
+      "sha256": "57d9e8e88fa44ad3fd89fab3af6c95059a131643e75932492af4b717aa9f9c2b",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/3704809dbcfe4b9a4be6a5dc.wav",
+      "record_id": "3704809dbcfe4b9a4be6a5dc",
+      "sha256": "f612e5b5f73d071ef2d7f0bed3957e7f425a40886e9793c5019ec5ec54d36461",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/cac6d3ce5b4b1cb449530a40.wav",
+      "record_id": "cac6d3ce5b4b1cb449530a40",
+      "sha256": "ecab97bbe8ece4d89c1c2e2819cc8c217b1530fc25ef7c3bb9c8f85c9e263eb1",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/90077ed45fecb0373160540c.wav",
+      "record_id": "90077ed45fecb0373160540c",
+      "sha256": "98484c15c0ee9cf20e6196f7667361b0fa73aa24f8056da8a9c10bb305fa482f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e00c6a9cb3b1cfe2e297f0ca.wav",
+      "record_id": "e00c6a9cb3b1cfe2e297f0ca",
+      "sha256": "79587b72fb548f7663207a2a92984840dfd2a90b4b15ac4b3e6eb8cfd1583519",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/1dff934ef4ee0f5a5eefe4d0.wav",
+      "record_id": "1dff934ef4ee0f5a5eefe4d0",
+      "sha256": "a212f28f6f0ed28d372a991e6dce1f779306329c1caab28b9ba25724da752848",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/547d20bc9076a63637d482e6.wav",
+      "record_id": "547d20bc9076a63637d482e6",
+      "sha256": "446d53a1cdc3ca30f878fe1738d1b15b6365e3414fc443b0e0918c7b40a9b97e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d2edde27017772cdab65ec45.wav",
+      "record_id": "d2edde27017772cdab65ec45",
+      "sha256": "25601825c10d868824c7de2934f392805612d44599c9880487d99f1e7116bcee",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/7b054842b18cc2ceda85e7e9.wav",
+      "record_id": "7b054842b18cc2ceda85e7e9",
+      "sha256": "d2f7f4e958778b6af6a1e581a015d157a7721929ebba4c8a256ddf9abbd39b6c",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0ff894ee66ebf47d5cc13a03.wav",
+      "record_id": "0ff894ee66ebf47d5cc13a03",
+      "sha256": "61509bbaab8db419f90d0c0cbe458b921800d1ea40a8f490a96b575a2acc541a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/41169387b88fee3585e1993a.wav",
+      "record_id": "41169387b88fee3585e1993a",
+      "sha256": "6199c77a37bc9c308bb2d2e501a63c8369c8b6aeff5169677b9a34d183f793a9",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/3f9f59aafa6f3f8de81a6b40.wav",
+      "record_id": "3f9f59aafa6f3f8de81a6b40",
+      "sha256": "406323c7a4735c010eaf3f08d8c9867bc444b7597ba6eb60ea1f3a28fd60cb1c",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/7d497f1b14f6dc2744f77fda.wav",
+      "record_id": "7d497f1b14f6dc2744f77fda",
+      "sha256": "73659bca45212ea473c3affa393d859b00af4f091c02037234fa0d3422cff4a4",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/143304fee9065858faa44e34.wav",
+      "record_id": "143304fee9065858faa44e34",
+      "sha256": "961c929b96d34eb11a4907836f11a36872a73a1ce0f847eeb07d1f222109306b",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e341d084876be6c8b8d25baa.wav",
+      "record_id": "e341d084876be6c8b8d25baa",
+      "sha256": "5eee162b6815bc722b851d3b54c2ba1797a82041850161508b77580af0445b0d",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/49ed8db4baa4a12d943df10b.wav",
+      "record_id": "49ed8db4baa4a12d943df10b",
+      "sha256": "5591a2399a3b1b88ab14b7d0e7b4b94e32d3f3d1da00bc0bf81d6056449e6332",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/741d815c3243c9e5b7c710d7.wav",
+      "record_id": "741d815c3243c9e5b7c710d7",
+      "sha256": "a286265aa834915a3200d5c487775a828243a9ed1715e9ca4f6995f538fb7be6",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0acbfbb7a32aa8073018ef3c.wav",
+      "record_id": "0acbfbb7a32aa8073018ef3c",
+      "sha256": "2391931c20c0bb0b8de5de8f09275189a3470dd9f3b959a919aeef157aad5435",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e761c01ed71ec819199833de.wav",
+      "record_id": "e761c01ed71ec819199833de",
+      "sha256": "fc6b6f24df737abb71dccc384f0c9714d86dd47d188504acd92aa90f89ac26a1",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c2ebc3405c144be4428cf7f6.wav",
+      "record_id": "c2ebc3405c144be4428cf7f6",
+      "sha256": "7feec2252ae5f2b466db54ab452fddb98e3db919b551cdad99bc435a28534a37",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c418f2e01b9ab2114b10571c.wav",
+      "record_id": "c418f2e01b9ab2114b10571c",
+      "sha256": "76b39da9dfbfd34ef3e4a10f6850383f3f740e7b19e8080b945046d0130050e7",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d133c6e44cdd16aae5923cc2.wav",
+      "record_id": "d133c6e44cdd16aae5923cc2",
+      "sha256": "2a0d1c5dbde4b911b9b7b59ae74b54f06f7d7f4d577dcc9cb4d4d7b5c91c173a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/dac6a26a92ec97f1c7e875d0.wav",
+      "record_id": "dac6a26a92ec97f1c7e875d0",
+      "sha256": "492053f86eac1dc6b1987f4a82d175a27fb9f43284fe834a3825411db81dd20f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/44d664cfc22f58c968433638.wav",
+      "record_id": "44d664cfc22f58c968433638",
+      "sha256": "5f296b480e97d82457cfaab7b9e9603af727c5d26fe4f45b6a4962af2859c8f6",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/14a0a81683bd326feb73504f.wav",
+      "record_id": "14a0a81683bd326feb73504f",
+      "sha256": "c50fa60abfcab087eb41bbaa5c7be451be6ffc96ebd7da0cb859707146a40cce",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4a74cf6515f5096751724575.wav",
+      "record_id": "4a74cf6515f5096751724575",
+      "sha256": "c6bc0bda7c9fa9f7f2370dfd56764fde76ea0d8af9a8a591bf721bf8c4f0b0ef",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/88e7d1f85add57912c110b00.wav",
+      "record_id": "88e7d1f85add57912c110b00",
+      "sha256": "e6b45f651f6ff659f75204ddbe3bfe6b2c745ba94df52d6d484682e48e3dfb98",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/142f0f2af75144e0e57472e1.wav",
+      "record_id": "142f0f2af75144e0e57472e1",
+      "sha256": "9adebd4105caf830e056435cbed2d16c2252995e47abedc7d3173a95f2e34aa2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/f56ef267f66ca4dfe6dd9ab7.wav",
+      "record_id": "f56ef267f66ca4dfe6dd9ab7",
+      "sha256": "526a30bcff7908316d8622c130c4d9b34dc3f4cb124b1d569e295703ec5e0df8",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/0e37edd0a3f9d61ca00adeae.wav",
+      "record_id": "0e37edd0a3f9d61ca00adeae",
+      "sha256": "3646fcbaa27fade6eb334a03975c5b176ab88c1dad652f6a0f874ff4a6c3d999",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/35fe26724733036128d3b51b.wav",
+      "record_id": "35fe26724733036128d3b51b",
+      "sha256": "13523a5035ed4f0d980e255f0bbaf00bc3ec2e9f69070d1ecc4868c1216609c8",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/e1d21135425afa3655882b8e.wav",
+      "record_id": "e1d21135425afa3655882b8e",
+      "sha256": "656cd23858f7b0b4203807100ed58b6b7c32c5030d0fc7033ca97ef5f5c7efb4",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/731fc367c37172751c3ae67f.wav",
+      "record_id": "731fc367c37172751c3ae67f",
+      "sha256": "5be44b59503b99fd682105ca6d33ca9a3e14d0f94e4ebd841aa71ac3587015da",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/b21b52efcad98666486d9418.wav",
+      "record_id": "b21b52efcad98666486d9418",
+      "sha256": "758406994629d24ac0865f9bd1562c170260b097bb6876a5e82898f9646e0585",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/7735c0aa081f3fb8643eab0e.wav",
+      "record_id": "7735c0aa081f3fb8643eab0e",
+      "sha256": "ce83c4c1af1754e3bf9b68070e2ecf29bcdab763a1da10d4af125f0014bf018e",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/c5a19dad85ef659f2cda3d49.wav",
+      "record_id": "c5a19dad85ef659f2cda3d49",
+      "sha256": "a7fa08ad1391d6fa248816f3470bc9e91f681dc5269d6267a8fa63f655cc69b2",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/d26e7f68bd684b851cba7658.wav",
+      "record_id": "d26e7f68bd684b851cba7658",
+      "sha256": "9816e5194a3c3e6454a7c682949234cee898b1fd488f02230763104839cb18f1",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/cfb379682a2b26fd8ad23fe6.wav",
+      "record_id": "cfb379682a2b26fd8ad23fe6",
+      "sha256": "5eb9905fc9dfecdb5694796b9a7426649b6b5537ea1573fa84d6a19623a61084",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/b9aa0aa9461668879dc312d2.wav",
+      "record_id": "b9aa0aa9461668879dc312d2",
+      "sha256": "801725bb58d17a4cf632ed26b06c91451a7c761bcf8d76585da1644ebd00e8c0",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/9e0563f424e078dee74ada4e.wav",
+      "record_id": "9e0563f424e078dee74ada4e",
+      "sha256": "7ae0d3ae394c682a0f997c571b15afaa4f96b3fabb2a4df7456b447d253bac33",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/2aca17f86e4a1d6186f2e53f.wav",
+      "record_id": "2aca17f86e4a1d6186f2e53f",
+      "sha256": "6e2c440089373fa0f8b5aabae61b1d025f63958e9f3e29d269e882526e0b87ca",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/22183d04a63c3278f3d6360d.wav",
+      "record_id": "22183d04a63c3278f3d6360d",
+      "sha256": "a1f56734a839509e509f00d6135b155641411506c170bd270bfc677dbe07fdd3",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/373058711de7fd371f62d722.wav",
+      "record_id": "373058711de7fd371f62d722",
+      "sha256": "0e3c59f1b9d12f41e3e2d616eaa827a7c794d8f89abfb23536f9d346655526d4",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7becd04f6235029d9ec9b8b4.wav",
+      "record_id": "7becd04f6235029d9ec9b8b4",
+      "sha256": "d65ccb026e50a57ad058f951097df166c8719ed9ef58ebd2c8f23e850121f930",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2e09380dc572f52147b4ed61.wav",
+      "record_id": "2e09380dc572f52147b4ed61",
+      "sha256": "8b26d2e6b791e3f9c4e6611b7bbb27ce6b39145e110d9371dc8dd49359611554",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/68367151f0e86b4d74599293.wav",
+      "record_id": "68367151f0e86b4d74599293",
+      "sha256": "7b4b77a38be04e895df20bcfec0f8fb246c9225007d56c76ff81b509d583e1e2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a1d3d285862116c37ee8a61c.wav",
+      "record_id": "a1d3d285862116c37ee8a61c",
+      "sha256": "0a3232e13712a7354dccbafc51a448368a2b3f0e666e07d89f164c8b69c02dac",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/46a73d68254875540e2a9c18.wav",
+      "record_id": "46a73d68254875540e2a9c18",
+      "sha256": "6d937b0f47f4535f2bcfa0e11c9b15d29e1bd4b1abddf951a017ba1aab6adc98",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ca9e5f21dee1d4aa64d58a4a.wav",
+      "record_id": "ca9e5f21dee1d4aa64d58a4a",
+      "sha256": "e5d00c1bb3fb85ba6ab896d1c2b45df3200b503f2318e400065f04be3c56f13a",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/fe0fede131d67a6ee531febb.wav",
+      "record_id": "fe0fede131d67a6ee531febb",
+      "sha256": "d42b3a2e69b85f7513ad51162b4a673bd4849e392b29918dc76c25e3035c9e74",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/342f3cdad1f17bcbb0275154.wav",
+      "record_id": "342f3cdad1f17bcbb0275154",
+      "sha256": "43cb8509ec188ef8d1cdaf69f645529cf50702da9dc67da6bdf1e447699e4f3d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/222dfeea2c1feeac9e4da9e9.wav",
+      "record_id": "222dfeea2c1feeac9e4da9e9",
+      "sha256": "5daa3c4744c31c1ef394d0f2bfc57cbfecce327680d537f0e43f103bb0b381c1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ade2ab9800d3a43497403ad7.wav",
+      "record_id": "ade2ab9800d3a43497403ad7",
+      "sha256": "f47f8778ab8d276527bea53bab1d478fcc1c6903344b953bdaffded5ecd8c8bf",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2868fdf57257e5a46cbc5428.wav",
+      "record_id": "2868fdf57257e5a46cbc5428",
+      "sha256": "c03802f0fd24d8175cf345e6e82baa3f629483844728974db68fbde713b9a173",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/317af41df037fb050ebba027.wav",
+      "record_id": "317af41df037fb050ebba027",
+      "sha256": "a6bbd2b3ed17b2ec9a0b87f6efde1d35c92cc66d724f8e10c43000feb5fe413c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/315454b0f97ebb5770b7c2cd.wav",
+      "record_id": "315454b0f97ebb5770b7c2cd",
+      "sha256": "86c87e09830ad2a2c96345d625f99205b7df485c018f27b3164b74daafa9654d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/adaa5f46d464900fb4ebeff9.wav",
+      "record_id": "adaa5f46d464900fb4ebeff9",
+      "sha256": "12001ead676a14c77ee17ccc1b268fd397b312bf894c8066b71801583ef1a544",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/71bcdcb32c30a15052b86059.wav",
+      "record_id": "71bcdcb32c30a15052b86059",
+      "sha256": "b032cedc27ee75c2df9b80e6d00afce4ba406e812222101fbdddaeb6f7e47328",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ffe32b6cd78d4a83e723c47b.wav",
+      "record_id": "ffe32b6cd78d4a83e723c47b",
+      "sha256": "468f1e1ae57ac7ce0db5cb6905130f72a3767cf37acc878525b928c1068038c5",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f6cf0a1abd1cbaac7ef47afa.wav",
+      "record_id": "f6cf0a1abd1cbaac7ef47afa",
+      "sha256": "144c3428f09371ebd2bdab80b1e3acce963d89f3b5ae35ce0b0a48b65831a0b0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/243a1077915a3d9fdc93e185.wav",
+      "record_id": "243a1077915a3d9fdc93e185",
+      "sha256": "fa8b68b2ec1fb47e17c9635b8a50c05da288c000d05d9be4317491fad3277c95",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/72029c135510c5f2a73387c5.wav",
+      "record_id": "72029c135510c5f2a73387c5",
+      "sha256": "3339990df24bd9d7af3b49a330d05088621e67852fa4923eb4fc05b40d1cde5e",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7f41b3ef895b55164bcc2459.wav",
+      "record_id": "7f41b3ef895b55164bcc2459",
+      "sha256": "60aab050fa4e94a82be71caf3b3f3a6c516652962c50a2432845ad9cddd18bd1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/8bc78163ec85472fd44ca929.wav",
+      "record_id": "8bc78163ec85472fd44ca929",
+      "sha256": "ec250184930abd81522cdc9be0c266530f625fe60f0dc7b72ac8352d457ce2dd",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/dca1223fb92862b5c195e493.wav",
+      "record_id": "dca1223fb92862b5c195e493",
+      "sha256": "a9ea29324fc11e7bbc910bad31eb81ef4d9900ab19df8634196b5a9115a33bbe",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f8b925a517ce9d5f2cd367ca.wav",
+      "record_id": "f8b925a517ce9d5f2cd367ca",
+      "sha256": "2775d3d3df8395e4b3214e5537a718b61ef8eda163d6615e4223a96e34e22a44",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ef609dbdc617b5ee115dc54b.wav",
+      "record_id": "ef609dbdc617b5ee115dc54b",
+      "sha256": "3ad186b2162c185ebbc2e579f18d817161e1407bb1210e4da32c7e5513207dda",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/6d6898483bd9b921e228f04d.wav",
+      "record_id": "6d6898483bd9b921e228f04d",
+      "sha256": "230fdf3b55f9be7f663c5e2357c54ed8364419ea2aa69ce42bc547bdc167e253",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d2eb97d4a5acab88d5914266.wav",
+      "record_id": "d2eb97d4a5acab88d5914266",
+      "sha256": "f57853794eaa5d9a86da18958f7439498849fc6f15c2379d427aef08b62fe244",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/5e9fdff8d41bf4250c5b721f.wav",
+      "record_id": "5e9fdff8d41bf4250c5b721f",
+      "sha256": "f159d9db91dd9791b31a9aaba0472d365f75e05a04c3bf12a1dc3ad79d456773",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/729b789f56455517d459421e.wav",
+      "record_id": "729b789f56455517d459421e",
+      "sha256": "213fb5891d37b1bb3b51c18543968d32fa652b34d8a9a0f49dc0417d18eca57d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/b5f1844218b1ba5b5fd49810.wav",
+      "record_id": "b5f1844218b1ba5b5fd49810",
+      "sha256": "2076fd34e511cc934e63985c219bba0d36f5d6a1c98958074c853622a47f2daa",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a598496edb48ca4777494b62.wav",
+      "record_id": "a598496edb48ca4777494b62",
+      "sha256": "80a3991fa3fb9bfe299bd5e41d84002fab15427e5a9bf2256a70fdf0271d1087",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/680cfa0926d63bebcd81752a.wav",
+      "record_id": "680cfa0926d63bebcd81752a",
+      "sha256": "c29e183c4e069ee34372d5bc52853f74e023d3acacbf9f35dd605876cc3e670b",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f0e7a716f42eaf2837f7b70a.wav",
+      "record_id": "f0e7a716f42eaf2837f7b70a",
+      "sha256": "f4a4d2d9181d192496914229bd62e46be1e5533b22ee670a3a9cc90c4dac2d89",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ca88f16d02cdaef584e8fa0d.wav",
+      "record_id": "ca88f16d02cdaef584e8fa0d",
+      "sha256": "0025e2a05886525a2147cd2569619b2257e0414bfbd1378ee6d09de4c9f2e9f1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ea6a646aec544cf5e7b23efc.wav",
+      "record_id": "ea6a646aec544cf5e7b23efc",
+      "sha256": "74d640c7fe8da9ebe0034874370abe2f555acae52caae4d8b5e16de8bebdd543",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/84a4c8f6db8ba34c320adf26.wav",
+      "record_id": "84a4c8f6db8ba34c320adf26",
+      "sha256": "61e8a1316844a69cf1c515bed108f4640a28fa98c9d63d339e1f2b022d496c79",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/df5d6f34b9a4052e39138657.wav",
+      "record_id": "df5d6f34b9a4052e39138657",
+      "sha256": "e1b3e6a182805b55a806134b74030d319205c12425fc0b144c25925b9afb2ac0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f46155162037cb4ff97a2e5e.wav",
+      "record_id": "f46155162037cb4ff97a2e5e",
+      "sha256": "57078032a409bee05e72b81a8b505c15d0cf3d51444e0f5655239451977828e2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/859bd4044cef5299753d1be6.wav",
+      "record_id": "859bd4044cef5299753d1be6",
+      "sha256": "fe74adc2bd9a0a9847791303fa843bf5f39f0ddd3c9dc12940ee5e88b92cc442",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/c249adeb77343d2b697d4669.wav",
+      "record_id": "c249adeb77343d2b697d4669",
+      "sha256": "9d01f4a73d6961ebef6972f6ef74334a1aff124545b99fe308f45bbb1674a888",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/16d48fbf8af6c4c4a407ea6f.wav",
+      "record_id": "16d48fbf8af6c4c4a407ea6f",
+      "sha256": "6564667c2a7d0eb168f377383c34ecfa637d65a88c2cb2dff2fc34185f4559ae",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/91371da668e3471a6b65a3c3.wav",
+      "record_id": "91371da668e3471a6b65a3c3",
+      "sha256": "7cb4ec37f6b93be77abf1d186898c270cf2387b47506ab8a42cf552a14a0ef57",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a9ad6ed15ae763613f5be245.wav",
+      "record_id": "a9ad6ed15ae763613f5be245",
+      "sha256": "f2c4ac9043172135d32f809f92069b2d52a94d409b55ba756e0a1246bcdb4341",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/58b91a181775c7056444cc77.wav",
+      "record_id": "58b91a181775c7056444cc77",
+      "sha256": "da015b98e52a79068dc05666dbb6400372493d1ea8bad2038d4133d1c8a7b473",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2a6115097944cbb59188a20a.wav",
+      "record_id": "2a6115097944cbb59188a20a",
+      "sha256": "1c8b36ac23538683876b1f6313cfc706e80d375824facff995a36c16fd51bff2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/83a861164abcb04c3a106283.wav",
+      "record_id": "83a861164abcb04c3a106283",
+      "sha256": "9d110524bb84da3bfba517e1419acca3abd37db3df19abeccda8399bd65a9a98",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/bd9b3ec981e855cfbfbb1bea.wav",
+      "record_id": "bd9b3ec981e855cfbfbb1bea",
+      "sha256": "eca8fdc86c1082247a1889e2238e8f920b80a89640c083f117b329244f37ff53",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f9cf75e7b5fb733a99dd9f77.wav",
+      "record_id": "f9cf75e7b5fb733a99dd9f77",
+      "sha256": "d7257906d0c8d0fda7cf26e56277a81d9cc2cb7b5d1223a34f0915f0aedeed71",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/04ed87bcefc483c4cc4bca55.wav",
+      "record_id": "04ed87bcefc483c4cc4bca55",
+      "sha256": "c696e7c932c6016055f978b83f3a2a54e260df6f9036439dc3eb39e2645e23bf",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/eaeeebda79e35fbf9af7c6a7.wav",
+      "record_id": "eaeeebda79e35fbf9af7c6a7",
+      "sha256": "6f090f3a6c74889cdfa23d435ed0e95a47a17e5b2328ed823d8ff5d90af438ba",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/992db0d51ff5e12b4f33b808.wav",
+      "record_id": "992db0d51ff5e12b4f33b808",
+      "sha256": "6f81d604384b8d9f1b6009d22af9afb526e05cd501e5717362be5cd79bdaa925",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/085efec93fbd99d3b985032c.wav",
+      "record_id": "085efec93fbd99d3b985032c",
+      "sha256": "a6309becd048c83fb383b9b4ee257f74b3899d9327df4c59548e33da9c216344",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/0d6defa847e2ceca0f876379.wav",
+      "record_id": "0d6defa847e2ceca0f876379",
+      "sha256": "31daebf0ed8859d27f4eacd2a93a110ccd6624a21908140d8ec81a4ccd8e7acd",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/e62d3fb2bbb59e479fbd7687.wav",
+      "record_id": "e62d3fb2bbb59e479fbd7687",
+      "sha256": "74fe33f5d1c9b8b1b5974b577d48e30ccb7cda06bc205c8f8c5f99253b3334f1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/5e14e71626d1dbd224b4c371.wav",
+      "record_id": "5e14e71626d1dbd224b4c371",
+      "sha256": "a87265464b5cf24b50a20bd73af3fd957ebf79db0ef6264e0b2432d0f9e489b0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7de394033fa640aa5219ca94.wav",
+      "record_id": "7de394033fa640aa5219ca94",
+      "sha256": "e344234e71c3ab2453f2a4a081cc319ddbc1ed3dd17a37aeb3f6f685f9183f71",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a1cbff16d4acfdd09942b8ee.wav",
+      "record_id": "a1cbff16d4acfdd09942b8ee",
+      "sha256": "950dc5e1b02ce784c6b601cda139712c90d0951a007ef5aa0365df534147202a",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/db2e9d377e3801783c819692.wav",
+      "record_id": "db2e9d377e3801783c819692",
+      "sha256": "ecf48128050159f400f9b8d5e3e2e690784312ce41a06260a089666c692c5f3b",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/30c615aa0f779036c29d526a.wav",
+      "record_id": "30c615aa0f779036c29d526a",
+      "sha256": "725592fa7066cca4bd36a6a71dcb8ec948eff7ccc205bdaa862cb9d88bdbe43b",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/e54b3f2fd0fac8cc36c3df2f.wav",
+      "record_id": "e54b3f2fd0fac8cc36c3df2f",
+      "sha256": "ea9d2b6e133869ea9477a089f3ffec44802261fffaca2ddf5d9969a6f301c8bb",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/07fe998d63bd602bf5c7ad7b.wav",
+      "record_id": "07fe998d63bd602bf5c7ad7b",
+      "sha256": "940427021901e78412b3995dd65b5fd4eb5cb3825e64a7e7d92a69eec8249547",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/dc023cf332bd333cf0132c3e.wav",
+      "record_id": "dc023cf332bd333cf0132c3e",
+      "sha256": "8b96f0dca784e292084c5e68e7e4b2da4f4c56882510b46510d46adab998401f",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/749cb6ec968c3d61dc33b2b0.wav",
+      "record_id": "749cb6ec968c3d61dc33b2b0",
+      "sha256": "0d1f4ae446b3f67d694c07e5e82d3df43417b019ed21a1a1a09f973d493dccf9",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/591dd4a62a8f61603791b046.wav",
+      "record_id": "591dd4a62a8f61603791b046",
+      "sha256": "b4ac8af9d8777ba55d2742aba5a1529a8b0ec89fb741763cb6437a83cd412a97",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/601f6277a27a22b4b49a1bb2.wav",
+      "record_id": "601f6277a27a22b4b49a1bb2",
+      "sha256": "3a0417b12fe896bd13e4fe44e1ee6ce13bdce71732f9f3de396d52c478a9050f",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/b6351eae4e2cbca82894553b.wav",
+      "record_id": "b6351eae4e2cbca82894553b",
+      "sha256": "a05d4048661b9a9bb56f52ee24b1584b01ce2c07ce7a474989f07c620a0250d0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9111dbc8025e1d4463e5c1b0.wav",
+      "record_id": "9111dbc8025e1d4463e5c1b0",
+      "sha256": "6404ef01c98603a7103e7958a60080aded053b6560eb8a95b2231cd7aed9378c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/55ead59a5ed3135fbff232e8.wav",
+      "record_id": "55ead59a5ed3135fbff232e8",
+      "sha256": "97bbcb91b2483b8d5d47cd27ae5ec47f1ef523f094f5faa200ba8e60965f6322",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/df5bf66e9ea87f5b05be3d18.wav",
+      "record_id": "df5bf66e9ea87f5b05be3d18",
+      "sha256": "f14bcc83011d709aa8ef4cf87973d0ee230d0ef45619de60d117ffdff31ee8fa",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/af61513478eb9224ddceba17.wav",
+      "record_id": "af61513478eb9224ddceba17",
+      "sha256": "13ae83cceabc375daebb395997df12fcd8c26f0337a0d882737553f499fdc455",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d33921bfa0cb487eef348c20.wav",
+      "record_id": "d33921bfa0cb487eef348c20",
+      "sha256": "ee9b0a0f40db45499a7cd951ae7c4ac86bfb05e4819609d331d45c79da3100cf",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f3579410fb343f7bc08282b4.wav",
+      "record_id": "f3579410fb343f7bc08282b4",
+      "sha256": "ff8f751e7e456e9cdc784d1f8466821df94fb4138955504f8826f76adf4f0c0b",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a42ba8ae7adec6efa06f48ca.wav",
+      "record_id": "a42ba8ae7adec6efa06f48ca",
+      "sha256": "1b3335259084f1e50183c4a2d7badd7f4679cac226a5ecff5072554e94234769",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/40f507bdb7fe28e78d82e67e.wav",
+      "record_id": "40f507bdb7fe28e78d82e67e",
+      "sha256": "47fd62c4bdf5125f0c5241cdcd7fe3099341e894ff5aa6d0afe85ef82974f6d6",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/b37e4a4b6dedcaedcd854075.wav",
+      "record_id": "b37e4a4b6dedcaedcd854075",
+      "sha256": "b73067defde45dbb31056b27f67359540d99580c364e0e15814308f337efba9a",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/6095637f3a4d8e090f8f9b07.wav",
+      "record_id": "6095637f3a4d8e090f8f9b07",
+      "sha256": "a7b5daca7462634598163c38803c3d5d3ceb09e8f0382e69facbb259745b5735",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/38cdd0b36628c2ca5a0377a8.wav",
+      "record_id": "38cdd0b36628c2ca5a0377a8",
+      "sha256": "99bfc7c87f2a2cbb4893337f94aebb3fa9c5b0e43e543aec47f5fd6073a6c933",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/66b1ecda401503c3de2ada36.wav",
+      "record_id": "66b1ecda401503c3de2ada36",
+      "sha256": "e856f4f95d6f1634c59cab9217664ce1f00c7ada792055ae2c66ceaa6b7a3c22",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9fc88c21dcaa0e14404ae83e.wav",
+      "record_id": "9fc88c21dcaa0e14404ae83e",
+      "sha256": "4aeaac44297f281310fb92e965fadc33002e5e24a3ed9252aa10d0fdf04fa719",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/de0d812af20415f272b95175.wav",
+      "record_id": "de0d812af20415f272b95175",
+      "sha256": "3bc1e002d9c0b51e6cf6cacc58230a76c8b302eb26e56359eb22a3a92cce19d8",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/3aebac782b283a7598fe76de.wav",
+      "record_id": "3aebac782b283a7598fe76de",
+      "sha256": "c58e202483b9040f5d5cb620dd6b04aef1a43d89b4c2e1c03e1e69572274947c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/aab66c1c047e54046fc7bf85.wav",
+      "record_id": "aab66c1c047e54046fc7bf85",
+      "sha256": "59ac46e684b56cefb3d36a89a0721fb61c9abd0c892d0142763fa0133accb2c0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/325dae8608f610cb9597cc03.wav",
+      "record_id": "325dae8608f610cb9597cc03",
+      "sha256": "ca2003cb07d3a020a6d7d00bfd9a2eefe17f50e57e9b6de1ee56f454b0c47800",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/b69cf9e4ab8d82c447eb727f.wav",
+      "record_id": "b69cf9e4ab8d82c447eb727f",
+      "sha256": "c2fac0cd155f6fb843942d4b179a8340b386a7f310a3b8eb31cc6b33c87d8db6",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7126e74a1ff1e8859cbe2532.wav",
+      "record_id": "7126e74a1ff1e8859cbe2532",
+      "sha256": "7bdc0d27b47d38b8bc7ec8b55978a266a22e31bf018413ac6ca33bc5ab8927c6",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/71c40759265587bc5c2fd6dc.wav",
+      "record_id": "71c40759265587bc5c2fd6dc",
+      "sha256": "e11fa86e5149bad267813dd61dc6b4c03b7d5e39a8dcf1959be0de0546a31554",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/4ae61c130c411206f89710de.wav",
+      "record_id": "4ae61c130c411206f89710de",
+      "sha256": "2d8c0e3456ca3bfa2d57da852f640ca1d4c43872f7a8d210eaf9bb8f8772d967",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9a6f374bc080c79b66f6bfa5.wav",
+      "record_id": "9a6f374bc080c79b66f6bfa5",
+      "sha256": "656b9558f762539146048e16b51cc849b06f5104aa996ffe4db6ad7fa1e8b782",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f06446bbcd1092db8c91397b.wav",
+      "record_id": "f06446bbcd1092db8c91397b",
+      "sha256": "87f69d0d5b3cd5b3862fb28f575e8e6b5c6bce39d2cfd6e626ecad045d002761",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/008eca7fc5931d762402e1b3.wav",
+      "record_id": "008eca7fc5931d762402e1b3",
+      "sha256": "d320356af7c779568f16834289093a0479535161e49f416c38ee43472c9e3867",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/51b4d441b79e4f1349f63261.wav",
+      "record_id": "51b4d441b79e4f1349f63261",
+      "sha256": "1bedf76f223d39e39f61f0a0cfa6163fa8f8fce085e429723d098c101914481d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/07b6eea019cee129c73261bc.wav",
+      "record_id": "07b6eea019cee129c73261bc",
+      "sha256": "666ffcd22bdd8acdd83f7f182b91e4e329dae6bd3798610f1adb5070a979cea4",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/061bf8432c8f84c34aad52d8.wav",
+      "record_id": "061bf8432c8f84c34aad52d8",
+      "sha256": "a4a818d1f073b0cd0e4e9ad19b1ff1b495b872985c2e802733195a4d19cf2be5",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f46803f7bdc92ed2607555a8.wav",
+      "record_id": "f46803f7bdc92ed2607555a8",
+      "sha256": "ee89022dadab8c11be76080100c3d014cb0c50063983f40ea0c50aa5451f1608",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/0f7a13ed6d669ea951ba5d0e.wav",
+      "record_id": "0f7a13ed6d669ea951ba5d0e",
+      "sha256": "2316da98c2519ff9309aa309f3a373c8962f5bb8f5e837841d9a95e041e83961",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/73149e17b736e71e2a77ef55.wav",
+      "record_id": "73149e17b736e71e2a77ef55",
+      "sha256": "5bf11ee7227e55cc9779a2bf8d85196b77e6b01717e859fa7e0da3a477e13358",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/bf2908e0c5bcbd26aa7348f3.wav",
+      "record_id": "bf2908e0c5bcbd26aa7348f3",
+      "sha256": "3435fc715b36b0fdb1e925f3e9e9c00e35ff5d271701be835fe3440486caad91",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/6cc6193e0ed8cc0c63dcfd29.wav",
+      "record_id": "6cc6193e0ed8cc0c63dcfd29",
+      "sha256": "2ad42f5a56d0a0109ba28e66a02c466bc57425ea71432ee14e7f4e2fd7481294",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1445c156f41fa7029a4dccae.wav",
+      "record_id": "1445c156f41fa7029a4dccae",
+      "sha256": "b38eec189953342bc0e51e04b36dd747868914c28a1289800920a0e69d78ecad",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/04a6db24a6856e44eef11c57.wav",
+      "record_id": "04a6db24a6856e44eef11c57",
+      "sha256": "e6d541c4a3e7f409b2685225e0453a7983cf3e9c135aece3e3f358644888f56e",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/12b23e52c1a195e464815e82.wav",
+      "record_id": "12b23e52c1a195e464815e82",
+      "sha256": "b286976bc3cff8de05fd21df920d15ce7d26d7bd52f4ce6e29c23f4c3b6f342d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/c29f609c3b8aeea29cd38b63.wav",
+      "record_id": "c29f609c3b8aeea29cd38b63",
+      "sha256": "5711f7254d3018f9a42ad0b9a8ad2f402fbbc7aac694420a7b46f07ab57d9cc1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/4be0a3818724f7a8ae5d92b5.wav",
+      "record_id": "4be0a3818724f7a8ae5d92b5",
+      "sha256": "431921fd560758c159786c86f8d0dc73c54cc31649f1a8a5ad945e73e73461e1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/dae4aa255d5eef92cd0dbf1e.wav",
+      "record_id": "dae4aa255d5eef92cd0dbf1e",
+      "sha256": "89cf145866514c41c69e975bd2b50c38a7128ec370aadbb7334d3871ee4b5e79",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f528cec866573b47c7ee5263.wav",
+      "record_id": "f528cec866573b47c7ee5263",
+      "sha256": "b07dc8e512bde4aac2287f7f1d5e145ed2353e06b9cc26ce793a796b4b49b6b2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1a1cc416d812b2440f474cca.wav",
+      "record_id": "1a1cc416d812b2440f474cca",
+      "sha256": "b4b8c2499f47af5ef0644d8930ec65b36758362e1571563edd1ef064afb33749",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/c1cc98777def52d10c7021e1.wav",
+      "record_id": "c1cc98777def52d10c7021e1",
+      "sha256": "295b15812bbc310b80d531734d471a70b3bc3b66cd2e668375af8ec906a8275c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1ca4eaa32cbaf940d80487b9.wav",
+      "record_id": "1ca4eaa32cbaf940d80487b9",
+      "sha256": "f47cf8bbaa84e1d0bb1b5ef40032da67d6cf0a5f0994132a771849a8605c434d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/0ce995858a9f6da2541a72a2.wav",
+      "record_id": "0ce995858a9f6da2541a72a2",
+      "sha256": "17291e1cac9d29a53ff55d7018d8c62b82d14deb542116a39f42b75fc9b686c1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/143688f029ef0abe59c49199.wav",
+      "record_id": "143688f029ef0abe59c49199",
+      "sha256": "35c4ff3b9aac1e0e85426f217f55a8f129a1c260b31350ce562ff68ac514fdb4",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/4d1ad895e2e96628efc340b5.wav",
+      "record_id": "4d1ad895e2e96628efc340b5",
+      "sha256": "39927b5b5d32a9bf6edce879e57e984bde6917d3ced513b88a3f8e564b7c77a2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/4e0bc595cc76b09d5050c999.wav",
+      "record_id": "4e0bc595cc76b09d5050c999",
+      "sha256": "7f78f411677caeb68408851401ef6108b24d8dfbf661e54653ec180ff66596f3",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7853eba10b7f9ffd57d3b32b.wav",
+      "record_id": "7853eba10b7f9ffd57d3b32b",
+      "sha256": "af80af8f456893bbc20be00aa481f43c5908101fe7512234342a35bc96551a1c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/16bf1b3a728b469c5f8935fd.wav",
+      "record_id": "16bf1b3a728b469c5f8935fd",
+      "sha256": "5b43c151b99f6367db64444ff4479eeac50061e4886150add5f68d1b0063731e",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/937fba0212c61f64d199b264.wav",
+      "record_id": "937fba0212c61f64d199b264",
+      "sha256": "15e7e14eccf914e3f6189be2a213324c735a0a49b96de55039002be420836157",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a70374bb0d9565e96fdb3c29.wav",
+      "record_id": "a70374bb0d9565e96fdb3c29",
+      "sha256": "1751ed7e6fd2d5957135d4e268d1a30c4624f02a6043cf866a3cac7d5d24ad51",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f0afccd187e96081cb5a9b27.wav",
+      "record_id": "f0afccd187e96081cb5a9b27",
+      "sha256": "c1afc1ca44335cee3fde61e799c1257ef524c5bcc367917f25c2b72852f3b006",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/0e6c48e22648a28618fcd588.wav",
+      "record_id": "0e6c48e22648a28618fcd588",
+      "sha256": "269b4b1f82a3bef5a91f47bbebc997631f4d13240886be25e7875c85667e036c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/39a6dc1eed15ae1a1b0cb054.wav",
+      "record_id": "39a6dc1eed15ae1a1b0cb054",
+      "sha256": "d413144019c7fabc98e60cbc71d34baae89b10101c6c461bbc32bc433b67a595",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/95c46195c8109b25a9852e5f.wav",
+      "record_id": "95c46195c8109b25a9852e5f",
+      "sha256": "cba01f90496ffd3f0e8ccbc79e1a61a3ccc3c99e57f30a616022f16283fb23bb",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/3bec4ffda9730088efbf9cbb.wav",
+      "record_id": "3bec4ffda9730088efbf9cbb",
+      "sha256": "665a79e2cd9e18472418722a36509c4680c1424a3cc1615300321ebfeb746b63",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/17b84f8fbc5a8524618c5776.wav",
+      "record_id": "17b84f8fbc5a8524618c5776",
+      "sha256": "e46c32274df323bd8dfa4ad89d7d1ad6914bdb95996e863a6c4ebc70c95e9e6b",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d66cebae49e3094cf854b338.wav",
+      "record_id": "d66cebae49e3094cf854b338",
+      "sha256": "c1809b4f88fa98a38afb797b9809421255cad2dd0fc2dbada4ac0b2a116c301d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d1bb8af7442b8d4c69e07acd.wav",
+      "record_id": "d1bb8af7442b8d4c69e07acd",
+      "sha256": "e5cd2f094503b6c53c778b806f1e9b044bfed149c5cfd4538f7edf8e4c396dad",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/5359c0ce340dc9841169571a.wav",
+      "record_id": "5359c0ce340dc9841169571a",
+      "sha256": "fca5e042412b606a710c4c39a2d58db3eedb37ef59e0738b6068001da41a6f17",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/6e7084efa7b0f440835eb33e.wav",
+      "record_id": "6e7084efa7b0f440835eb33e",
+      "sha256": "374d2bca55bfeb5795f4afa0b7b9738077b49e97263e1fab73018783a7d9118d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7972d6230ec636c0a6a506fa.wav",
+      "record_id": "7972d6230ec636c0a6a506fa",
+      "sha256": "4f5a1d81dad97d73dc472e9c15263554407813cedec2ee989155020bed20fbf0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/79bc1000dcc55a1bfa6f2c6a.wav",
+      "record_id": "79bc1000dcc55a1bfa6f2c6a",
+      "sha256": "530f3925e85aafa8f9d562e8df7ef56c5538b5d48827cc1f5e274d1d5253c111",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/4d6281077c3f65e13e10b84a.wav",
+      "record_id": "4d6281077c3f65e13e10b84a",
+      "sha256": "468ad32b253df6084178dd1102b6926bce80392a3d5551f6490419f788a588e9",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/8c1cc2fdb620d0d26523c446.wav",
+      "record_id": "8c1cc2fdb620d0d26523c446",
+      "sha256": "2e0f9171f6079cd20b5e62289f8bb91518c80aa33471669fab7b792cf46ecfea",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/02e38dbd58f0b0289f1127ff.wav",
+      "record_id": "02e38dbd58f0b0289f1127ff",
+      "sha256": "d8b765f1e4231bfe0da317da0b55bec928a147b9c4ad6ad1e78a7d8fa74f4693",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/913e967ced6b77cd19058e8b.wav",
+      "record_id": "913e967ced6b77cd19058e8b",
+      "sha256": "fa36856260517e8291c4d9397fd8040faef4c9432903ccb8975674121a1d7595",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/6e452186b5af6b48e20b9555.wav",
+      "record_id": "6e452186b5af6b48e20b9555",
+      "sha256": "8af013cca070ee06513ff5fec57aa566157811ba6f90c1f80ee1b57563776b98",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9a115132533510af46ed8467.wav",
+      "record_id": "9a115132533510af46ed8467",
+      "sha256": "b70488f4eba0a0a610481b1685f6d594903d48e3816108305ea2043307ac4cb1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/49e466f684fd3e7417d1876f.wav",
+      "record_id": "49e466f684fd3e7417d1876f",
+      "sha256": "54af5b0eaa9e9322b614428dae776c77bcdec227ba38175e062f15c35d9801d8",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/e5c028efad5db718f26a75d2.wav",
+      "record_id": "e5c028efad5db718f26a75d2",
+      "sha256": "996386a100d968d7740182fc2d5d835ecd21d4ed4acf5896bfa12238db1c6ab0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/be69bbfb12aa0f478499af30.wav",
+      "record_id": "be69bbfb12aa0f478499af30",
+      "sha256": "c0651100cccd5588ecd91c4dfaf89952d3a97ac59cc6795142ede77e60e20632",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/5245243bc3bf194ca61748da.wav",
+      "record_id": "5245243bc3bf194ca61748da",
+      "sha256": "15233503d995c433cfe011028d885b30ddb46ade8d1cb82053c9c8370f152289",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1020a65dabe4c6617e660f8b.wav",
+      "record_id": "1020a65dabe4c6617e660f8b",
+      "sha256": "92816d96fe6cf4fdea871a8bd30e95eb7a52183867641801ba6cd373c55dd169",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/64421d7b63a4ba957ecfa756.wav",
+      "record_id": "64421d7b63a4ba957ecfa756",
+      "sha256": "7928b7db0ae7d6219a0aff60508ce4c867fc280124ec3ddc8557e8717afbe949",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/63b7fef6fa7f6f52cda4c2c0.wav",
+      "record_id": "63b7fef6fa7f6f52cda4c2c0",
+      "sha256": "27ce89a96b4916de6eaceacebf072e237a231d4aeb2872686c5a1396f8ddc3d8",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7b08f85583c2e357932e229a.wav",
+      "record_id": "7b08f85583c2e357932e229a",
+      "sha256": "94e427f86ad04d8cc3f296912f95b9a00588990193722f42a3740c6b32a7b8de",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9cb6f6eaf3be85d765efc8b4.wav",
+      "record_id": "9cb6f6eaf3be85d765efc8b4",
+      "sha256": "1276d116fbc31f9abb0f6a1da4b021f7c096951542902285889789616290cbd7",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ceea5d51d1a8ab038ccf5e1e.wav",
+      "record_id": "ceea5d51d1a8ab038ccf5e1e",
+      "sha256": "8bba44cfa55307ab7f9c390cd3400a4834591eb14705be9696539afe25ac25a7",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/98f6e73f1c230650aec783bb.wav",
+      "record_id": "98f6e73f1c230650aec783bb",
+      "sha256": "5161daf9c7da3843bdb0ab530483141a70cbb5ba77cd4cd4453457111be9f6e0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/16c6241193fce5d63f4663b3.wav",
+      "record_id": "16c6241193fce5d63f4663b3",
+      "sha256": "da74f8fc18c01c9698fc2cd886bc6cd64eac9f7545be8553624ba17885d8264e",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/c59a8cc0ba9650eb088e63a4.wav",
+      "record_id": "c59a8cc0ba9650eb088e63a4",
+      "sha256": "26232719eea4cae887a16e392a413c99be94aaf5fb06259018186b4e9de11f8f",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ce87e6c286eecb932e2c570c.wav",
+      "record_id": "ce87e6c286eecb932e2c570c",
+      "sha256": "c4689a0d951b9d43e6f66d8bcc5f23b859c2d5db32eca9e58c45e769dece0a11",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/38b949cd6027ef55acc11721.wav",
+      "record_id": "38b949cd6027ef55acc11721",
+      "sha256": "45209b0a8020aea55d258f75d621eb4680c3b8d4804e39490a026614b5272e53",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/95aeca0be8316d07ce75880d.wav",
+      "record_id": "95aeca0be8316d07ce75880d",
+      "sha256": "ad5963a698aece320a4916b958d0639f8551759b7f93c3619b15d067065a1d1c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/0a22a0f95d63313c00ce5a96.wav",
+      "record_id": "0a22a0f95d63313c00ce5a96",
+      "sha256": "a71c1baa426a3d644710bc1fa444a4d168d594c10cd900c7481443333e18726c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/84c898cf04d3e93b4fd1cb6e.wav",
+      "record_id": "84c898cf04d3e93b4fd1cb6e",
+      "sha256": "552c98a6f299a5ac89d89fb1370bd2eabad20ec94fb33209221ed50ac82071e2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/596590fae8257ad9404393b1.wav",
+      "record_id": "596590fae8257ad9404393b1",
+      "sha256": "45c79f8b9e454cd186f80cb9a17e8d09b46c810ab36908545dd12125689da38d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/894f84200bf7106122707749.wav",
+      "record_id": "894f84200bf7106122707749",
+      "sha256": "ccf93a2a4da0b133e8cfae4e7ca22793e40cb7991102bceaa5534fc96d376120",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/237ecdc1bdd276a3ec3d65fb.wav",
+      "record_id": "237ecdc1bdd276a3ec3d65fb",
+      "sha256": "3b663c86d5fab12bb63f6c4f457886e97cd38e68da51d3d11c913208f8a8f3e3",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/189d8076d76134b0f6bf585e.wav",
+      "record_id": "189d8076d76134b0f6bf585e",
+      "sha256": "faccd96094b801e97e8a36a915282e8b65970d80c3df2bb08daa8d30d452cef4",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/b71e6502dfa9b2c15c21ba56.wav",
+      "record_id": "b71e6502dfa9b2c15c21ba56",
+      "sha256": "2c300409f5930fc0f3465d0185a13c6cfd4aaf4ac642f306b388b650dcb47b56",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d243f64b760084c965368e80.wav",
+      "record_id": "d243f64b760084c965368e80",
+      "sha256": "db923fe4e623d700d81a3770d30256fad172d6e305ffe53c262750e5b3276ab2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a412291324c1642147195c05.wav",
+      "record_id": "a412291324c1642147195c05",
+      "sha256": "03edad29ed93eb28729577330bedfb10c6b368c49a5bf346a4cd8757126bd7bd",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/18daa6d9502f38ec79260df1.wav",
+      "record_id": "18daa6d9502f38ec79260df1",
+      "sha256": "300bce7dfa625844c341c35c32740cb8d93e04ccca695493b7f1c8224359b94e",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/80449a1f4a31728e3d0050c5.wav",
+      "record_id": "80449a1f4a31728e3d0050c5",
+      "sha256": "d2cef104b08051b8c893fa8b4f80c9f3af101b680075ea2387ea8ac6db6e0d72",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1497025a0b40d68a52304016.wav",
+      "record_id": "1497025a0b40d68a52304016",
+      "sha256": "0f259cc8756b75b030d0a10a860b733ca627793ac35e6f02a76cfc5e1e8020a6",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/707fb5c9b789ef047986be09.wav",
+      "record_id": "707fb5c9b789ef047986be09",
+      "sha256": "6798cf02cea3d1fc1d4658adb09427047b2446d3f39661d6321b59f1089e8c78",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/22ce2f07e0e3423e5f80ace0.wav",
+      "record_id": "22ce2f07e0e3423e5f80ace0",
+      "sha256": "bd90e5a611689d2c73d638872e2fabefeab3a6f8bc290abb15c3c205160a30a2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/bee5b53e0231486bcebe78d9.wav",
+      "record_id": "bee5b53e0231486bcebe78d9",
+      "sha256": "cb0f41ba8b9b1b12bd522ca165adcdadc757634541d21c0343ecdd54674a7194",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a133d68a082ebc4c3c4442dc.wav",
+      "record_id": "a133d68a082ebc4c3c4442dc",
+      "sha256": "b1483ce62c7a0a0a39191839b5fdfc6e72e30c1823efaaf399eb82883adf548e",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d43ce184f6289b9f10406c13.wav",
+      "record_id": "d43ce184f6289b9f10406c13",
+      "sha256": "71a8928f934efc855d1cd74495d150db6497e6eb3eb32ba88abeb26735468c4b",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/840d0adb6b9e87b0358d7799.wav",
+      "record_id": "840d0adb6b9e87b0358d7799",
+      "sha256": "ca84e67313537386e44f30b0bd96e31318aff1cfd33297fe99638b4f755c1ebc",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/5a45a8302ec24b40e3c6d524.wav",
+      "record_id": "5a45a8302ec24b40e3c6d524",
+      "sha256": "101e5cb7f78596f4f60ec7e6eb02a68154f7604054c0132acfa185bee536e1f7",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1707959af10e228d97f6b19b.wav",
+      "record_id": "1707959af10e228d97f6b19b",
+      "sha256": "1357061a074a6abaeddf37aef611302e57b3c4b2a5ea5c2ec63642571388d46a",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/dcfc906ba0094c83975f6a51.wav",
+      "record_id": "dcfc906ba0094c83975f6a51",
+      "sha256": "c10c2ea22c2af87b79321c63c71b3803397f7535fb9d8e57f300093ec4ccf419",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9bf2a54407766d0ca2b18f62.wav",
+      "record_id": "9bf2a54407766d0ca2b18f62",
+      "sha256": "fde5d4a3e0e04e83f65fcb4b6bd51c239e469eccc9ccdd064fece8e8f5d3744a",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/025d199d877d42fd183ed9d9.wav",
+      "record_id": "025d199d877d42fd183ed9d9",
+      "sha256": "cbd590bdded7d02c2827230435abb88f4bdcc67164b301de28f879b13f803576",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a51ecd868f4b9273efb47117.wav",
+      "record_id": "a51ecd868f4b9273efb47117",
+      "sha256": "71e5bc006f09fb44506c15ffaaf3015b1e668f5509728b2404773d895274fcf7",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/e8559b8f93c64443790d5c81.wav",
+      "record_id": "e8559b8f93c64443790d5c81",
+      "sha256": "882c98f73dec79fe189a9ad14189e1e1970716daf6cfefcd2478aab49eaa0da9",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a9dfac6e67ed71d8045749a0.wav",
+      "record_id": "a9dfac6e67ed71d8045749a0",
+      "sha256": "a4faff569662fef064da5c31741a232b0e92e03d6a37c9f3c33836e131cf06b8",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d1124bfef8cd8002c38eb2fa.wav",
+      "record_id": "d1124bfef8cd8002c38eb2fa",
+      "sha256": "474b84e5ebc6837868f65b203d48fbad36016e86892deec7cad6fa059c63ef06",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/bcb71084ee2a82956db22801.wav",
+      "record_id": "bcb71084ee2a82956db22801",
+      "sha256": "31b62e8a3af004692fcd0bfea10bb0e808363b7ec0f461a4ad742176b6d75eb1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a6801644c02a9277a318de71.wav",
+      "record_id": "a6801644c02a9277a318de71",
+      "sha256": "defc65967c84d29dbc561df3d3e0980e7193c60c2eba4eaaa55e1b2ab7ae396d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ab93017f4d554a9e0bef8025.wav",
+      "record_id": "ab93017f4d554a9e0bef8025",
+      "sha256": "016fa972416c6d5ee0af532659584a3d8a6693b131393a1149c6f1b73bc9f820",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ce4706ad6066ccc6cfcaafae.wav",
+      "record_id": "ce4706ad6066ccc6cfcaafae",
+      "sha256": "506a7f09e3379481786856d7bee7c23748b8cb400f1b352a2f3ee6e569442209",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/6817b05d56c2d7c14208f305.wav",
+      "record_id": "6817b05d56c2d7c14208f305",
+      "sha256": "e45170eca3b366d8d6db302ec5a0b5eea34bc2628914d1420290c8fe01e95881",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7615a47fd5cd65f4e53bfe2c.wav",
+      "record_id": "7615a47fd5cd65f4e53bfe2c",
+      "sha256": "a7913374c1f4d48600f3ab0d021e6d7ff5001bea7093c8fb8fef59c04a083f65",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/00a26f79b6d99a20315b944e.wav",
+      "record_id": "00a26f79b6d99a20315b944e",
+      "sha256": "ce7968af48b107daeca2d25986c47e88f8a0c5d2778328e6c5bf2887e2cf9f19",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2fabd76e42b824135f44eb4a.wav",
+      "record_id": "2fabd76e42b824135f44eb4a",
+      "sha256": "433a7dfae9154577c3945139f36fcdf069e09ff818cb4f23eab6e1b42e62425c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/664d2bb9d8bd672410a2f160.wav",
+      "record_id": "664d2bb9d8bd672410a2f160",
+      "sha256": "5d3c72c983282c499b236beff48e8ca6b8b06c2d18c18344feed414cb38311fd",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a7a3ad91bfc8d9c22d6437e2.wav",
+      "record_id": "a7a3ad91bfc8d9c22d6437e2",
+      "sha256": "d12b25283bbf6d5ef5bca6ac5ebfb688858792b7434ed2829e24f296cc7415d8",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/704111dc8c6d1d215798eead.wav",
+      "record_id": "704111dc8c6d1d215798eead",
+      "sha256": "3461746d374fa0d4b1cef33a1648e780c98660b3f67e3de69cb68c9ff66b56b9",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/e756e77e433089b6b8c243ce.wav",
+      "record_id": "e756e77e433089b6b8c243ce",
+      "sha256": "ee52a7074e97a2f7dc1ad27013a00666b925762ab5e642beaef813623f1b2978",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2c162557132abb49f61e137f.wav",
+      "record_id": "2c162557132abb49f61e137f",
+      "sha256": "ddaa59d95a8d4f00c648d51bc5eca6695940950e0ebe4498d946b749a29008b9",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/371df18de7aa27c6a94fb867.wav",
+      "record_id": "371df18de7aa27c6a94fb867",
+      "sha256": "5e94204709e446759db2e8a1e9a6f44bf383d528d0fa8571b1c3723d2d5968ec",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/69fa266f6fbd91c58fa63f67.wav",
+      "record_id": "69fa266f6fbd91c58fa63f67",
+      "sha256": "74ba487c942797d417f9e286c7f8cc32965b007668abfd7c5a6faed45266916c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/58cf7f48067e24a82af5db0d.wav",
+      "record_id": "58cf7f48067e24a82af5db0d",
+      "sha256": "5f99c0f453e2660b4678ef73084a4a4ec9bca0fe65d567dfc3096c6c1517d93d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/e617d99c3fdd7ff1567942d8.wav",
+      "record_id": "e617d99c3fdd7ff1567942d8",
+      "sha256": "89c086b9f53fe91c23cdddad2af1df26ee308078abb7576c6b395938351e6054",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1e1461a137ba4f6e55b4588c.wav",
+      "record_id": "1e1461a137ba4f6e55b4588c",
+      "sha256": "a65c10790ccc1701ebf00a56ac8ebcb6e365e59bdfb02adc1453e15e8c078775",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/aff4a86f094aeec3087e9e07.wav",
+      "record_id": "aff4a86f094aeec3087e9e07",
+      "sha256": "dfb7d82c0be16e4f18372e192dd297193836871b83c80ca5659de804953737c6",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1b49a2c9188a3109637d5c7c.wav",
+      "record_id": "1b49a2c9188a3109637d5c7c",
+      "sha256": "79e3d84af41b35e156c1ee714af246960bc960cdb9b97ee039ea12fc18978c81",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/5f27a1dc1cdaff54f0c723a9.wav",
+      "record_id": "5f27a1dc1cdaff54f0c723a9",
+      "sha256": "8f4d9c2f47b2d8505a2b159b05da2ac574dbe75c6e9a560453c52191c4336566",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9e40611e9c1cba3c5ce4f7a9.wav",
+      "record_id": "9e40611e9c1cba3c5ce4f7a9",
+      "sha256": "1ed674aaf83f49bc8919165d026078390e17722b850787961aab15c430ef85fd",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/6fe991aff560d65907702537.wav",
+      "record_id": "6fe991aff560d65907702537",
+      "sha256": "22194e71c3977f6efc7c59e4060c1d554e3e22b408266cbcb47d4e761542a603",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/0c6750ed768341fd989fc542.wav",
+      "record_id": "0c6750ed768341fd989fc542",
+      "sha256": "412bb9176b95b907e209d9ec02b95385819e6dab0139c7401f2ca4acafd8c854",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/34881662aa4dfe4a8610fcc4.wav",
+      "record_id": "34881662aa4dfe4a8610fcc4",
+      "sha256": "fa1f720db4141772a24cd777dc9a8508ff275796c1b86d0ffe04d97b674ca066",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/b760175ca1bb612127b112fc.wav",
+      "record_id": "b760175ca1bb612127b112fc",
+      "sha256": "c5cca27a8caacca48704f14aee760aeeff0a7b2b38b10d1703a8b1dac12cd2ec",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ab89414dbe6cf0a95430560d.wav",
+      "record_id": "ab89414dbe6cf0a95430560d",
+      "sha256": "ae2e9573f89331bb73b9472f3767ca16428699261da9b7cafab52f129e0c7374",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/90fac29d06fc4f42a592ed16.wav",
+      "record_id": "90fac29d06fc4f42a592ed16",
+      "sha256": "71e5d8511db11febc7c345290e579b4c6002517abea4489499ab8dd1e4e1d833",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1002fd2a48d2ba16382cee18.wav",
+      "record_id": "1002fd2a48d2ba16382cee18",
+      "sha256": "7512c4d7ee1a04ac3db017d013c4c0f073ed6a2b9df64fc88deb6b1af54e4172",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/3c527b1338935d62dce12753.wav",
+      "record_id": "3c527b1338935d62dce12753",
+      "sha256": "f450675833497a90a41a99b3b4f0736b1ebb1e535c2d1bda63b5ec0a008e7582",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/afb4fb68dd032329bd633631.wav",
+      "record_id": "afb4fb68dd032329bd633631",
+      "sha256": "0a24cd2615ed99a74cfb804812f540da8f20495b420be89d906e92a575dffdea",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/8b41d910a05c1e8f667fbb82.wav",
+      "record_id": "8b41d910a05c1e8f667fbb82",
+      "sha256": "e4bd49dce6b03a3052fcf9990240494a955f6afca13ac046639b173ff6d661e0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2d7185591c725cb2574d4c8d.wav",
+      "record_id": "2d7185591c725cb2574d4c8d",
+      "sha256": "51ed389eff2b2a8483be42d163f332a4a3799227bf3d08955cc8002738ae3da3",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/988fc39cb51c45c0f17ecb03.wav",
+      "record_id": "988fc39cb51c45c0f17ecb03",
+      "sha256": "4d8b7131f6333c03704b22c230c4916d5a003f0364a09f66921fbb9a4dc6bd79",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/0b558c4760d678f81eb20fcb.wav",
+      "record_id": "0b558c4760d678f81eb20fcb",
+      "sha256": "f8c2729a6b2f3480b0daa0a969998d586452e2f9665203ed4cd96bd8c258b1e9",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/dd1a32e399606b74c04a912d.wav",
+      "record_id": "dd1a32e399606b74c04a912d",
+      "sha256": "b01aabab0bb1fa8de4383febfeceb3e574c620b107bed662dc9917d5d4d92397",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/a816254a89da9559ec3bb442.wav",
+      "record_id": "a816254a89da9559ec3bb442",
+      "sha256": "42d4d458ba129497bafd455c70559e1a52851cc9b55ffb3b264e2997657e20bc",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/3c8826ac3662325dbccd4bf3.wav",
+      "record_id": "3c8826ac3662325dbccd4bf3",
+      "sha256": "f80079a59dcdab43413a2801c448af4027f16d28d6ff3f5e8162c67136260240",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1f89e8cc7f9c0f2221b3557d.wav",
+      "record_id": "1f89e8cc7f9c0f2221b3557d",
+      "sha256": "a4e889f78bb3c5b34280413254cbed3195e02c50e4abc79f9994b56b58033ad0",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2fbffab1ce70e191fe7e14ca.wav",
+      "record_id": "2fbffab1ce70e191fe7e14ca",
+      "sha256": "d561b4db18a2c945119648570862855a8f99b6296edda58cf45b5586a9c99708",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/283323b02c99a9d5e549d499.wav",
+      "record_id": "283323b02c99a9d5e549d499",
+      "sha256": "05467b2bc288622439c4a354d171eb5c8bf38ff1f47170db9dc58d2ec6e1fb69",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/63d51f44307ba62ec3a6877b.wav",
+      "record_id": "63d51f44307ba62ec3a6877b",
+      "sha256": "a489501eed7b75cb6f9d2e0b52f5d7ba39a45b763a8294d234b5ce4b311027cb",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/b423278c35a7d18a0903e5c1.wav",
+      "record_id": "b423278c35a7d18a0903e5c1",
+      "sha256": "c36cc2f03574372256a523db4ca1c348ec256e792ef03e32bbe0f9008ae6c052",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1ec10e5ed346212be7b9b26e.wav",
+      "record_id": "1ec10e5ed346212be7b9b26e",
+      "sha256": "fdffe02889156024eebbeb4f4c743927562d199427a17d68c0ce22dc27e77e97",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/3fe9a9f851c27250b7ce2054.wav",
+      "record_id": "3fe9a9f851c27250b7ce2054",
+      "sha256": "73fe84e9542c21a1be0b5c251bfb0e9af273b6e75a96953cc075d0bc07952412",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2fae3e5617bbe7b60e30ec45.wav",
+      "record_id": "2fae3e5617bbe7b60e30ec45",
+      "sha256": "af1a9ca772db09fee54555674d290a4738c2123e9c866ffc6df8a58523e6cf16",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/911847169abe90621f098f72.wav",
+      "record_id": "911847169abe90621f098f72",
+      "sha256": "3d6b42aac0f1698aa42d2a91dfea3662ba7e6a94182f2b9d49e765c695f0911f",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/57155805c4016e66627686ad.wav",
+      "record_id": "57155805c4016e66627686ad",
+      "sha256": "1310e0e3413c4f8786e2112e68f828eae37bfbb13b721bf8d77a8546e1332ff2",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/472acababbed5bb55d67287f.wav",
+      "record_id": "472acababbed5bb55d67287f",
+      "sha256": "65afb53a747b5de07a3906cf3247eaaf63698bb49be1167889b40c27cb941afb",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/4462546ab50606ced1c930f2.wav",
+      "record_id": "4462546ab50606ced1c930f2",
+      "sha256": "fafa0faa0002f1e72f3dabf244e3f4e80f08903225c67ba8ab50d4c9d23d10fe",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/99be82e5ba51fd905037613e.wav",
+      "record_id": "99be82e5ba51fd905037613e",
+      "sha256": "046b190d040865f1d7f686c6f5d656766f8e1863f96be027e3ff5f21063b55e7",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/fa893034ee2b4324c49bf682.wav",
+      "record_id": "fa893034ee2b4324c49bf682",
+      "sha256": "3ade9d9e268d7ba0051e5e6688706211da53032cbcb98e920e5664591954e64d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/7d0bbcd3edbc9e45067078f0.wav",
+      "record_id": "7d0bbcd3edbc9e45067078f0",
+      "sha256": "3461c2e17354924532aa22ae905645c506e1d1b18577e7025d08d8a4a86f1f98",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/e0273902eb9bbddce6b7b995.wav",
+      "record_id": "e0273902eb9bbddce6b7b995",
+      "sha256": "f3680429ea5ad5b76f5e1b9924b3dbb77715e0c272b9064b02499e8ab2cc6015",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9cb92c7485a082e299009dfe.wav",
+      "record_id": "9cb92c7485a082e299009dfe",
+      "sha256": "fc8c3db514efeed3f96070089fb972258a2802a0aa5873d69da13d449c154c7c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/46b9fcb8a10ccb67e63eebdc.wav",
+      "record_id": "46b9fcb8a10ccb67e63eebdc",
+      "sha256": "fd943ec9c4f53528a0e0816933e324dff145b48ad2362006b2dfbb545b007ab5",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/39a2e3be956448acda6ce933.wav",
+      "record_id": "39a2e3be956448acda6ce933",
+      "sha256": "b0e4e03f7440864c16d42653d1bb51c404d41d1030c292944c6340f1222b2800",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/ba15d9c9d823ab9ea39a56ce.wav",
+      "record_id": "ba15d9c9d823ab9ea39a56ce",
+      "sha256": "861b52e5f743d86960e75dec830ad3dbe5fd4740332d09a4698d6e97a8c9a1bc",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d7d92cd86dc94b970662f190.wav",
+      "record_id": "d7d92cd86dc94b970662f190",
+      "sha256": "32d2ed201c3dc9ef48abeab17cdbe26d2622425386d2b9f73d0407e490c4684c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d0f8ed478215c245ec44a923.wav",
+      "record_id": "d0f8ed478215c245ec44a923",
+      "sha256": "71c3b5320fb44a029f52a0188673875fa1834d168622c116d0194d91461075c8",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/d0817553febac2708b8d8e3a.wav",
+      "record_id": "d0817553febac2708b8d8e3a",
+      "sha256": "426f67da43338d727fc59129a369d5b27c4277b16581d30446dd1789e5b68b07",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/3491eea9a768fc0eb0495a8c.wav",
+      "record_id": "3491eea9a768fc0eb0495a8c",
+      "sha256": "039a7b798a267b1a380c0442599eb53647a5b100eb727868b70dbb8a23fb976d",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1032ca71e746a47f894d45c9.wav",
+      "record_id": "1032ca71e746a47f894d45c9",
+      "sha256": "f6ea6105047b5e63d97f30b422fe5d575bdfb593f4d2f364ff60259d710188c8",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/fc863d717fb17e4ad904e79c.wav",
+      "record_id": "fc863d717fb17e4ad904e79c",
+      "sha256": "0a64d222cffd45c87892879b877b2bfb87e256576df73a10990c819861135e1c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f622f3cb71ccb7dd7d4965a1.wav",
+      "record_id": "f622f3cb71ccb7dd7d4965a1",
+      "sha256": "72129db810c2b8b21e7ddf37e17db221791be8ae3a64395a5a1b316817156f57",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/49d295c66ad9144545b8c16c.wav",
+      "record_id": "49d295c66ad9144545b8c16c",
+      "sha256": "4bc57fc3f8332de8004740a793ab5e77079c9cdaa2d07c1c08da30eb12108522",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/edbd53dc875df26872833847.wav",
+      "record_id": "edbd53dc875df26872833847",
+      "sha256": "74184b0332b928d998b484c5f3b21479bfad0bd6de458bee4c16eee81b21cc81",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/9cd49a218a902a1b0c865a57.wav",
+      "record_id": "9cd49a218a902a1b0c865a57",
+      "sha256": "165ab64c1dc0a510b39be3f42f7d5c4602c67829e7e3f03ac608ce93e3cc6c01",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/b6556b5a253b85c17b291c4d.wav",
+      "record_id": "b6556b5a253b85c17b291c4d",
+      "sha256": "0425b2599befc3420056f5eaa573f2bd26081b039169d9f693d490f7cfeae640",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/e08574c3d295d123f65c5a68.wav",
+      "record_id": "e08574c3d295d123f65c5a68",
+      "sha256": "ccae67167948be8ee4f545473869348b9cc3869e75c95a6da2758b688b77d5e1",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/591bf3a9dce9e2ac1e3f00b5.wav",
+      "record_id": "591bf3a9dce9e2ac1e3f00b5",
+      "sha256": "81b77f0e3f186a2b5e60f9f211752067c9f44962cb6ce503a9a2e44d4b779299",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/fd493e903ac4fe5cb0921a1c.wav",
+      "record_id": "fd493e903ac4fe5cb0921a1c",
+      "sha256": "b8dc4487235adf306502c18fe14eac5ce3e7a581491e0c0e28984e0fb090ed05",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/86e1e7d06a3a8565e285edb5.wav",
+      "record_id": "86e1e7d06a3a8565e285edb5",
+      "sha256": "c3e20fb72374ae45ce68b3eea418603ff6c46b2614366d60a66a441bd98cfccc",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/5e4178da2ec0330c11155a95.wav",
+      "record_id": "5e4178da2ec0330c11155a95",
+      "sha256": "8c2b7e079833d969a997981f479b3e5f7ec8196b3a3d1afd20426cacfc07c55c",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/27f095506e3825d619e854fe.wav",
+      "record_id": "27f095506e3825d619e854fe",
+      "sha256": "3c7d8d4e2bbcd3a026fd1e3d0b91377f93904565945590e29332b40f8e8a0acf",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/47f46861d3226b7a4cc0f4c6.wav",
+      "record_id": "47f46861d3226b7a4cc0f4c6",
+      "sha256": "ee27e24f7b58d7ce153bad1c60d9ae7d47059d1a09a7af314e38cb1c38167c41",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/1323e6da261bab74bbde2449.wav",
+      "record_id": "1323e6da261bab74bbde2449",
+      "sha256": "f82e32a2cfbb9a2707ae7e67a7839b32cf03f158689bf923b43e1adfcac97a6b",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/f590f00b4fa66b350d7198f1.wav",
+      "record_id": "f590f00b4fa66b350d7198f1",
+      "sha256": "5f0baef4642951e88fc84040916a439b9eeaafbcbbe80e22f47bab6e32777b06",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/2b44a6723889b5ab03994320.wav",
+      "record_id": "2b44a6723889b5ab03994320",
+      "sha256": "b1b227f361d85a19ffc4d8abd3a186cfaebcbc5ae5071fdb213119bef4f69f71",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/53f3c3d3ebb7eb4ec45b328e.wav",
+      "record_id": "53f3c3d3ebb7eb4ec45b328e",
+      "sha256": "d39587bb921a496bbfa202c28a86ce1bf2f4a9dab7613f35ededa7b471efabaa",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/05ab00bc954bc00d88a23831.wav",
+      "record_id": "05ab00bc954bc00d88a23831",
+      "sha256": "d3f94dc2b736ca7ec4f3e3c250a74d815f1d81dc6476b91fb34195c40aaa2a6f",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_train/116b3d27fadea4504e5e75ac.wav",
+      "record_id": "116b3d27fadea4504e5e75ac",
+      "sha256": "4a8c4bea50f44ec4670f92816866922c6d50ece2203006caca418cd857c598af",
+      "split": "negative_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/42d27284d7eae2dc44346cb6.wav",
+      "record_id": "42d27284d7eae2dc44346cb6",
+      "sha256": "eec52d16850cea37ef6918d9138b86404c2aace863269f670d5e5796dfc2e5dd",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/35baed8b59669b0dab059636.wav",
+      "record_id": "35baed8b59669b0dab059636",
+      "sha256": "76966552f101e47ccc7ed4dd96b71140335649994948c5b19d25285c4044a45c",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/0ea4401b5521b19cd499b074.wav",
+      "record_id": "0ea4401b5521b19cd499b074",
+      "sha256": "597ebf207961618296dd97f11b5b0308dc7280fb49c982b431cb022f2431db1a",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/f34c976c035ad0f96b77c408.wav",
+      "record_id": "f34c976c035ad0f96b77c408",
+      "sha256": "7584197be142581fb101a1881066e7841532919d367c09b2efcd126a105649a9",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/4fd50f9e908775a6adccaea7.wav",
+      "record_id": "4fd50f9e908775a6adccaea7",
+      "sha256": "90a2627b4f4931b6374d9cb1e798450b2f6737e22c8f4b3272882c30126f2edd",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/beb5ccf7b5cdc2bcfd65909d.wav",
+      "record_id": "beb5ccf7b5cdc2bcfd65909d",
+      "sha256": "01e3751faf688d1fab72ce35007498dbeffe2fff8d1d7cbe896e975cfce96008",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/30c3601aadd2d3f539fe85e0.wav",
+      "record_id": "30c3601aadd2d3f539fe85e0",
+      "sha256": "aaf69c1972a7ac8f5c1c8b74d293490742d6982a2fb9f66f06aa55a96ea3e487",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/622365264108121faf87ec8a.wav",
+      "record_id": "622365264108121faf87ec8a",
+      "sha256": "bdd2591cb7863ac5b89eb46271a31b5a4901df66771aa720058ea02e2659f1d4",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/85cc31c98dec33251fbaa8d6.wav",
+      "record_id": "85cc31c98dec33251fbaa8d6",
+      "sha256": "401073fd6efd1468ad95502b868dc2a6578be0cb6844508f981094d0b7072714",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/d980cff7ea08477059cf9bf3.wav",
+      "record_id": "d980cff7ea08477059cf9bf3",
+      "sha256": "e40b47d0494639220d78791d7a2e48f5d4137d0e9c43547ab49f2df49766fd91",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/c4f6192c88e469ec6ac77ff5.wav",
+      "record_id": "c4f6192c88e469ec6ac77ff5",
+      "sha256": "7eceb1bd0d6b4a9cb6526cc785cf5109123136cb14116d1fd8605f74b6f10a2c",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/6b903611fabbf006355b4c1d.wav",
+      "record_id": "6b903611fabbf006355b4c1d",
+      "sha256": "4b78018411ce63781fe1fe335552bba41ac585b0c2add93bf14970cb2733b359",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/e1a15c3af50da024b0d78bd3.wav",
+      "record_id": "e1a15c3af50da024b0d78bd3",
+      "sha256": "efab4b6bfe35454b7cb4ae7f9ede4ecd0ce45146269881f6141a49fb2d1cb3bb",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/aa35484af9a618712f21a7dc.wav",
+      "record_id": "aa35484af9a618712f21a7dc",
+      "sha256": "db85794a98a6a484775678768b797449a5d7be7d54f2b314046c2bc38d6d0495",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/a69bd956beb8c6e6e03515ba.wav",
+      "record_id": "a69bd956beb8c6e6e03515ba",
+      "sha256": "94522127116df9a0c38ee0073e695ef3e931b909070050446f9a346a2bff5a97",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/5c71ba5c3ef62d8925cb0253.wav",
+      "record_id": "5c71ba5c3ef62d8925cb0253",
+      "sha256": "9ff1f35d9b7cba999b470740cd0398bcd7626e8dedc20b8bd3ab04007126db82",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/b101d8a58b4bec8748f5f65d.wav",
+      "record_id": "b101d8a58b4bec8748f5f65d",
+      "sha256": "56b9ca8d71863d62687289982e01994aa80cc30a5b2718bd80b2eb8c5a297f16",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/cde2a6ee3af269a852822fa0.wav",
+      "record_id": "cde2a6ee3af269a852822fa0",
+      "sha256": "ee8edb078a7d8025419f207aa08a941e405e4fa6fa3b0a787d1593f09d3c514f",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/8b6446770919b3e21271b8d4.wav",
+      "record_id": "8b6446770919b3e21271b8d4",
+      "sha256": "cdbba39f46e2e8b6eb3f0fafa2477a3374d4b53c8963870bafb0e6038d4abcfe",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/ccf8ba43db395ee9fcf76c1b.wav",
+      "record_id": "ccf8ba43db395ee9fcf76c1b",
+      "sha256": "b0478bf0a2845d38b763130fbc5d8666808ca5616194e6a0b796e353c07c6888",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/51ccf97090ec8ade3bfa84e5.wav",
+      "record_id": "51ccf97090ec8ade3bfa84e5",
+      "sha256": "c6bc5f008a682f11aba0cfb53126ab6d2ead8672a42bb0742f5705b3b2f085d0",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/45d6fd3a87a3436127d970ae.wav",
+      "record_id": "45d6fd3a87a3436127d970ae",
+      "sha256": "c116ffa39512193ae7c365d72190dd12000fb452299b502d2bd30bf7592ad26e",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/cbe8a7c7ca5545a9d2d26f9c.wav",
+      "record_id": "cbe8a7c7ca5545a9d2d26f9c",
+      "sha256": "44713fb7c716f356498d6d139bf64e20de27ecedcbe3af66162e2eee31d91e40",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/37de1e6028efe71f7545a5fd.wav",
+      "record_id": "37de1e6028efe71f7545a5fd",
+      "sha256": "b6514f7b62758b4e5bb1f4596ade3a2d1b21011e2b7b9fad3b96a14adf529e65",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/33c350de89cb95383f0326ae.wav",
+      "record_id": "33c350de89cb95383f0326ae",
+      "sha256": "13f43821ab25689174884cc9797ef99e283fe7abdce823801e7a8fbd1d653b25",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/36a67fc9b9564038e980ef1e.wav",
+      "record_id": "36a67fc9b9564038e980ef1e",
+      "sha256": "820306f0dfb33063d5927a4531354bac39b505ceaff294a5f9e192a43a21542e",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/0f492efca9fe9e7032f54bb7.wav",
+      "record_id": "0f492efca9fe9e7032f54bb7",
+      "sha256": "65e23e70d329f777e345bd2032b13b1968d3497e9bc63398411f66595e8dcdef",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/b327531a0a06b93c5e6ea4fc.wav",
+      "record_id": "b327531a0a06b93c5e6ea4fc",
+      "sha256": "489f384c954eaa989cd19074d37be196770e787228bd098797cb8b02e123833d",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/86818cbbb06f3b1c5c34389c.wav",
+      "record_id": "86818cbbb06f3b1c5c34389c",
+      "sha256": "fa09dc08097e1824064a3e370c651695c889eb62e5d60af60d07250a9929de8b",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/5168d194240e7df5b8bcfbb3.wav",
+      "record_id": "5168d194240e7df5b8bcfbb3",
+      "sha256": "30204bc3727b7493fa6b70b83ff22642e0b97dec34d3572d0d91e66e95260fce",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/cd9c675fb72902f90b7a1ef2.wav",
+      "record_id": "cd9c675fb72902f90b7a1ef2",
+      "sha256": "96a6e2f2145f30fbe773b3a2fe3f0e48dec4c35bf735c0d0f54140b3a7184333",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/cbdc7172aa31fff181329e6e.wav",
+      "record_id": "cbdc7172aa31fff181329e6e",
+      "sha256": "381d1c5d3b0a5c8d6b26b91ed7a7f00e1518124badfeed1faba2a92bec384418",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/af6872319ab6434e7216ed6d.wav",
+      "record_id": "af6872319ab6434e7216ed6d",
+      "sha256": "e8b2af67afa344758a831a0858e7bcafed2f2684407cb1346e66d060ea4da9cd",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/d494a0eedf7afec3b8dd91c1.wav",
+      "record_id": "d494a0eedf7afec3b8dd91c1",
+      "sha256": "4c999317780274d0f7b21e02cc73883f5c98c412e31d9f606fe09daf0ab4eec5",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/f3dc72c1f1ff815e374cb247.wav",
+      "record_id": "f3dc72c1f1ff815e374cb247",
+      "sha256": "f3ef3eb07b7f1f88d52898f4f4d5e22cabfcff190f0aaae384f82ceaf1f1ff45",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/97a27eee134f8f458cb886ae.wav",
+      "record_id": "97a27eee134f8f458cb886ae",
+      "sha256": "59415f26f21b002bdad350d6742fff5a66234aa0f9172957beb271405b2b0399",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/c3b6e19a3b703fc71d9c08d1.wav",
+      "record_id": "c3b6e19a3b703fc71d9c08d1",
+      "sha256": "0295977003c1d8cac61d0d31ddaddd03c41096e4cd70d864ac66fef2c3dde28f",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/1bdb06f33508591b79ca2a66.wav",
+      "record_id": "1bdb06f33508591b79ca2a66",
+      "sha256": "fa185e22d620b5a14659e670435ee20b00ec056824fcf748e0e91f9c5db6b67d",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/dcec3fcb1ae849e5ee9afad4.wav",
+      "record_id": "dcec3fcb1ae849e5ee9afad4",
+      "sha256": "5572e2b36887bf99ef486fbbaf636f1376b392e6fbfa6e82d7c24aaa6f62d276",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/ce078143e0f2f46395481de9.wav",
+      "record_id": "ce078143e0f2f46395481de9",
+      "sha256": "988a85c65979aec2ae8e364a85365455310dfec505a82d06f1ae456809f73ddc",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/b123336371825f623f464c41.wav",
+      "record_id": "b123336371825f623f464c41",
+      "sha256": "9928c22017d91bacdc45aa424b253c27c27e506546a550870d213d2d20c2ee36",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/f7bfa2b64b0af0005935b286.wav",
+      "record_id": "f7bfa2b64b0af0005935b286",
+      "sha256": "a914ec1cdd860cfe3f73d509788e1bfda68fe1eb370afeefb300734486ffd6b9",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/6f3e895645dcfd259ecff529.wav",
+      "record_id": "6f3e895645dcfd259ecff529",
+      "sha256": "a133945073d1492f3c79f0c9a4b73f7d88d64640ec0cdcf9d29787cc9d2c97b0",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/5a8285543b2c78d4ba6198c6.wav",
+      "record_id": "5a8285543b2c78d4ba6198c6",
+      "sha256": "95c1726cd2ee2585be2dc5d1f7a80a0c994e313129acb36492cf91e834523f37",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/8c31dc81c95e135d2fcd3211.wav",
+      "record_id": "8c31dc81c95e135d2fcd3211",
+      "sha256": "98cc620d11f0f5a3fd72c95426b9e96af728295c63d68366ceec7b8dbe12dede",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/642f4d2cf368ecccde12ff15.wav",
+      "record_id": "642f4d2cf368ecccde12ff15",
+      "sha256": "61066e29520866dd1046a5fb2df2b749383077b29f7d51ca493468945efb3f9e",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/9a0f89acb96851a90f297070.wav",
+      "record_id": "9a0f89acb96851a90f297070",
+      "sha256": "452c7e231e4f4b3a85aaef1717dad336198fd142c577645fc1c541a5c9774980",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/83633d4241f413a5cd8df413.wav",
+      "record_id": "83633d4241f413a5cd8df413",
+      "sha256": "37ea93d96cd773ef84d1739c373de904b809a4ec6da3f81e10a984be367a8fda",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/c16e54fadd31803fc49b0dd3.wav",
+      "record_id": "c16e54fadd31803fc49b0dd3",
+      "sha256": "3448837ced7fbdb7b356cfcafe08a278f932c3b6995e0d0b9a3007a9669e7508",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/402bb6943dd668f77b179dd2.wav",
+      "record_id": "402bb6943dd668f77b179dd2",
+      "sha256": "aa2e1ebfd1cf9e502dfd018a00b5595616b9afa3f67edc95a8fdc2a9c0b28451",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/e9af856098fa96dd5fa1c560.wav",
+      "record_id": "e9af856098fa96dd5fa1c560",
+      "sha256": "f72d6e32a60027e505f069adc38a0ea304dfcb775e130aa6f68449b32a1b24c1",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/9b6e009a0ac5d7b9333766a2.wav",
+      "record_id": "9b6e009a0ac5d7b9333766a2",
+      "sha256": "0cd95d6aa416e0dcce887e682bfe2bd46c97dbc9b97df22cbfb655e16ab1a22f",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/8a1058fd2574b453ca1a2d19.wav",
+      "record_id": "8a1058fd2574b453ca1a2d19",
+      "sha256": "cf86110fd61d7f1ec05eb4c23a40463bab68f91187833c1405afacd7867d2875",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/9a8c6d4c2aa7d9bd5250cacb.wav",
+      "record_id": "9a8c6d4c2aa7d9bd5250cacb",
+      "sha256": "02675b1d72102e8cb53b319724ea9dc4fa6417ee8794cf092094b4dcefafada4",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/e3a783ff333f1a69b743fe4f.wav",
+      "record_id": "e3a783ff333f1a69b743fe4f",
+      "sha256": "b2027966eb279355814c08424a909ac3b98f0eb2b6a4494db64e86a3053c83d8",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/56cb17b1162f5c90dc004329.wav",
+      "record_id": "56cb17b1162f5c90dc004329",
+      "sha256": "32649045f7aa811e1af70120487c773d96f558b5328a8246b920deedb9af188a",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/3df01179a1bdb140e2ff5b42.wav",
+      "record_id": "3df01179a1bdb140e2ff5b42",
+      "sha256": "f5d7d5798d83fe361d5da8a1fbe2f3787cebafb3d26f9cafe97f5336db2c8e34",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/ee424a1c488a517c6c436d04.wav",
+      "record_id": "ee424a1c488a517c6c436d04",
+      "sha256": "8b0b17df0626714e839432875d18d624698283eb248ad0d2af78c5250a59e97b",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/676618a542281a30e4fc6e5c.wav",
+      "record_id": "676618a542281a30e4fc6e5c",
+      "sha256": "68249be9e2e50e6d8ca277b84ebc54c04bc273a6bdb66b7f6453b0a10c8e35f0",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/3804f5fe411bbb677e2c3423.wav",
+      "record_id": "3804f5fe411bbb677e2c3423",
+      "sha256": "1c2029ff4d2630f3fbab94c10e51b9ce86921b748a34d5f608844e67c16c92a0",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/c07b2f03af2644a9fbffc4a3.wav",
+      "record_id": "c07b2f03af2644a9fbffc4a3",
+      "sha256": "eaa3247e228629379d043758885a00657566632aa78f19284538543f39efcbd1",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/c7e4c1992c8b7d8dde5feb1d.wav",
+      "record_id": "c7e4c1992c8b7d8dde5feb1d",
+      "sha256": "ed84b9b200288e76202e76c7046b130dab87becad46e87c9e7725197217a5f26",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/18c33dadbb723cd156ec0b7c.wav",
+      "record_id": "18c33dadbb723cd156ec0b7c",
+      "sha256": "8c2f76a82b7aba3f234c8e1dff984d10ea8b09ebca1a965f95e07cef16c0a2cb",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/db6eaab9e2a5f3f30d6ea54f.wav",
+      "record_id": "db6eaab9e2a5f3f30d6ea54f",
+      "sha256": "efeeabee5ca85fc3909c5b8516ded503c8175010cb6a3ee354fc39b9b4a80b66",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/155ac5abf81053f04e18460d.wav",
+      "record_id": "155ac5abf81053f04e18460d",
+      "sha256": "10aff96c4f324e73b98dbf75844195370ddd6f0f4115bc51ada84f539e3fb045",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/c32943db362f6ccc020e0579.wav",
+      "record_id": "c32943db362f6ccc020e0579",
+      "sha256": "8c5f5a63858a1c1f069630ab61075d4be0833dd36ca02cf460f19a1ecb0b1b71",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/bd0f3b85c81b5bbc1e55da94.wav",
+      "record_id": "bd0f3b85c81b5bbc1e55da94",
+      "sha256": "4794f0feb1d46a9f186cc94bb2ff40b2f5e4a2ea511e366f8f5aa3365b281d2a",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/bbb8d25cea9861331931f24c.wav",
+      "record_id": "bbb8d25cea9861331931f24c",
+      "sha256": "81538e4326ab81120611311bf978c8f3840c89fd64cda2ef4d4db50c81dd55f2",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/479b73b95050870bd0afb4a7.wav",
+      "record_id": "479b73b95050870bd0afb4a7",
+      "sha256": "7d02d3da01ee9d0d179b6f674b29a1f5f110d76a2ce9a39f14b09bd6507080e3",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/cc006a2bd1f401a15a23ae6d.wav",
+      "record_id": "cc006a2bd1f401a15a23ae6d",
+      "sha256": "c7323636d84f60e90fe2cc47f6e2622d61df06a100f2e43641db68ee720d07e0",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/379f7abb006fee5c36431b16.wav",
+      "record_id": "379f7abb006fee5c36431b16",
+      "sha256": "3bb2a8a9a2c917462726906ffb019371d06525ff1823d1606b6ea32d1c474dd3",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/b4400b00998d872fd463e26d.wav",
+      "record_id": "b4400b00998d872fd463e26d",
+      "sha256": "53966737c0e699bcb43de101c59955736a5ddedb96d7fd87b42628bce12689f3",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/215f8d8a295b4bba7c13acd6.wav",
+      "record_id": "215f8d8a295b4bba7c13acd6",
+      "sha256": "d5cb8f48b4d118efb4b6250f580c02edca3b922ab2d9a10991eaabd16e9315a5",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/949c01ac0f9ff2df573138db.wav",
+      "record_id": "949c01ac0f9ff2df573138db",
+      "sha256": "5d906c01ef566a45497c606482f7ea7a64a19bb64f43b848117465eb356043be",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/2e147777d3a586c6ab678b32.wav",
+      "record_id": "2e147777d3a586c6ab678b32",
+      "sha256": "ed75208e86f41b80d5df13e6fc6b7a2d4c7e5514b9961ab0428723c8f0cee480",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/1a531a2afc176856e588e790.wav",
+      "record_id": "1a531a2afc176856e588e790",
+      "sha256": "3ba887010501146dbc24e3f80ca080d4c64087eabfc084d970b3905ffdfedef2",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/4b7430b0854e3f1ebc71f77d.wav",
+      "record_id": "4b7430b0854e3f1ebc71f77d",
+      "sha256": "5250e8f376424484270d0c90d101b2539ee0fb767a356c5b94914552099df410",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/3d525ab23d13e37f62ef6ac9.wav",
+      "record_id": "3d525ab23d13e37f62ef6ac9",
+      "sha256": "cd366259af82274508522235e66150cbc6d46f98018aad7f8d2299a5fbbaf412",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/0c7f93d3b1b2af1e187167a3.wav",
+      "record_id": "0c7f93d3b1b2af1e187167a3",
+      "sha256": "a93974be41908713e5b193d2f7cb668472adfaa6578a993f88822d69f3694a2a",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/d648bad78366fef3e39911d3.wav",
+      "record_id": "d648bad78366fef3e39911d3",
+      "sha256": "0afe507e7c9c1bd5c1f523e61feba5521f889c7eb8d9d602786ef5cc85c1df1a",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/de95f6bc5972221bab499320.wav",
+      "record_id": "de95f6bc5972221bab499320",
+      "sha256": "d6a1948bdfc9de3b6d13130a4df78d29cabbcc5789bee7af7c6e9faa8a63654d",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/3896de18dde754945c6275fb.wav",
+      "record_id": "3896de18dde754945c6275fb",
+      "sha256": "9a5ff0144e6e26c2b6357eb0e0da9d4c1f502e7a10bc9308355edb53380060cc",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/7ed327360e28145f9d65fcfe.wav",
+      "record_id": "7ed327360e28145f9d65fcfe",
+      "sha256": "f03306a4a144c2c20ade77d5ac92a1023ed9a60297fcbdf390b4e4beb8b5126d",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/d41cbf8a9fedeed9c64bbd1e.wav",
+      "record_id": "d41cbf8a9fedeed9c64bbd1e",
+      "sha256": "56ad4c5708e56289fb28a05e115a68bf13bf0f80426c65328bdc626a135d5d1c",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/561aa5ed3aed73f07a1501ee.wav",
+      "record_id": "561aa5ed3aed73f07a1501ee",
+      "sha256": "756f559c4f39aeedcefc99e41acdf765aa86ef9354123ef7397d82e405bd4d5f",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/b21acc14f5c7d197888f7ef8.wav",
+      "record_id": "b21acc14f5c7d197888f7ef8",
+      "sha256": "a671b53328622d85fb06be939719fbf4707fcbffd2f0ad82ab61c9de52445bda",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/1d893264ae749ad5cae897d6.wav",
+      "record_id": "1d893264ae749ad5cae897d6",
+      "sha256": "4876d95c0be0bd2cca3292b3f0e5d54bc85674527d41cd38bded0ca344d0d6ee",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/ee0e5d1041cb40ac3c8797e6.wav",
+      "record_id": "ee0e5d1041cb40ac3c8797e6",
+      "sha256": "8b473f4bc0af2042464b0db76f549026fa2ae40633714ac5197d7902937e9baa",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/0c026dec78603055272f3566.wav",
+      "record_id": "0c026dec78603055272f3566",
+      "sha256": "b6354cdb0d62ec14b44c0f41073e4f70c7663772fd3a9018899828b440a4528d",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/negative_test/3d4c823f1bfef50df98dcfe3.wav",
+      "record_id": "3d4c823f1bfef50df98dcfe3",
+      "sha256": "dae63c9144d8fdd4aa8f75c691790c5a30b79eba09de1395e20113bfc66b26b8",
+      "split": "negative_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c6656bfe569051c1721085e4.wav",
+      "record_id": "c6656bfe569051c1721085e4",
+      "sha256": "5151dc857a765b9fe1fde01a840f00bfd9aef8c5f3c1bb6f75a0c0e6fa97fcd2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/2afc92888f68ee65261bd803.wav",
+      "record_id": "2afc92888f68ee65261bd803",
+      "sha256": "24c769b244db294bd1e1a8aa9b9e161b92a7384fe94b47c8a43d4e84d28074c2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/1cf7d85eb979826c71503da3.wav",
+      "record_id": "1cf7d85eb979826c71503da3",
+      "sha256": "b801d5306049aa9218d5980b6e7d9f15ba2ced2190467bdad83d8b6929add033",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/00e7faa595b970db71f84120.wav",
+      "record_id": "00e7faa595b970db71f84120",
+      "sha256": "4101dd3b3ab8efbec25486c58b3f900908bd7e79157b8148355b0a480f516c6f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/00abf0285f503f79d4282de5.wav",
+      "record_id": "00abf0285f503f79d4282de5",
+      "sha256": "625adf7bffecb5ec30c9edbbeb8a5ff49771ce900e7449014c60f008598f3488",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/a19d73e11bca25f324cc4265.wav",
+      "record_id": "a19d73e11bca25f324cc4265",
+      "sha256": "020ac9491935b3f03c4487dec7289e79c7ad2d03c85766423e399673671dac2e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/1d733c5718605720f9786912.wav",
+      "record_id": "1d733c5718605720f9786912",
+      "sha256": "88fbecd127d938e73c86968e19bc67203b1c0bb08804cafbabab71ba9039fe05",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/52e8d28ce06a652d56ee4c74.wav",
+      "record_id": "52e8d28ce06a652d56ee4c74",
+      "sha256": "85405c03b61d5b606d07066daa53fecc832d17c6942d813ecab1d383e4363f5a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/7007dc2f8a7a47a113d4b2b2.wav",
+      "record_id": "7007dc2f8a7a47a113d4b2b2",
+      "sha256": "11e1ee5092f01bf45ee979f8a19dd8cfa03bdb6a71ec867ac156ec9117281a67",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/1fef8c5dd4f75617588610ce.wav",
+      "record_id": "1fef8c5dd4f75617588610ce",
+      "sha256": "b1ece8a308b298493d27dbff6247f17e99666a050afe14bccfe89807c36e3850",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/04fd31b3372a6d6addc143c1.wav",
+      "record_id": "04fd31b3372a6d6addc143c1",
+      "sha256": "6e9738f3b914235fb4a73ee8e0591a780f1867127a3411f601790e198c8669f4",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4d2123e788db2b9ddf93e773.wav",
+      "record_id": "4d2123e788db2b9ddf93e773",
+      "sha256": "f89216bb2a92c67ccc519d91e92845ab88f27fe4ecb3c6eeb0faa6f8f3214fbe",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/f7d3f4557a9a4f3535292d72.wav",
+      "record_id": "f7d3f4557a9a4f3535292d72",
+      "sha256": "48ae1983361401e5769d7874731b2b20104758075a4a5312c9e4677b0cd5e25e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/875162a94d536650095c96b8.wav",
+      "record_id": "875162a94d536650095c96b8",
+      "sha256": "71fe8cb186926a4f1839b2bd3f7e0b125cb9d313ba084a97457395c2416bf3bb",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/2b16984e5703d85ad48cb9ae.wav",
+      "record_id": "2b16984e5703d85ad48cb9ae",
+      "sha256": "3f15d57a89d2d2f5ef13b38010c80ce35f1bdf39c1c3409c72941249e2c00a82",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/37acb2211f468bff86efab8f.wav",
+      "record_id": "37acb2211f468bff86efab8f",
+      "sha256": "d98229207c298b5be134b19a72a92a69a6700d812f5d56d15c3981f2fbf2a645",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c6c46251494b1bdfa3810d81.wav",
+      "record_id": "c6c46251494b1bdfa3810d81",
+      "sha256": "d6afd8f632d85a00a34d0f148077c1ac259fd7f710bf1cd235949bbe5c1dd106",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/fb91bad9e472a50c24b85287.wav",
+      "record_id": "fb91bad9e472a50c24b85287",
+      "sha256": "cef3c7e2be8867e639bb9d791873c856d4dbc38cd059cf96bc453d36cf1fcf92",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/87987fc08967bea6b819b1ba.wav",
+      "record_id": "87987fc08967bea6b819b1ba",
+      "sha256": "da3a004dd1011d3e18481b82056614c1ed20287ea5af2eb9ea4c5ecd5bb24a65",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d0980cc0c69b38a10815088e.wav",
+      "record_id": "d0980cc0c69b38a10815088e",
+      "sha256": "2dd14f32382379c29c9bca5461d80a8d67c70cd8ebfa89c1d44343687ca95224",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/f6654ded5d3a576a910ca5d2.wav",
+      "record_id": "f6654ded5d3a576a910ca5d2",
+      "sha256": "5bb3862e985dc740e2aa0ca26de8bb0c8f65879fcb1236898e1c9a30a07a433f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/087ae4b8dba6c8a9b695c8b8.wav",
+      "record_id": "087ae4b8dba6c8a9b695c8b8",
+      "sha256": "2c8c2261ab9e372809e9dab8525433d1b38e87bc17f2c91049d43765efa0fe5f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/69e7be32cd2e6f19fe972a42.wav",
+      "record_id": "69e7be32cd2e6f19fe972a42",
+      "sha256": "d598865e506183f028e256e5b9b93c6696429e61f48877612d53e8c9edb140a0",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/1189ba9b5d1768b9cf10ce39.wav",
+      "record_id": "1189ba9b5d1768b9cf10ce39",
+      "sha256": "0362166937acea5bf739bfa497e1cb5aaa99264c4349ed050bd5a812f02c8afb",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/7f6d68a44e76e2cb8cb50a50.wav",
+      "record_id": "7f6d68a44e76e2cb8cb50a50",
+      "sha256": "4051f1cfd5934ac538bd74940299ed14a9c83959565ebc0b85cc8196ffe25289",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/01aab95ae2281a9f36ed031b.wav",
+      "record_id": "01aab95ae2281a9f36ed031b",
+      "sha256": "7790bdb4f91c96e5250f07df36cc59a531318e09fade5ab124815b7631438e28",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b565df8a98c9d67370c0db17.wav",
+      "record_id": "b565df8a98c9d67370c0db17",
+      "sha256": "46018880e04c9440903eaa09e6b24a14a6c2d840a1e0dd088353e97225ff70dd",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/facfafe53212a987a4c6118d.wav",
+      "record_id": "facfafe53212a987a4c6118d",
+      "sha256": "f71312efc68a367c8debcd84259eca4af3a7ef1b2f547ae2b84a8f05533bafc1",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6057a50d9d22f710d1383b1d.wav",
+      "record_id": "6057a50d9d22f710d1383b1d",
+      "sha256": "e48d4f6063684ff8480a88fa6f4d5ca587613b62a4cda28113b3d1e2833cf802",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4ea17a880700af9bee00b39a.wav",
+      "record_id": "4ea17a880700af9bee00b39a",
+      "sha256": "d1bb5252e18ffa31386e70365bef0f4e2e1308e09901df08d095bf3b63a4dc45",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/2ce03dea8a94a865ae8cbc28.wav",
+      "record_id": "2ce03dea8a94a865ae8cbc28",
+      "sha256": "3d9243dc8a52c98b6390d4b69918be859606013162eea968e38d377ca120ced3",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/ec6be1f40e9c86d893eb7139.wav",
+      "record_id": "ec6be1f40e9c86d893eb7139",
+      "sha256": "ddd5724ec2a2387dfe3a6b5739650e935532c9d8d8acf27a73af8b5721dd95b1",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/e7de22752869fd2abd71c42b.wav",
+      "record_id": "e7de22752869fd2abd71c42b",
+      "sha256": "e277009db14b0b429d0a99ff9008ac5c4fbd6837aa1ad42c4196d6e2ca155d33",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/0fe85e15bac1d59734bc8584.wav",
+      "record_id": "0fe85e15bac1d59734bc8584",
+      "sha256": "ecc5d4598bef3fc92ee6cb314a9ad4577a3fb3553b11e1a0a2bf1e2d4a6658ee",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/0387d43c1f083c471214a7e4.wav",
+      "record_id": "0387d43c1f083c471214a7e4",
+      "sha256": "2f8809b405e61ec746d7d6cc5d1f5fc63abf39cfd7e64654a5757194427b7a02",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/866a91573f55d68142ccbea7.wav",
+      "record_id": "866a91573f55d68142ccbea7",
+      "sha256": "926df7fe0b4984e2e54042a6f163a56bc0a538cc31b015620a2d93ac6bb66219",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/ad491a6b28200b7e4a8bd3c9.wav",
+      "record_id": "ad491a6b28200b7e4a8bd3c9",
+      "sha256": "3d2d7f4bfc2c325398fd30544093d4a35ca89c7ffad1a2442dbffecbdd58e40a",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/5f09ad0890c876ba9ab3c5e9.wav",
+      "record_id": "5f09ad0890c876ba9ab3c5e9",
+      "sha256": "7004aad8fb9f115d227479e6b8691806d7bc0477d424344d94fc4dfb2ca9acff",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/5a3d747383e883259fa9b0ee.wav",
+      "record_id": "5a3d747383e883259fa9b0ee",
+      "sha256": "03954103f7a3109ef4292d64046bd67dcd9ce50f16165691c325f9fe3f55153b",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/daa418ba06af76a5b68fac2d.wav",
+      "record_id": "daa418ba06af76a5b68fac2d",
+      "sha256": "81ec3c1fa1c3feecf545aad320e8e5f547e40a3419c1e9883368b670776057d0",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/19a7ac13f8e0dd1be317665d.wav",
+      "record_id": "19a7ac13f8e0dd1be317665d",
+      "sha256": "e7e7e1a530ea241dafb8f85bca6252969347499a3f9e88f10cb524f0c7d584d2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/7072c4a6e55507f7a7c738d1.wav",
+      "record_id": "7072c4a6e55507f7a7c738d1",
+      "sha256": "81a5dd9012fb48236a14f2f110595435fb25cdf965cecdd7142ca080271219d0",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d0e44e3ef8aa2830b42be686.wav",
+      "record_id": "d0e44e3ef8aa2830b42be686",
+      "sha256": "7fd052266ea1d88c55855d57dd35c5770f6d6f44d3b3735136b9eca8ac9df928",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4b94114eb8f5596f19d2e460.wav",
+      "record_id": "4b94114eb8f5596f19d2e460",
+      "sha256": "d4466271a044e884447cadde52e3e3dc8fdaf0b4ef2fd1b6320f00cdc3fd6ae2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/051a7da8b868be54d54526af.wav",
+      "record_id": "051a7da8b868be54d54526af",
+      "sha256": "ce4fcc621dd5a657c7884a8cb4bc6e4826191a270142eef00c4b0ba9bc8eebc3",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b32866ea78b1eda0ffea9ae3.wav",
+      "record_id": "b32866ea78b1eda0ffea9ae3",
+      "sha256": "3f418ec646754232a35d7de0f2f86ec8d2044a4b2cd1c56c90879b8653c347e6",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/a8695c3ab3099f372b46f925.wav",
+      "record_id": "a8695c3ab3099f372b46f925",
+      "sha256": "8dc382b3b8666b45d7fa096daea8236065bcdc53615e0888f8443dc0c0412bff",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0476d0765afbbdc2e186c296.wav",
+      "record_id": "0476d0765afbbdc2e186c296",
+      "sha256": "ea246c3883f03aec084a91e82f14a571281fb8158cb698bc2246b66c5f045e7e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/9863e05594898e6ab302cb18.wav",
+      "record_id": "9863e05594898e6ab302cb18",
+      "sha256": "e04e8ab0bebe02719ced558247b050797577e245c740f209552959ee15bbbe11",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/1d7ac8207ee08f3d478499b5.wav",
+      "record_id": "1d7ac8207ee08f3d478499b5",
+      "sha256": "62c0f70fe51c6c392597b52e5e19fa5e13dc4d0b2e1baffb40329a736ee1f6ae",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/dce0364ad295467060f2775a.wav",
+      "record_id": "dce0364ad295467060f2775a",
+      "sha256": "f3aa7b1e95e6534e56e85f580261f0792c73a4bf3eed45ab3c3d51648647d75c",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/480832f05d3e13ba56e352f0.wav",
+      "record_id": "480832f05d3e13ba56e352f0",
+      "sha256": "98a6760dcfd0e09476f1d4208ee1e29d6568a7b2062ac17fa9aea360686450b5",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/52ed6dfcd3bf7924d80789a9.wav",
+      "record_id": "52ed6dfcd3bf7924d80789a9",
+      "sha256": "ad9718280ba217a9595d37a3437d35f55658959a86546b795412864cc8481f96",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/886b01f6d08fdf851abb98d3.wav",
+      "record_id": "886b01f6d08fdf851abb98d3",
+      "sha256": "c3b07ec946d771c66f9cde1a631263f43c65cd45ca1e462e64a01d88d2a49945",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/34579bdb6410bc35cb947f9d.wav",
+      "record_id": "34579bdb6410bc35cb947f9d",
+      "sha256": "b20151583af1945e984958e672a02cb74c74f7f0429e06d040df67351b2b25f6",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4fe470c55a83a3c45a4ce013.wav",
+      "record_id": "4fe470c55a83a3c45a4ce013",
+      "sha256": "451760229221903fe381f880154ba0fb8415afdcc32bfa63c7391ec0c5c02e56",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/8b4b5bacd7264fd5cde380cc.wav",
+      "record_id": "8b4b5bacd7264fd5cde380cc",
+      "sha256": "8df46043e1ea131402467fa4b231703a28d5b2522f619934c18ca45be82a2e3d",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6d007dcd1dbebac591094698.wav",
+      "record_id": "6d007dcd1dbebac591094698",
+      "sha256": "e91c320f26d46d3109d3d222f79d08bb7f7c27b2ff31ec7b45bbf4f961eded7a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/aefd67235001d8699339ca16.wav",
+      "record_id": "aefd67235001d8699339ca16",
+      "sha256": "44225fee80f84bd41e3f331bee9da1833524289e06e6095d19edec9624f22448",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c0a8b6c1a3415252b2bc62d6.wav",
+      "record_id": "c0a8b6c1a3415252b2bc62d6",
+      "sha256": "c1778e90a84d45e25c8d0387b7d962ead5c01b87c885487ecfaa22239c891639",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/83072192ac9fc349f83805e2.wav",
+      "record_id": "83072192ac9fc349f83805e2",
+      "sha256": "54ebe50f5238b8f5b2c8138d56442423135e157435af9e9964126000cc792bde",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e4e21ca5ec633da737413b52.wav",
+      "record_id": "e4e21ca5ec633da737413b52",
+      "sha256": "cd2cef733f1a400e9f93817ba7daea4b0f5faec89bb0c6f1a86620c8482aa18c",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/78f0f7508f4440aac78ca943.wav",
+      "record_id": "78f0f7508f4440aac78ca943",
+      "sha256": "ad7f120e724a60ec68fa698671549155f0b9e91b43793bd452f8c4f139af2505",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b7b9cf90cd21ccb30c63449a.wav",
+      "record_id": "b7b9cf90cd21ccb30c63449a",
+      "sha256": "83ce371f900d97e390c632fc555a04a7b839b5f4da85759de7ea9b86fdb244d5",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/8d3b3740f01ce0a4cbe269df.wav",
+      "record_id": "8d3b3740f01ce0a4cbe269df",
+      "sha256": "91467a014e6ad9fb3c0a8402380df9ef13f546dc823844bbb11ca8406881906c",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/a8ef7f8a56b21a5120c12df2.wav",
+      "record_id": "a8ef7f8a56b21a5120c12df2",
+      "sha256": "0ab9b944f31d49031d72140b26ac9d20128f5dd69d13f1a0d6534e810b01432e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b9b61be89673350964b6bfe4.wav",
+      "record_id": "b9b61be89673350964b6bfe4",
+      "sha256": "1410befe0c6ba7641f56a09a21db8e671fd3423aecb3061eb607adc6580fa574",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/04b1e918bf3c2a6c3e5bedd3.wav",
+      "record_id": "04b1e918bf3c2a6c3e5bedd3",
+      "sha256": "cc378f8a2316a2d9c069b30938407832475b78f237d76777fa12a69b069ca7e4",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/f449aa24419df7b81a3b8782.wav",
+      "record_id": "f449aa24419df7b81a3b8782",
+      "sha256": "569b440ac20d42f3e6d3669edd2d1b85bf5f7a465c34bc5834e7452b3ef77466",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0224ebcb411215af67af4242.wav",
+      "record_id": "0224ebcb411215af67af4242",
+      "sha256": "82251d12f674f1358583996d2585023e67273d4dac7ad77798c99477dad52184",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0c5624cfdb60f3d5aa0a88cd.wav",
+      "record_id": "0c5624cfdb60f3d5aa0a88cd",
+      "sha256": "2fd44ebc13d920186869a8a287332cb906a22da77b6c8e295daf352c46edd205",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e4976241b5d0c61175ec052d.wav",
+      "record_id": "e4976241b5d0c61175ec052d",
+      "sha256": "76ec3d4b6762482eaf41a866d71c69917f864209f2a1a1563f72edb00b0c19a8",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e385b5f2caab3287fa0528ed.wav",
+      "record_id": "e385b5f2caab3287fa0528ed",
+      "sha256": "4d85c8c70e382ceaf7f398d00c8d8aefec607b3dab0fa77ab9b32e1762602518",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6f9b74810ad9c1bdc34849ed.wav",
+      "record_id": "6f9b74810ad9c1bdc34849ed",
+      "sha256": "8caf635e72c0b17387e9f0bde23718c45c33e7922fa4e6fd55ac96108b03ddf5",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/855eae3c4904057dde8ca0fd.wav",
+      "record_id": "855eae3c4904057dde8ca0fd",
+      "sha256": "c89d34dc1b659016d691625be199c479244c10b6ae916ed1e238561820dadbcf",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/1550197d7f424e2d2e929753.wav",
+      "record_id": "1550197d7f424e2d2e929753",
+      "sha256": "2dbcfa126f119e0811bbbf10b58e63ce2fc2bf555684a8c5fdb086932b705468",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/dc5fb7044de7b7c83ba9f817.wav",
+      "record_id": "dc5fb7044de7b7c83ba9f817",
+      "sha256": "8d13ec8b9001f0cf858d570f4df8343440a39280ee6bba10b5c4f13d718a23d4",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/2c1db704188d440006090321.wav",
+      "record_id": "2c1db704188d440006090321",
+      "sha256": "f62914d0c87cc9a9bffd3c0cc4cfb94e1b5ce3e43c03c8112f93533a24bc1468",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/45bb08f32374917cec9b3ae2.wav",
+      "record_id": "45bb08f32374917cec9b3ae2",
+      "sha256": "3e58b603ace8efd210d31f5fc44609639ba35fa1c08ba1dc1eee64985a44abaf",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/14d520a7d15e99dedb8a4080.wav",
+      "record_id": "14d520a7d15e99dedb8a4080",
+      "sha256": "16a96305822ebc77564d7344ed6642839c0c3c48b15d7bb3f9bc8d64bd11cc32",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0cef75d5ab40c297db98fff0.wav",
+      "record_id": "0cef75d5ab40c297db98fff0",
+      "sha256": "d7d12674d5de45b93e70ccef4ff152689806806b42ff5f90189187ab6a452a2b",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/2f1f37cbf0f79791d59ebca1.wav",
+      "record_id": "2f1f37cbf0f79791d59ebca1",
+      "sha256": "cd075da6b9c682a34971c9f25d310fa04fc6934984ac0b39247e7d9fa9601895",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/176b7a3759884241af2055a8.wav",
+      "record_id": "176b7a3759884241af2055a8",
+      "sha256": "bcc1be1134148e5718deede17ec876783599650da9a7973409b9177dd58ab905",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0c2709fd20635b8cc125f1b7.wav",
+      "record_id": "0c2709fd20635b8cc125f1b7",
+      "sha256": "e3b6a16953ad3d43f739f92ca84ee70559888658c54738befd96201d1a616f87",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/78969b9108b275181343c7ca.wav",
+      "record_id": "78969b9108b275181343c7ca",
+      "sha256": "c2d660362f0a8e31b429c8d73569ae1f6fe3e8b2ad2f5cc6201958d1a2e12166",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6b81a52638aef5e208ef84af.wav",
+      "record_id": "6b81a52638aef5e208ef84af",
+      "sha256": "61011b95cc11143410bc80fc6cd709292e3905c273da2ae2e849fde479b3d9ae",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/171bb3140ecccc4b8746860e.wav",
+      "record_id": "171bb3140ecccc4b8746860e",
+      "sha256": "c8261de6ecd78bc74c8b2d2ea323873c89ff1292a178b4b3b5486c26d4aa3d81",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/46c9862d5091a1d88c277828.wav",
+      "record_id": "46c9862d5091a1d88c277828",
+      "sha256": "79bad138f33ec1fd3813c15d83ca9fb0a6d7780841da8fa07fe04fdfae755bfc",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d3f447c87ae52fca882e5c3b.wav",
+      "record_id": "d3f447c87ae52fca882e5c3b",
+      "sha256": "6dc1bd3b26ac4002c8f4d08bdd5db0b7d68908ecef4bf9005704e74c801642e5",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6b76c8b5e6586077dbaf9613.wav",
+      "record_id": "6b76c8b5e6586077dbaf9613",
+      "sha256": "2bd12aa4744c5cb4050acfc3e37c8378e6221cf588eda99135e465983aff3b5f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/bac8f06140e15da498fd3356.wav",
+      "record_id": "bac8f06140e15da498fd3356",
+      "sha256": "8efedd713d035f20a5f1c1a2f72db38826ac91b90c57ca90a6a4190cad2b8d83",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0a6a5a35801ffba7de3d3ff4.wav",
+      "record_id": "0a6a5a35801ffba7de3d3ff4",
+      "sha256": "d4475b907d41f27ec27325746e82bba8467cfc309a80111fdb4caf96aebab7c3",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/ff68e03df64724a18c4dc014.wav",
+      "record_id": "ff68e03df64724a18c4dc014",
+      "sha256": "4ec3a0de7eb4ef809b3b928da71e92bf8fa1a5eb2cfb0e56561421600e68f7a2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/afa02612163282d2306739ad.wav",
+      "record_id": "afa02612163282d2306739ad",
+      "sha256": "156a49ef718e0b3681c2b7a60100cfd0113ebd0d918dfce3c2fca64248a02f73",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b6b27342233e0e25d45338b9.wav",
+      "record_id": "b6b27342233e0e25d45338b9",
+      "sha256": "3fd42d6b27c8692b915bf5eefa46afb3cab35d7ffb6d1ca0144830feec5c3b40",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/485f5b7719024a9e1a7881d1.wav",
+      "record_id": "485f5b7719024a9e1a7881d1",
+      "sha256": "083a634c847366eeb58dae844a2977cc9e2eabc3cc4d6e1b0810485948696ebf",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b6235130e8c6465686046d5b.wav",
+      "record_id": "b6235130e8c6465686046d5b",
+      "sha256": "b9a13b6ef11c69d2f2d1af1564e2a2a92b36ac7d2c06c2cf1ac4ab50c79ffe88",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d49d21973fde22a6f7a00804.wav",
+      "record_id": "d49d21973fde22a6f7a00804",
+      "sha256": "9fc416821b648787c2c4a2baaf8703dcf722d3e96cd624eb1fd1ed05b895314c",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4a31d8ca5f513bc7a5b67058.wav",
+      "record_id": "4a31d8ca5f513bc7a5b67058",
+      "sha256": "413140d5a7b04065acc81d68a6049860a385c9e8afc06b307c221a04709986d4",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d390f667a423b67d95dd438f.wav",
+      "record_id": "d390f667a423b67d95dd438f",
+      "sha256": "fd61da7f171505ade63822474dce8d77ebd16f8c6b43de5ead9c7136a5b564f3",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4c879154e6928f1a01749140.wav",
+      "record_id": "4c879154e6928f1a01749140",
+      "sha256": "07301a7b26cf6ec28196c468a3c3a56fbee0dcaf7b788a823d79400de22bfa9a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6e63fd908f9d4e3e7cd39974.wav",
+      "record_id": "6e63fd908f9d4e3e7cd39974",
+      "sha256": "0369953962ede07ab0b3340ffd9764eb6e49a5c54264c134b42bc4dd1a56c63f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/139687fce4de3f43fe540250.wav",
+      "record_id": "139687fce4de3f43fe540250",
+      "sha256": "c58ffed18eb28faec03653614f56a0684b9da6dff1053de16ff3189ff280f3d8",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/794128c2e01e74191a6d3886.wav",
+      "record_id": "794128c2e01e74191a6d3886",
+      "sha256": "e6294a0ed1198eb9dfe6f29c76b18b822431f5b6274f01ac3bed0d95fb9d0fa3",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/84c8dfa0a7f56be011e28d41.wav",
+      "record_id": "84c8dfa0a7f56be011e28d41",
+      "sha256": "798ea6909b2e747fc1c6bc99c97581cedabb00967bb19a186004032d060f5a77",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6f1a0253207160d32ee21a0d.wav",
+      "record_id": "6f1a0253207160d32ee21a0d",
+      "sha256": "032b7e5a2daf744de5fc52baa92d9250e90b1c6351d686a120fc73d564975bd8",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/3cf6d990734e153e7406ae52.wav",
+      "record_id": "3cf6d990734e153e7406ae52",
+      "sha256": "8ead3441c9b13deb1cfeb291365ce7df645854925e4e20e60d4f4ae8ef07fbcd",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/a3f3e7c3db71cc9f55c2f5b4.wav",
+      "record_id": "a3f3e7c3db71cc9f55c2f5b4",
+      "sha256": "14e7d9bf5b97ae90b6ba1c95c78cb3ef1a0119c1682c74d445c212a63367b3c2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/26a7ad49d8b0ea2a77669dba.wav",
+      "record_id": "26a7ad49d8b0ea2a77669dba",
+      "sha256": "6202a8246f60b5390c427172fe99513058e356014e3d10e7c9f13985cc889abc",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/03eee238f28458899169fbe6.wav",
+      "record_id": "03eee238f28458899169fbe6",
+      "sha256": "09b8f88be1222bd9386e45ee1e205ba7ecefc47264e767a8c843904879093ab4",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/2638650012d8c516259e0bf0.wav",
+      "record_id": "2638650012d8c516259e0bf0",
+      "sha256": "c873bcfef260395eeb86608e512623c77dc9ff79c1a392af8e66aa272948d6ae",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/fba187cd42a1ebf27f291bb2.wav",
+      "record_id": "fba187cd42a1ebf27f291bb2",
+      "sha256": "aed7363c209e36ae107b663f5fc9b31cdb0dd12c05e49b19f34a26d91b99ee63",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/3064571917cc3d1b3b3fe0ad.wav",
+      "record_id": "3064571917cc3d1b3b3fe0ad",
+      "sha256": "bfd5a4487d5ec1786f8b39e3145e8aceab98c51a80e73062d014edd52f7ca1c0",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/7065f37d8e8fb7e2bdb34b84.wav",
+      "record_id": "7065f37d8e8fb7e2bdb34b84",
+      "sha256": "3db60bd55e214652a680818db0d816a9c9b149a78273e69bd68687ca04ca30a9",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4ab6a3ca92003b05b00a3aa8.wav",
+      "record_id": "4ab6a3ca92003b05b00a3aa8",
+      "sha256": "380bbb5838d32ea47b899654548fa712abafba918c31a4ef5c07c46d7c93577e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/a1ca6c65c2f076f6bb790689.wav",
+      "record_id": "a1ca6c65c2f076f6bb790689",
+      "sha256": "5a4a4140e591bb7fc9888938af94dfec4322d8e84e25a1076659b4d90ce43412",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/9c61ab1f076c0b79ea97dde1.wav",
+      "record_id": "9c61ab1f076c0b79ea97dde1",
+      "sha256": "1359098bb14034d375c1fe491da90c3dadd64bac2ab6dcb8666845b2efff7690",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/313a13157fb3938bb23e6be1.wav",
+      "record_id": "313a13157fb3938bb23e6be1",
+      "sha256": "6001aa3e9a7a3f607c04ced0b4126806fae17d217a864e71362be2aa805c04b9",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/504f097c8e51f2c68b4c756c.wav",
+      "record_id": "504f097c8e51f2c68b4c756c",
+      "sha256": "5a2a617f1d061afc0212d4e81e8f38ed30534165abd45fe63cabe471fb56f9a4",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/759d6aa476735264598ef78d.wav",
+      "record_id": "759d6aa476735264598ef78d",
+      "sha256": "430ee3e70c6053429c3a6ce071894dcca8effd1cd9f8895115d2427f57ffa1c1",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b95e40b7d1f78daee806ed93.wav",
+      "record_id": "b95e40b7d1f78daee806ed93",
+      "sha256": "a9cf0e57ad619612c0cac10a026d11a9f22e804149fe6286a43cddfa37d73f05",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/8c03a695ddee8be176842ab1.wav",
+      "record_id": "8c03a695ddee8be176842ab1",
+      "sha256": "9024b7b9c0589fe386a35f60e1072afe9258ac2b4d9ed74d4a8dba0c4057f42c",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/67b9c62e3789905c0718dff1.wav",
+      "record_id": "67b9c62e3789905c0718dff1",
+      "sha256": "6004a82b6ab905f356095267140a15afd9d9945659288700c224fba0d4d5d5d8",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b48740ec9574dd0a4ecd04a5.wav",
+      "record_id": "b48740ec9574dd0a4ecd04a5",
+      "sha256": "9af1968e16297369d7749d750140a4ccade183803507af5f7fdf9c2c609ab05a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/f81d38ac77ca27de23e24b31.wav",
+      "record_id": "f81d38ac77ca27de23e24b31",
+      "sha256": "be815bd44be61b0ec2ecaf5aa40cbc8b77fa08e69f71319f90b5a014ae3c90dd",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c7259242f058c1f5604f52f3.wav",
+      "record_id": "c7259242f058c1f5604f52f3",
+      "sha256": "b4aeec484b1beac11278e0d60ec460a652a74aa30b44c9c58614bcf9c998dca2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c09799947d1491a72e564919.wav",
+      "record_id": "c09799947d1491a72e564919",
+      "sha256": "bf37c7ae3af5c7c3d24900ab1e8f07408f85724c2d3d6835e8205c6093d84dd6",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/7d76dc53782a357f5554a21f.wav",
+      "record_id": "7d76dc53782a357f5554a21f",
+      "sha256": "523fa7ab9d14a67e442fed3fe650677b8e43322e303916fa13452dc46a77eb3f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/502b29e206ff9c610a13d9dc.wav",
+      "record_id": "502b29e206ff9c610a13d9dc",
+      "sha256": "da19af56b70f55085c200c79d46e83e544f60cff3ed61014be06efc8e05fd9ab",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e8e9955c212f8858cfa0ba70.wav",
+      "record_id": "e8e9955c212f8858cfa0ba70",
+      "sha256": "c0f1ce02ca1eb8c78191493e97b920c36599f42cfdbdb4f478ec0b6ed6dc2f00",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/bbb8f09c38cfb0ddb23b65fe.wav",
+      "record_id": "bbb8f09c38cfb0ddb23b65fe",
+      "sha256": "4f611d24921defb4a080752777284bca2b96561377005faa0460942b082cd117",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e927b2f8eb06cbe49f753762.wav",
+      "record_id": "e927b2f8eb06cbe49f753762",
+      "sha256": "9e00f6b377b18b741f64bec7696d50eb740e1be0733095f72b3a0254cd8f064d",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/89be34469a47478a1f10c03d.wav",
+      "record_id": "89be34469a47478a1f10c03d",
+      "sha256": "a1432d01c51d7a4a4df1c729bd921a4b6ac7a45a86c2d45ffadee473549b80fd",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/38e29e0f49c7be0bc98bd571.wav",
+      "record_id": "38e29e0f49c7be0bc98bd571",
+      "sha256": "270eb8e786e0e888541d55321a35db038c24f400843b5e91b01b73cbd0f71650",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/963c6368324221213d8ff1a3.wav",
+      "record_id": "963c6368324221213d8ff1a3",
+      "sha256": "80b30ef10671b63ca7c80989ce30c5d5c8ca56989d393ebbb9690ad56fccbc7e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/3bf349940cabb588ae43e9ba.wav",
+      "record_id": "3bf349940cabb588ae43e9ba",
+      "sha256": "33ac5e64f07745c93db0cedb673ce1d986c237e8d5b7968e5d8890a5e616ec1f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e554e976faae79fefb56c792.wav",
+      "record_id": "e554e976faae79fefb56c792",
+      "sha256": "826e185c90220a3e26fbfd99979e4668cb9b6dc501942ab288430dc70fe9ed21",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/313bbd0b6729fc1da4bf5653.wav",
+      "record_id": "313bbd0b6729fc1da4bf5653",
+      "sha256": "c9aad6c1cc90e64405fe7a1aa2521cb6a730ad38fb20d62b30580ca5e880af3e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/8057a36d37cbb7d5e28cb47b.wav",
+      "record_id": "8057a36d37cbb7d5e28cb47b",
+      "sha256": "3427c1a816b35b885a75bb71b0a8fd650b20c2081e56efbbdd21f7b8db3d6567",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e9ce67d1fbb47303565c715d.wav",
+      "record_id": "e9ce67d1fbb47303565c715d",
+      "sha256": "8b1f35340137854139c52c084a10d1776f2e95b44485d103172aa882d9994665",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/42415ee8e9ba7447a7f6a3b8.wav",
+      "record_id": "42415ee8e9ba7447a7f6a3b8",
+      "sha256": "33d5504e87e4df5d0e94f4a42056a3f5ac1bcf0a8478aca493f756b6964b77aa",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/44825dad57ee2e07fdbceaf7.wav",
+      "record_id": "44825dad57ee2e07fdbceaf7",
+      "sha256": "6f15a373ef5ab865c8a9acb465ad1c5c3dc3314bbbd1610fc175c3ac8382be2e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c1219f43af5dd8d448d75a06.wav",
+      "record_id": "c1219f43af5dd8d448d75a06",
+      "sha256": "c9fd43aba731925134143d0953360146c085248ef62b0ff7fb72c50bf455ad7a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/201a26add929e5c2f1527d9e.wav",
+      "record_id": "201a26add929e5c2f1527d9e",
+      "sha256": "f4a4f214a07478664f234717ecdd2ad0d5f3fc3816141fb6ded45b983c137309",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/b6c7327f9726d62f905aaf09.wav",
+      "record_id": "b6c7327f9726d62f905aaf09",
+      "sha256": "323befd02a4879148414b0de4a019af6f071e48f7325059c241977b7ef6270ff",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0b31390cf4f0646194024389.wav",
+      "record_id": "0b31390cf4f0646194024389",
+      "sha256": "67a754cc547dc03ac968b77ffbd9642bf9d52576821c61a6f1af84da3f43f425",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/adf35006177af41fa0fb6956.wav",
+      "record_id": "adf35006177af41fa0fb6956",
+      "sha256": "769fa9241de6e0d353a6d77eddc680309f0f4193c9d1c4abe224a171cd30ca74",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/39f44bc787d36c8de36d3c94.wav",
+      "record_id": "39f44bc787d36c8de36d3c94",
+      "sha256": "3336db4bc88098a67b142d53c287e28b8118b2898d0f9edb2689db3883c7270d",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0d2c811b599cc88c8d634d31.wav",
+      "record_id": "0d2c811b599cc88c8d634d31",
+      "sha256": "0c73a999eb755e09b77dc48d312f1de6e22dfa328855910c969ef9a96b2a187a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/926a385537e16d9814e39000.wav",
+      "record_id": "926a385537e16d9814e39000",
+      "sha256": "8875dcfc462aaeb7f4d5ff2e24eb97d362b1aac9675bbf3e20b4823d0789aa97",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/284edf5ad4cdbe23befd8488.wav",
+      "record_id": "284edf5ad4cdbe23befd8488",
+      "sha256": "d01c7518ae49661ebf76ac9176a690df668a632facbbff16fc8508be9e4f8e98",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e619c3cbd8300f7330acaa3e.wav",
+      "record_id": "e619c3cbd8300f7330acaa3e",
+      "sha256": "9677e49ad82b07e06ab25b063cd9e1ba29579585a437647eaeee4cd93a77b640",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/c349fdcbdb34807cc41db0c6.wav",
+      "record_id": "c349fdcbdb34807cc41db0c6",
+      "sha256": "e03e0efa5a94a9c1a50c0ea75f20e4af2294edfc86ec3f2b83340a54e1580999",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/60e6d9ed7a420d555e3aa1bc.wav",
+      "record_id": "60e6d9ed7a420d555e3aa1bc",
+      "sha256": "9e1dda49b7333438f788faaacb474add4ef388740aaef52ead47aea81f9362ed",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/5befb06c94d4a6152c09da55.wav",
+      "record_id": "5befb06c94d4a6152c09da55",
+      "sha256": "a3ffb412f0b80715d320f42f75ceae1707af4aa1df0eab2754d1c6ea1d83789f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/473eaffcb2d69b5774e98022.wav",
+      "record_id": "473eaffcb2d69b5774e98022",
+      "sha256": "0aed8b634510904310ac81f864e707a29bd76e452bd2a96e38ad418bd9fb61ad",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4019011e4d0e9ccc390839bc.wav",
+      "record_id": "4019011e4d0e9ccc390839bc",
+      "sha256": "b2147ce45cb80a7646bd15e167aa4b55db12f331e6c27a9b4705032da03a37a1",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/abe93813b075043a7219d5db.wav",
+      "record_id": "abe93813b075043a7219d5db",
+      "sha256": "9953dfe2a2dd75471d1f409cfbe303f875d39d0b8104cfc6eff365927af9c288",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/5153c6036c8270a026555a93.wav",
+      "record_id": "5153c6036c8270a026555a93",
+      "sha256": "1f3a33e9146620a05ef69163020e05dfd7a90790fa3f41779c8ecadd8e0d34c8",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/fbac1710d318dc917bc7d733.wav",
+      "record_id": "fbac1710d318dc917bc7d733",
+      "sha256": "1d79cfb3e243f5f3b5aadb60a733e88f076b2fc62a698a5f6c7152aff6919803",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6583b13c9a6152a5737460f8.wav",
+      "record_id": "6583b13c9a6152a5737460f8",
+      "sha256": "1055ce59ae0673e09d658522f294d0b048985f73759fc8098ae97c9e61b7ec5e",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/11109e567a006ee281275139.wav",
+      "record_id": "11109e567a006ee281275139",
+      "sha256": "cf867450152f6b2822c506b5f31b11f4ce8b8069a69cd13f9376191569755656",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/38c10dd2ebca1bc1cc45700b.wav",
+      "record_id": "38c10dd2ebca1bc1cc45700b",
+      "sha256": "95dd6bcd96707ccd28a78678be65ca5cb8f97b5039d2336c8a72ab686c9c10f8",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d6ee52fda14e36be2a15a2f8.wav",
+      "record_id": "d6ee52fda14e36be2a15a2f8",
+      "sha256": "68cea8bb6000c7a7f32bae9f4deb7ad1379fd213bf9bb34a50a63ae91291e9ea",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/7db8ffad432da03b5225f3d4.wav",
+      "record_id": "7db8ffad432da03b5225f3d4",
+      "sha256": "67075e1da34da0df227b255d53a9e1756f4e3b3d2a5e2685b0cbf764f0d376a3",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/1db9379886e5ddf7743f540d.wav",
+      "record_id": "1db9379886e5ddf7743f540d",
+      "sha256": "2b879a1c9118f4a86ba29f91e0fbd1bdf45c0a754665a99bec2cea52ae64ad37",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/e9fd26e91026018fdd7337a4.wav",
+      "record_id": "e9fd26e91026018fdd7337a4",
+      "sha256": "67fea7a4c5112f0915f625e32727d83c73b5defbb3f90ceb3b1bf808637c70d5",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4fa9b8ca276169ca1eb08ba7.wav",
+      "record_id": "4fa9b8ca276169ca1eb08ba7",
+      "sha256": "5f79bad820f5201ea86cf01b680bfa64734bd8a00869dc4c971c1af54e24959c",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/8a24b6ac7a8727aef0522784.wav",
+      "record_id": "8a24b6ac7a8727aef0522784",
+      "sha256": "1014a10465bc83c6482866bd6e8f8eb9344c42cb97a1ff1099133dcf98440309",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/4e7d298777f081e0f250d60e.wav",
+      "record_id": "4e7d298777f081e0f250d60e",
+      "sha256": "59bf3e07e9c17af89ff6395cea6d58d479e9f79767eb654fe30b8f8f82dcf33f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/0d7894177a4e2cad0988f5d8.wav",
+      "record_id": "0d7894177a4e2cad0988f5d8",
+      "sha256": "c51ac216f8090c26daa1fe3fda4d00bdefa822bfea57898e1cd62299cb70d1bf",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/04b3de75ceafb39a79de3ae2.wav",
+      "record_id": "04b3de75ceafb39a79de3ae2",
+      "sha256": "a7c37260578fad1cf28b84f4c7c9ece7fccc537116b77928bfc1ee0384f3bdd2",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d746a2e4c43def469025a5ad.wav",
+      "record_id": "d746a2e4c43def469025a5ad",
+      "sha256": "d9c17fdf686c520ca2499c67b938e98f780a350e40fe3f3dfbf00881f5286c6d",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/f3d49a431771eda7a05590f3.wav",
+      "record_id": "f3d49a431771eda7a05590f3",
+      "sha256": "287cc6f85e00c9ed35a547465a8f10d3e9b804fd07eae6a8563b4a153ec4d84a",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/3c417cac8c3ba13c30514392.wav",
+      "record_id": "3c417cac8c3ba13c30514392",
+      "sha256": "fd3e3c311a3e7c9ed62f48effd04e2c5b51b63d9025205ba0628c6d3c698e7f0",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/080ba3e3a692a7df138d62e6.wav",
+      "record_id": "080ba3e3a692a7df138d62e6",
+      "sha256": "8e95da7af003cd00b473722bdb654237014254b732d4a46c31cf15f3ef60c29f",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/af751695f6e3abf962d21620.wav",
+      "record_id": "af751695f6e3abf962d21620",
+      "sha256": "fe950ffb5c467fb6cec3cf1e92036580f403e9f347adee283be115e5801bc807",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/f44d570d629c9be1e3ddd1c4.wav",
+      "record_id": "f44d570d629c9be1e3ddd1c4",
+      "sha256": "6955c46af36b9b6e89bcd347f6ea7a6b12f42b0a543936be306fbc7bf9e2ff96",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/6439c8a776799a4521a8f697.wav",
+      "record_id": "6439c8a776799a4521a8f697",
+      "sha256": "86aedb45474d0d7c2d546f89f59fbed9e3beed8ac899ce4b7570af0680694e72",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/befaaa850bb32cb8434ba52b.wav",
+      "record_id": "befaaa850bb32cb8434ba52b",
+      "sha256": "778db5cd491b809311bd4003a5020591ccac5d29c09be653c43d3fbf624f16a0",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_train/d32429eaa47bbe9faa6595dc.wav",
+      "record_id": "d32429eaa47bbe9faa6595dc",
+      "sha256": "f25ff7c31a05de2aec94c6c12804daf1c8c517372951a27b8176a0c93ecfe34b",
+      "split": "positive_train"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/b4dc3a48cfb2654de5539799.wav",
+      "record_id": "b4dc3a48cfb2654de5539799",
+      "sha256": "00b422b686d299b8471bd83c5bb8657a852f69413908f32bdfc87675cbcf8c59",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/c404de0d09ef8f89c775bd09.wav",
+      "record_id": "c404de0d09ef8f89c775bd09",
+      "sha256": "566bd08bd6f571b62572ee345126931a15cea973d5a508883de3d7a2d1db4a1f",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/7c8bf286cf2fe2e9a0db54af.wav",
+      "record_id": "7c8bf286cf2fe2e9a0db54af",
+      "sha256": "909edd045adeee5f4c13198dfee026b0499d27579f0d85532a963ee8b508e7a1",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/0ace8c688e50a4e43bd5d389.wav",
+      "record_id": "0ace8c688e50a4e43bd5d389",
+      "sha256": "48aeb8118b71cae5c0f53c8f8ce012962fd516ea89291869cd845310898bb61c",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/fd1e1bf9401cbe39c6468699.wav",
+      "record_id": "fd1e1bf9401cbe39c6468699",
+      "sha256": "4e12662d2546a3367b4fb2a2bc4ea34942bfc245112960027e0e6c6676057e47",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/09ad27b95aa9a760a47cf602.wav",
+      "record_id": "09ad27b95aa9a760a47cf602",
+      "sha256": "f187cf350cce403d05534bd566751e688a88436b451419f14cda78477fbbb729",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/ef538d583fb812a5cc12294c.wav",
+      "record_id": "ef538d583fb812a5cc12294c",
+      "sha256": "93ca02a24fae7e6b811d8c55ee6ba62819704208973e9dd1e671438df03a8045",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/c76448c582c8984e2fe95603.wav",
+      "record_id": "c76448c582c8984e2fe95603",
+      "sha256": "ec262bd7fcdc0389f2036f0246400ce824154dca4655bd65ca0bfff656bee216",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/d4bf987889fed0be0f0a1051.wav",
+      "record_id": "d4bf987889fed0be0f0a1051",
+      "sha256": "fe74b192ccb642bee104c407b394e5277ca89379bfb975c127b2564af2e5a648",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/226693973b5230a8ecf55126.wav",
+      "record_id": "226693973b5230a8ecf55126",
+      "sha256": "2233aba97719acec55aae601850251fcd1a0518bfeed3a93edcdb79e1ea2f402",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/2833358a0c81f31ceb697adb.wav",
+      "record_id": "2833358a0c81f31ceb697adb",
+      "sha256": "ae9b583727092e930cd3d589563f16cc23942e14637b09d905b2d4c92dc26ac3",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/1fb6a69f6a6843a61ed2c278.wav",
+      "record_id": "1fb6a69f6a6843a61ed2c278",
+      "sha256": "09e566db83bec8ab3adb7bd0aabd761d6bb96d8bff8df69d8a34832aa9a2b3f6",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/7d405ed2176f6332a47e76fc.wav",
+      "record_id": "7d405ed2176f6332a47e76fc",
+      "sha256": "0ebc7d3d82dc07fc88dd12fc71c392a54b89a538c9616294f4128b118cd1be21",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/011e29433e3b18cbde74c51c.wav",
+      "record_id": "011e29433e3b18cbde74c51c",
+      "sha256": "625f309dcf7d505db9b90718f573717128b2f4381f00425f9c0c252c24417342",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/d12373c5c28d9dc86041389e.wav",
+      "record_id": "d12373c5c28d9dc86041389e",
+      "sha256": "f8ba4d7c5c786181051023326de4b8d9c4191bde1f2a9140e77304af9e1dccb4",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/745e5da5a9008f979b62d260.wav",
+      "record_id": "745e5da5a9008f979b62d260",
+      "sha256": "70f08fd4e67f5144d5fdc46e6fb439a3007e15caa23a88aa7b9e51dc097dea13",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/7b089169f42d8c255106643f.wav",
+      "record_id": "7b089169f42d8c255106643f",
+      "sha256": "9c53e5f61aedb0f167f0f45fbac6f0e065fa88b8ad2c3f6b9ed22aebf234245f",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/3562c5725ff07bbe5c1d2d97.wav",
+      "record_id": "3562c5725ff07bbe5c1d2d97",
+      "sha256": "f594f331df5c47ef9dd84bf14965d2e148e6caad79932800a4b56cbdddf6e332",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/a7108a753e23119288e1e6dd.wav",
+      "record_id": "a7108a753e23119288e1e6dd",
+      "sha256": "8a15fb722adbc53ffc1ffc36c467cde430dbf28d8e31db048d67de31601a4ac3",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/b289e468b8598dcf0afd23c4.wav",
+      "record_id": "b289e468b8598dcf0afd23c4",
+      "sha256": "0fa3cacceafbaf2b93237b6f6dbed5daa65dea718fe2f6d20377cc3a39b9c953",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/dbce80cb6cba2dfff2483dc7.wav",
+      "record_id": "dbce80cb6cba2dfff2483dc7",
+      "sha256": "7118cf7e7d23648fca5db0154a072080e2dcaba7cf05f9838bb82b07f7a08008",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/baacbb23ce707530b7d879d3.wav",
+      "record_id": "baacbb23ce707530b7d879d3",
+      "sha256": "20f3b86f0ee00a68619f56c6099c601689a2fb70a429b58af1b3429b4df99bbb",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/ab4a9f300a99b1f772a50f50.wav",
+      "record_id": "ab4a9f300a99b1f772a50f50",
+      "sha256": "c55948a21ff8a5e117c4feac22abf6e65691d69864eaae3bbc25fbc34c6de1b3",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/a72ae5e15c3906c636f5c62b.wav",
+      "record_id": "a72ae5e15c3906c636f5c62b",
+      "sha256": "3789a30fb893cb87a78ef8c897bdb07cc08197092b1d2a13af517bb9071b1c35",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/51a293737edbdf18be6f7a44.wav",
+      "record_id": "51a293737edbdf18be6f7a44",
+      "sha256": "327fffe005ae3172e34c2e95c6d53a8e1ee5536dd8ad258af902d7372f05e769",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/a719076b4c8011ce598b6d37.wav",
+      "record_id": "a719076b4c8011ce598b6d37",
+      "sha256": "40d72f524cad41dd07ed930047ce78a2b6d15024fbd232268bd93ff73b350323",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/9bf227791ccf2ab73f759908.wav",
+      "record_id": "9bf227791ccf2ab73f759908",
+      "sha256": "eb9bca11586454697763587035d5913b3732b602a5bf1a699596b20fbf44141d",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/769f5e305aa0b0fccf6a6a13.wav",
+      "record_id": "769f5e305aa0b0fccf6a6a13",
+      "sha256": "c4c8c9598c59091ccc1d7fd3a510d95af3ee7a089ae0fddfdd5bd480ef39a119",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/3ba348340cf7982481937d71.wav",
+      "record_id": "3ba348340cf7982481937d71",
+      "sha256": "5b2b6d10cfce2b5e9090457814ceefc05eb3fecb927a593c796d4091df870c33",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/5be4dff06440f995080fa168.wav",
+      "record_id": "5be4dff06440f995080fa168",
+      "sha256": "56b288775c84834447ccea565042ae82b4e6d33238a40a846eec69ec30d92b09",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/e78ceeb31072574c62d2c069.wav",
+      "record_id": "e78ceeb31072574c62d2c069",
+      "sha256": "317ff75076c9741ec2579c907a72de2a21a34be2e9ed537cf1f74a97ade46ebe",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/6cfb1eb2e2ea441d9725cea0.wav",
+      "record_id": "6cfb1eb2e2ea441d9725cea0",
+      "sha256": "ff450c77faf299f9ce048046baf9204bcc3974a0927857f411d62f768ee3dd7b",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/34f528373a5a642f4db09f9b.wav",
+      "record_id": "34f528373a5a642f4db09f9b",
+      "sha256": "776c914813b2dbcb2d5849cc2ddc28065cd4871ca26cc7fdac240321716fa0ef",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/cef61448fe9b45fc6435da61.wav",
+      "record_id": "cef61448fe9b45fc6435da61",
+      "sha256": "f5d903d89a3e3f9deb7377f3d088089efc1d393cb6f1f603364f5c46399b1b01",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/d5d30b33add14f2049b5ef30.wav",
+      "record_id": "d5d30b33add14f2049b5ef30",
+      "sha256": "9627f22da8b2597d21e4054171a02384a8a64c694b528d82da07b7773ca2aabb",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/98cb6aff65d722fe1569203f.wav",
+      "record_id": "98cb6aff65d722fe1569203f",
+      "sha256": "96ad2deac0aa17ddc57e56d07ee18352e39223d19b17aa805266aaa0123e73bb",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/b65935d2770420c6a6ad6f1e.wav",
+      "record_id": "b65935d2770420c6a6ad6f1e",
+      "sha256": "f07de05ed8e3378048e5ac830d77dd0a6c4ae308aed9b2cda9e9510b6b9b1b4d",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/1f19e0e0ff742e7b54532154.wav",
+      "record_id": "1f19e0e0ff742e7b54532154",
+      "sha256": "c7a13a4c4f69b59c261e0a8d417cc9b764769412ad6675097b9f82347546eadf",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/f6222593df644569accfb777.wav",
+      "record_id": "f6222593df644569accfb777",
+      "sha256": "dc24222c8ff76795d5ef6a5373275ea340f2f0e08730ba7e682c289999e25913",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/bba09570410dfca35653c8de.wav",
+      "record_id": "bba09570410dfca35653c8de",
+      "sha256": "60fd2f1db5c7821da89bedb8fbc8bede422bbd1f76c34f5eded17fb714b99bbe",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/cf89c0e965b60ca15b1b605d.wav",
+      "record_id": "cf89c0e965b60ca15b1b605d",
+      "sha256": "893085ebdb015a62c7dd7a201788dc753553ecbc8f1c95dc907d1cdfaf63bbf8",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/e83c73622c8e7bf17f2bc6ce.wav",
+      "record_id": "e83c73622c8e7bf17f2bc6ce",
+      "sha256": "25a386582af8ae64980b752bff71eab5c81b90435d1fe230c0dbcfe76a0570d2",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/7361544ff2eb37df1f4dcdd8.wav",
+      "record_id": "7361544ff2eb37df1f4dcdd8",
+      "sha256": "99ed8749595bacc86e6ed915beda0bd58997ff79a3c8562d3359ec87e26eaf39",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/e1fc184473f4ddaf925a2559.wav",
+      "record_id": "e1fc184473f4ddaf925a2559",
+      "sha256": "1e107833b0f1827ed010ee7241d9b33515882d68499b8f4eb6f9dee08d0b612c",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/0596cdaefd7f9f1729bef67f.wav",
+      "record_id": "0596cdaefd7f9f1729bef67f",
+      "sha256": "43bec184b25b0654064b6ac3949b80c3c3f75fa9071f490abbca006e7cef2fdd",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/060b2e66308d28eea31b5c5c.wav",
+      "record_id": "060b2e66308d28eea31b5c5c",
+      "sha256": "a27d15899a297ed70ee8540556c1be276a4042cbc7878d134bdc2bcd5adf2c00",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/d09ac46f53951b2811ce4568.wav",
+      "record_id": "d09ac46f53951b2811ce4568",
+      "sha256": "55e01704f360e92b0645ec0f09edc9a213846079a6e93a121f6c302465f93967",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/6f18f9e3b9881ee8505e5d31.wav",
+      "record_id": "6f18f9e3b9881ee8505e5d31",
+      "sha256": "a514b3b2aea563501284e6dff4382af50e09b874d8fcd9d82be8e6717b1ab734",
+      "split": "positive_validation"
+    },
+    {
+      "path": "/work/training-piper-v2/hey_embry_v1/positive_test/03ca0cdea7782aea4b357000.wav",
+      "record_id": "03ca0cdea7782aea4b357000",
+      "sha256": "ab2427afa78dbcff3eafaa075e43d859fbc14283082d06e09bce04d049343276",
+      "split": "positive_validation"
+    }
+  ]
+}

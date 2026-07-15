@@ -1,0 +1,15 @@
+{
+  "files": {
+    "hey_embry_v1.calibration-receipt.json": "e98d5cca4b1f5d8b376613a1769c870a4ff6757e40c2d976d5204e6ae4fa731d",
+    "hey_embry_v1.model.json": "9126bdfa314bb5ec419ffead1d713df0a771e2fae9fc1f173dc738765fc18152",
+    "hey_embry_v1.onnx": "2ad9cafd125439b11a9b1cfdbf6dbeddfbbb2daa1c25c91266c47543332fe664",
+    "hey_embry_v1.onnx.sha256": "6d939e80eef79634ade284addf1ba6038a3170985952b955e544f5a1a43c58ca",
+    "hey_embry_v1.training-manifest.json": "dc2dbd50a7387a678c7753361e1ca99992b11ed86ae3f6b4ed4d304acb0d6e74"
+  },
+  "model_sha256": "2ad9cafd125439b11a9b1cfdbf6dbeddfbbb2daa1c25c91266c47543332fe664",
+  "onnxruntime_load": true,
+  "output_dir": "/workspace/repo/models/wake",
+  "physical_human_wake_proven": false,
+  "schema": "embry.openwakeword_package_receipt.v1",
+  "status": "PASS"
+}

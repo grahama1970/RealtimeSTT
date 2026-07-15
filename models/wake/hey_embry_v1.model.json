@@ -1,0 +1,55 @@
+{
+  "calibration": {
+    "negative_count": 40,
+    "positive_count": 40,
+    "selected_metrics": {
+      "false_accept_rate": 0.0,
+      "false_negative": 8,
+      "false_positive": 0,
+      "recall": 0.8,
+      "threshold": 0.88,
+      "true_negative": 40,
+      "true_positive": 32
+    },
+    "selected_threshold": 0.88
+  },
+  "dataset_manifest_sha256": "c1702f3964309a58003b37d3901d2e9324ba789c76e795297798fe8530bd32e1",
+  "does_not_prove": [
+    "physical_human_wake",
+    "physical_jabra_callback",
+    "release_false_accept_rate"
+  ],
+  "framework": "openwakeword_onnx",
+  "hard_negative_count": 350,
+  "model_bytes": 415224,
+  "model_id": "hey_embry_v1",
+  "model_path": "models/wake/hey_embry_v1.onnx",
+  "model_sha256": "2ad9cafd125439b11a9b1cfdbf6dbeddfbbb2daa1c25c91266c47543332fe664",
+  "negative_train_count": 260,
+  "negative_validation_count": 90,
+  "openwakeword_commit": "368c03716d1e92591906a84949bc477f3a834455",
+  "packaged_at": "2026-07-15T19:34:58.155303+00:00",
+  "phrase": "Hey Embry",
+  "piper_sample_generator_commit": "f1988a4d54eddb23d99e86f0adfef6226a85acc7",
+  "positive_train_count": 200,
+  "positive_validation_count": 75,
+  "python_version": "3.12.3",
+  "qualification_state": "SYNTHETIC_CALIBRATED_PHYSICAL_CANARY_PENDING",
+  "schema": "embry.openwakeword_model.v1",
+  "scipy_version": "1.14.1",
+  "selected_sensitivity": 0.88,
+  "synthetic_horus_build_proves": [
+    "real_horus_wav_generation",
+    "official_openwakeword_training",
+    "onnxruntime_load",
+    "measured_synthetic_operating_point"
+  ],
+  "training_command": [
+    "/usr/bin/python3",
+    "/opt/openWakeWord/openwakeword/train.py",
+    "--training_config",
+    "/work/training-piper-v2/resolved-training-config.yml",
+    "--train_model"
+  ],
+  "wake_word_buffer_duration": 0.1
+}

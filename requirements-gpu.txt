@@ -4,9 +4,11 @@ pvporcupine==1.9.5
 webrtcvad-wheels==2.0.14
 halo==0.0.31
 scipy==1.15.2
+scikit-learn==1.5.2
 websockets==14.1
 websocket-client==1.8.0
-openwakeword>=0.4.0
+# Installed with --no-deps in Dockerfile.embry-runtime because the runtime is
+# ONNX-only and tflite-runtime has no Python 3.12 wheel.
 numpy<2.0.0
 soundfile==0.13.1
 # RealtimeSTT's default Silero VAD path is CPU ONNX Runtime even when ASR runs on GPU.

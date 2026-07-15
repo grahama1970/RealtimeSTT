@@ -1,0 +1,43 @@
+FROM nvidia/cuda:12.8.1-cudnn-runtime-ubuntu24.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 python3-dev python3-pip build-essential portaudio19-dev libsndfile1 curl && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY requirements-gpu-torch.txt requirements-gpu.txt setup.py requirements.txt ./
+RUN python3 -m pip install --break-system-packages --no-cache-dir \
+      torch==2.7.1+cu128 torchaudio==2.7.1+cu128 --index-url https://download.pytorch.org/whl/cu128 && \
+    python3 -m pip install --break-system-packages --no-cache-dir -r requirements-gpu.txt \
+    fastapi==0.115.14 uvicorn==0.34.3 httpx==0.28.1 requests==2.32.3 && \
+    python3 -m pip install --break-system-packages --no-cache-dir --no-deps \
+    openwakeword==0.6.0
+
+RUN mkdir -p /usr/local/lib/python3.12/dist-packages/openwakeword/resources/models && \
+    curl -fsSL https://github.com/dscripka/openWakeWord/releases/download/v0.5.1/embedding_model.onnx \
+      -o /usr/local/lib/python3.12/dist-packages/openwakeword/resources/models/embedding_model.onnx && \
+    echo '70d164290c1d095d1d4ee149bc5e00543250a7316b59f31d056cff7bd3075c1f  /usr/local/lib/python3.12/dist-packages/openwakeword/resources/models/embedding_model.onnx' | sha256sum -c - && \
+    curl -fsSL https://github.com/dscripka/openWakeWord/releases/download/v0.5.1/melspectrogram.onnx \
+      -o /usr/local/lib/python3.12/dist-packages/openwakeword/resources/models/melspectrogram.onnx && \
+    echo 'ba2b0e0f8b7b875369a2c89cb13360ff53bac436f2895cced9f479fa65eb176f  /usr/local/lib/python3.12/dist-packages/openwakeword/resources/models/melspectrogram.onnx' | sha256sum -c -
+
+COPY RealtimeSTT ./RealtimeSTT
+COPY RealtimeSTT_server ./RealtimeSTT_server
+COPY models/wake /opt/embry/models/wake
+
+ENV EMBRY_OPENWAKEWORD_MODEL=/opt/embry/models/wake/hey_embry_v1.onnx \
+    EMBRY_OPENWAKEWORD_MODEL_SHA256=2ad9cafd125439b11a9b1cfdbf6dbeddfbbb2daa1c25c91266c47543332fe664 \
+    EMBRY_OPENWAKEWORD_MODEL_ID=hey_embry_v1 \
+    EMBRY_WAKE_SENSITIVITY=0.88 \
+    EMBRY_WAKE_BUFFER_SECONDS=0.1
+
+RUN mkdir -p /run/embry/audio /var/lib/embry-realtimestt
+EXPOSE 8020
+HEALTHCHECK --interval=10s --timeout=3s --start-period=120s --retries=6 \
+  CMD curl -fsS http://127.0.0.1:8020/readiness || exit 1
+CMD ["python3", "-m", "uvicorn", "RealtimeSTT_server.embry_runtime:app", "--host", "0.0.0.0", "--port", "8020"]

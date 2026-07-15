@@ -1,0 +1,218 @@
+{
+  "schema": "embry.horus_wake_dataset_plan.v1",
+  "model_id": "hey_embry_v1",
+  "speaker": "horus",
+  "parameter_profiles": [
+    {
+      "temperature": 0.4,
+      "top_p": 0.55,
+      "repetition_penalty": 1.1
+    },
+    {
+      "temperature": 0.65,
+      "top_p": 0.75,
+      "repetition_penalty": 1.1
+    },
+    {
+      "temperature": 0.85,
+      "top_p": 0.9,
+      "repetition_penalty": 1.12
+    }
+  ],
+  "splits": {
+    "positive_train": [
+      {
+        "prompt": "Hey Embry",
+        "count": 50
+      },
+      {
+        "prompt": "Hey, Embry!",
+        "count": 50
+      },
+      {
+        "prompt": "[softly] Hey Embry",
+        "synthesis_prompt": "Hey Embry",
+        "count": 50
+      },
+      {
+        "prompt": "[urgent] Hey Embry",
+        "synthesis_prompt": "Hey Embry",
+        "count": 50
+      }
+    ],
+    "positive_validation": [
+      {
+        "prompt": "Hey Embry.",
+        "count": 20
+      },
+      {
+        "prompt": "Hey, Embry!",
+        "count": 20
+      },
+      {
+        "prompt": "[softly] Hey Embry",
+        "synthesis_prompt": "Hey Embry",
+        "count": 20
+      },
+      {
+        "prompt": "[urgent] Hey Embry",
+        "synthesis_prompt": "Hey Embry",
+        "count": 15
+      }
+    ],
+    "positive_calibration": [
+      {
+        "prompt": "Hey Embry",
+        "count": 10
+      },
+      {
+        "prompt": "Hey, Embry!",
+        "count": 10
+      },
+      {
+        "prompt": "[softly] Hey Embry",
+        "synthesis_prompt": "Hey Embry",
+        "count": 10
+      },
+      {
+        "prompt": "[urgent] Hey Embry",
+        "synthesis_prompt": "Hey Embry",
+        "count": 10
+      }
+    ],
+    "negative_train": [
+      {
+        "prompt": "Embry",
+        "count": 24
+      },
+      {
+        "prompt": "Embryo",
+        "count": 24
+      },
+      {
+        "prompt": "Emery",
+        "count": 24
+      },
+      {
+        "prompt": "Henry",
+        "count": 24
+      },
+      {
+        "prompt": "Hey Emily",
+        "count": 24
+      },
+      {
+        "prompt": "Hey Empty",
+        "count": 24
+      },
+      {
+        "prompt": "Hey Henry",
+        "count": 24
+      },
+      {
+        "prompt": "Hey Emory",
+        "count": 24
+      },
+      {
+        "prompt": "Hey Memory",
+        "count": 17
+      },
+      {
+        "prompt": "Every entry",
+        "count": 17
+      },
+      {
+        "prompt": "Computer, listen",
+        "count": 17
+      },
+      {
+        "prompt": "Jarvis",
+        "count": 17
+      }
+    ],
+    "negative_validation": [
+      {
+        "prompt": "Embry",
+        "count": 8
+      },
+      {
+        "prompt": "Embryo",
+        "count": 8
+      },
+      {
+        "prompt": "Emery",
+        "count": 8
+      },
+      {
+        "prompt": "Henry",
+        "count": 8
+      },
+      {
+        "prompt": "Hey Emily",
+        "count": 8
+      },
+      {
+        "prompt": "Hey Empty",
+        "count": 8
+      },
+      {
+        "prompt": "Hey Henry",
+        "count": 8
+      },
+      {
+        "prompt": "Hey Emory",
+        "count": 8
+      },
+      {
+        "prompt": "Hey Memory",
+        "count": 8
+      },
+      {
+        "prompt": "Every entry",
+        "count": 6
+      },
+      {
+        "prompt": "Computer, listen",
+        "count": 6
+      },
+      {
+        "prompt": "Jarvis",
+        "count": 6
+      }
+    ],
+    "negative_calibration": [
+      {
+        "prompt": "Embry",
+        "count": 5
+      },
+      {
+        "prompt": "Embryo",
+        "count": 5
+      },
+      {
+        "prompt": "Emery",
+        "count": 5
+      },
+      {
+        "prompt": "Henry",
+        "count": 5
+      },
+      {
+        "prompt": "Hey Emily",
+        "count": 5
+      },
+      {
+        "prompt": "Hey Empty",
+        "count": 5
+      },
+      {
+        "prompt": "Hey Henry",
+        "count": 5
+      },
+      {
+        "prompt": "Hey Emory",
+        "count": 5
+      }
+    ]
+  }
+}
