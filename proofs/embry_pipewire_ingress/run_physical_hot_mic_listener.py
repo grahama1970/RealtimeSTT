@@ -129,6 +129,97 @@ def save_state(path: Path, state: dict[str, Any]) -> None:
     path.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def recorder_runtime_snapshot(recorder: AudioToTextRecorder) -> dict[str, Any]:
+    """Capture the managed recorder flags needed to diagnose turn boundaries."""
+    return {
+        "state": str(getattr(recorder, "state", "")),
+        "is_recording": bool(getattr(recorder, "is_recording", False)),
+        "continuous_listening": bool(
+            getattr(recorder, "continuous_listening", False)
+        ),
+        "start_recording_on_voice_activity": bool(
+            getattr(recorder, "start_recording_on_voice_activity", False)
+        ),
+        "stop_recording_on_voice_deactivity": bool(
+            getattr(recorder, "stop_recording_on_voice_deactivity", False)
+        ),
+        "start_recording_event_set": recorder.start_recording_event.is_set(),
+        "stop_recording_event_set": recorder.stop_recording_event.is_set(),
+        "has_pending_recordings": recorder.has_pending_recordings(),
+    }
+
+
+def prepare_managed_recorder_turn(
+    recorder: AudioToTextRecorder,
+) -> dict[str, Any]:
+    """Arm exactly one managed VAD window without clearing PCM or pre-roll."""
+    before = recorder_runtime_snapshot(recorder)
+    if before["is_recording"]:
+        raise RuntimeError("managed_listener_stale_recording_before_arm")
+    if before["has_pending_recordings"]:
+        raise RuntimeError("managed_listener_stale_recording_queue_before_arm")
+
+    recorder.continuous_listening = False
+    recorder.start_recording_on_voice_activity = False
+    recorder.stop_recording_on_voice_deactivity = False
+    recorder.listen_start = 0
+    recorder.start_recording_event.clear()
+    recorder.stop_recording_event.clear()
+    recorder.interrupt_stop_event.clear()
+    recorder.was_interrupted.clear()
+    recorder.listen()
+
+    after = recorder_runtime_snapshot(recorder)
+    if after["state"] != "listening":
+        raise RuntimeError(
+            f"managed_listener_recorder_not_listening_after_arm:{after['state']}"
+        )
+    if not after["start_recording_on_voice_activity"]:
+        raise RuntimeError("managed_listener_vad_not_armed_after_listen")
+    return {
+        "schema": "embry.listener_managed_recorder_arm.v1",
+        "status": "PASS",
+        "before": before,
+        "after": after,
+        "audio_queue_cleared": False,
+        "pre_recording_buffer_cleared": False,
+        "armed_at": utc_now(),
+    }
+
+
+def managed_recorder_text(
+    recorder: AudioToTextRecorder,
+) -> tuple[str, dict[str, Any]]:
+    """Capture one ASR stage and disarm it before final transcription."""
+    recorder.interrupt_stop_event.clear()
+    recorder.was_interrupted.clear()
+    if not recorder.is_recording and not recorder.start_recording_on_voice_activity:
+        recorder.listen()
+
+    before_wait = recorder_runtime_snapshot(recorder)
+    recorder.wait_audio()
+    after_wait = recorder_runtime_snapshot(recorder)
+
+    # wait_audio() enables automatic continuous listening. Managed campaign
+    # commands own arming, so disable that mode before final ASR can overlap
+    # with an unowned recording.
+    recorder.continuous_listening = False
+    recorder.start_recording_on_voice_activity = False
+    recorder.stop_recording_on_voice_deactivity = False
+    recorder.listen_start = 0
+    after_disarm = recorder_runtime_snapshot(recorder)
+    if after_disarm["is_recording"]:
+        raise RuntimeError("managed_listener_recording_restarted_before_transcription")
+
+    text = "" if recorder.is_shut_down else str(recorder.transcribe() or "")
+    return text, {
+        "before_wait": before_wait,
+        "after_wait": after_wait,
+        "after_disarm": after_disarm,
+        "after_transcription": recorder_runtime_snapshot(recorder),
+    }
+
+
 class PipeWireCapture:
     """Continuously feed one stable physical PipeWire source into RealtimeSTT."""
 
@@ -372,6 +463,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 )
                 deliveries.append(turn_delivery)
                 active_publisher.update({"publish": turn_publisher, "command": command})
+                recorder_arm = prepare_managed_recorder_turn(recorder)
                 emit("listener.turn_armed", {
                     "campaign_id": command["campaign_id"],
                     "case_id": command["case_id"],
@@ -379,11 +471,17 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     "source_authority_id": command["source_authority_id"],
                     "wake_required": command["wake_required"],
                     "process_run": process_run_number,
+                    "recorder_arm": recorder_arm,
+                    "capture_total_bytes": capture.total_bytes,
                 })
             command = active_publisher["command"]
             prompt = "say Hey Embry, then your question" if command else "say Hey Embry, then your sentence"
             print(f"READY cycle {cycle_number}/{args.target_cycles}: {prompt}", flush=True)
-            text = recorder.text()
+            if command is not None:
+                text, recorder_lifecycle = managed_recorder_text(recorder)
+            else:
+                text = recorder.text()
+                recorder_lifecycle = None
             attempts_this_run += 1
             pcm = capture.segment_pcm()
             normalized = normalize_text(text)
@@ -414,6 +512,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     "audio_sha256": sha256_file(wake_path),
                     "process_run": process_run_number,
                     "detected_at": utc_now(),
+                    "recorder_lifecycle": recorder_lifecycle,
                 }
                 if command is not None:
                     wake_event["managed_turn"] = {
@@ -437,6 +536,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     "request_text": request_text,
                     "audio_bytes": len(pcm),
                     "process_run": process_run_number,
+                    "recorder_lifecycle": recorder_lifecycle,
                 }
                 state["rejected_attempts"].append(rejected)
                 emit("listener.wake_rejected", rejected)
@@ -464,6 +564,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "duration_ms": int(len(pcm) / (SAMPLE_RATE * SAMPLE_WIDTH) * 1000),
                 "process_run": process_run_number,
                 "accepted_at": utc_now(),
+                "recorder_lifecycle": recorder_lifecycle,
             }
             if command is not None:
                 cycle["managed_turn"] = {
