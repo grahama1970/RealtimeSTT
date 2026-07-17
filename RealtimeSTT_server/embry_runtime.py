@@ -517,7 +517,9 @@ class EmbryRuntime:
         self._set_state(wake_detection_started=True)
 
     def on_wakeword_timeout(self) -> None:
-        self._set_state(last_wake_timeout_at=_utc_now())
+        with self._turn_lock:
+            self._active_turn = None
+            self._set_state(last_wake_timeout_at=_utc_now())
 
     def on_wakeword_detected(self) -> dict[str, Any]:
         """The only method allowed to create listener.wake_detected."""

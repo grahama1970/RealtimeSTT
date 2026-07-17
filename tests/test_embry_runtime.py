@@ -215,6 +215,29 @@ def test_native_callback_creates_one_wake_and_fresh_turn(tmp_path: Path) -> None
         runtime.shutdown()
 
 
+def test_wake_timeout_releases_turn_for_next_native_wake(tmp_path: Path) -> None:
+    runtime, recorders, delivered = start_valid_runtime(tmp_path)
+    try:
+        wake = recorders[0].kwargs["on_wakeword_detected"]
+        timeout = recorders[0].kwargs["on_wakeword_timeout"]
+
+        first = wake()
+        timeout()
+        second = wake()
+
+        assert first["turn_id"] == "turn-001"
+        assert second["turn_id"] == "turn-002"
+        assert first["event_id"] != second["event_id"]
+        assert runtime.snapshot()["active_turn"]["turn_id"] == "turn-002"
+        assert runtime.snapshot()["state"]["duplicate_wake_callback_count"] == 0
+        assert [event["type"] for event in delivered] == [
+            "listener.wake_detected",
+            "listener.wake_detected",
+        ]
+    finally:
+        runtime.shutdown()
+
+
 def test_transcript_text_cannot_promote_wake_without_callback(tmp_path: Path) -> None:
     runtime, _recorders, delivered = start_valid_runtime(tmp_path)
     try:
