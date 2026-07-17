@@ -51,6 +51,7 @@ def test_sender_consumes_ack_and_delivers_contiguous_frames(tmp_path) -> None:
             ack_interval=2,
         ) == 4
 
+    ingress.stop()
     thread.join(timeout=2)
     assert received == [bytes([index]) * 1024 for index in range(1, 5)]
     assert ingress.frame_count == 4

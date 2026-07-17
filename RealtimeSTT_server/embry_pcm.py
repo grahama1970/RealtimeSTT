@@ -72,7 +72,7 @@ def read_frame(stream: BinaryIO) -> tuple[dict[str, Any], bytes]:
 
 
 class PcmIngress:
-    """Accept one external PCM stream and validate every frame continuously."""
+    """Accept external PCM streams and validate every frame continuously."""
 
     def __init__(
         self,
@@ -140,40 +140,49 @@ class PcmIngress:
                 server.listen(1)
                 self.bound = True
                 self._bound_event.set()
-                connection, _ = server.accept()
-                self._connection = connection
-                self.connected = True
-                with connection, connection.makefile("rb") as stream:
-                    while not self._stop_event.is_set():
-                        try:
-                            header, pcm = read_frame(stream)
-                        except EOFError:
-                            return
-                        sequence = int(header["frame_sequence"])
-                        if self.frame_count == 0 and self.on_first_frame is not None:
-                            self.on_first_frame(header)
-                        if sequence != self.last_sequence + 1:
-                            self.gap_count += 1
-                            raise RuntimeError("pcm_frame_sequence_gap")
-                        expected_offset = self.frame_count * FRAME_SAMPLES
-                        if header["sample_offset"] != expected_offset:
-                            self.sample_gap_count += 1
-                            raise RuntimeError("pcm_sample_offset_gap")
-                        self.on_pcm(pcm)
-                        self.last_header = header
-                        self.last_sequence = sequence
-                        self.frame_count += 1
-                        if sequence % self.ack_interval == 0:
-                            ack = canonical_json(
-                                {
-                                    "schema": "embry.pcm_ack.v1",
-                                    "accepted_through_sequence": sequence,
-                                    "frame_sequence": sequence,
-                                    "gap_count": self.gap_count,
-                                    "sample_gap_count": self.sample_gap_count,
-                                }
-                            )
-                            connection.sendall(HEADER_LENGTH.pack(len(ack)) + ack)
+                while not self._stop_event.is_set():
+                    connection, _ = server.accept()
+                    self._connection = connection
+                    self.connected = True
+                    stream_frame_count = 0
+                    stream_last_sequence = 0
+                    try:
+                        with connection, connection.makefile("rb") as stream:
+                            while not self._stop_event.is_set():
+                                try:
+                                    header, pcm = read_frame(stream)
+                                except EOFError:
+                                    break
+                                sequence = int(header["frame_sequence"])
+                                if stream_frame_count == 0 and self.on_first_frame is not None:
+                                    self.on_first_frame(header)
+                                if sequence != stream_last_sequence + 1:
+                                    self.gap_count += 1
+                                    raise RuntimeError("pcm_frame_sequence_gap")
+                                expected_offset = stream_frame_count * FRAME_SAMPLES
+                                if header["sample_offset"] != expected_offset:
+                                    self.sample_gap_count += 1
+                                    raise RuntimeError("pcm_sample_offset_gap")
+                                self.on_pcm(pcm)
+                                self.last_header = header
+                                self.last_sequence = sequence
+                                self.frame_count += 1
+                                stream_frame_count += 1
+                                stream_last_sequence = sequence
+                                if sequence % self.ack_interval == 0:
+                                    ack = canonical_json(
+                                        {
+                                            "schema": "embry.pcm_ack.v1",
+                                            "accepted_through_sequence": sequence,
+                                            "frame_sequence": sequence,
+                                            "gap_count": self.gap_count,
+                                            "sample_gap_count": self.sample_gap_count,
+                                        }
+                                    )
+                                    connection.sendall(HEADER_LENGTH.pack(len(ack)) + ack)
+                    finally:
+                        self.connected = False
+                        self._connection = None
         except Exception as exc:
             if self._stop_event.is_set():
                 return

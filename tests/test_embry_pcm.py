@@ -90,3 +90,55 @@ def test_ingress_exposes_bound_readiness_before_client_connects(tmp_path: Path) 
     assert ingress.snapshot()["bound"] is True
     ingress.stop()
     thread.join(timeout=2.0)
+
+
+def test_ingress_accepts_reconnected_stream_sequence_restart(tmp_path: Path) -> None:
+    socket_path = tmp_path / "reconnect.sock"
+    received: list[bytes] = []
+    first_frames: list[dict[str, object]] = []
+    ingress = PcmIngress(
+        socket_path,
+        received.append,
+        ack_interval=100,
+        on_first_frame=first_frames.append,
+    )
+    errors: list[BaseException] = []
+
+    def serve() -> None:
+        try:
+            ingress.serve_one()
+        except BaseException as exc:
+            errors.append(exc)
+
+    thread = threading.Thread(target=serve, daemon=True)
+    thread.start()
+    assert ingress.wait_until_bound(2.0)
+
+    for stream_index in range(2):
+        with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
+            client.connect(str(socket_path))
+            client.sendall(encoded_frame(1, pcm=bytes([stream_index + 1]) * PCM_BYTES))
+            client.sendall(encoded_frame(2, pcm=bytes([stream_index + 3]) * PCM_BYTES))
+        deadline = time.monotonic() + 2.0
+        expected_frame_count = (stream_index + 1) * 2
+        while ingress.frame_count < expected_frame_count and time.monotonic() < deadline:
+            time.sleep(0.01)
+        assert ingress.frame_count == expected_frame_count
+        while ingress.connected and time.monotonic() < deadline:
+            time.sleep(0.01)
+
+    ingress.stop()
+    thread.join(timeout=2.0)
+
+    assert errors == []
+    assert received == [
+        b"\x01" * PCM_BYTES,
+        b"\x03" * PCM_BYTES,
+        b"\x02" * PCM_BYTES,
+        b"\x04" * PCM_BYTES,
+    ]
+    assert ingress.frame_count == 4
+    assert ingress.last_sequence == 2
+    assert ingress.gap_count == 0
+    assert ingress.sample_gap_count == 0
+    assert [header["frame_sequence"] for header in first_frames] == [1, 1]
